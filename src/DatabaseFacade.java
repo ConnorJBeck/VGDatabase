@@ -46,6 +46,8 @@ public class DatabaseFacade {
                 System.out.println(branchID + " - " + branchName + ": " + branchAddr + " " + branchCity + ", " + branchPhone);
             }
 
+            stmt.executeUpdate("DROP TABLE branch2");
+
             con.close();
         } catch (SQLException err) {
             System.out.println("Error: " + err.getMessage());
