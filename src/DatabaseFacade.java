@@ -1,16 +1,33 @@
 import java.sql.*;
 
 public class DatabaseFacade {
+    public static Connection con;
+    public static Statement stmt;
 
     public static void main(String[] args) {
         try {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1522:ug", "ora_s8h0b", "a57723158");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1522:ug", "ora_s8h0b", "a57723158");
 
-            Statement stmt = con.createStatement();
+            stmt = con.createStatement();
+
+
+            // drop all tables!
+            ResultSet rs = stmt.executeQuery("select table_name from user_tables");
+            while(rs.next())
+            {
+                String str1 = rs.getString(1);
+                System.out.println(str1);
+                stmt.executeQuery("DROP TABLE " + str1 + " cascade constraints");
+            }
+
+            Database db = new Database();
+
+            db.initDatabase();
 
             // stmt is a statement object
-            int created = stmt.executeUpdate("CREATE TABLE branch2 (" +
+            /*
+            int created = stmt.executeUpdate("CREATE TABLE branch (" +
                     "branch_id integer not null primary key, " +
                     "branch_name varchar(20) not null, " +
                     "branch_addr varchar(50), " +
@@ -45,8 +62,8 @@ public class DatabaseFacade {
 
                 System.out.println(branchID + " - " + branchName + ": " + branchAddr + " " + branchCity + ", " + branchPhone);
             }
+            */
 
-            stmt.executeUpdate("DROP TABLE branch2");
 
             con.close();
         } catch (SQLException err) {
