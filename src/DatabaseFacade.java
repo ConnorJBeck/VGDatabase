@@ -6,8 +6,8 @@ public class DatabaseFacade {
 
     public static void main(String[] args) {
         try {
-            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-            con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1522:ug", "ora_s8h0b", "a57723158");
+            ConnectionManager cm = ConnectionManager.getInstance();
+            con = cm.getConnection();
 
             stmt = con.createStatement();
 
