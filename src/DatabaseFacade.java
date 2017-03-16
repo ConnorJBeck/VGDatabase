@@ -1,29 +1,22 @@
 import java.sql.*;
 
 public class DatabaseFacade {
-    public static Connection con;
-    public static Statement stmt;
+    private static Connection conn;
+    private static Statement stmt;
 
     public static void main(String[] args) {
         try {
             ConnectionManager cm = ConnectionManager.getInstance();
-            con = cm.getConnection();
+            conn = cm.getConnection();
 
-            stmt = con.createStatement();
-
-
-            // drop all tables!
-            ResultSet rs = stmt.executeQuery("select table_name from user_tables");
-            while(rs.next())
-            {
-                String str1 = rs.getString(1);
-                System.out.println(str1);
-                stmt.executeQuery("DROP TABLE " + str1 + " cascade constraints");
-            }
+            stmt = conn.createStatement();
 
             Database db = new Database();
 
+            db.deleteDatabase();
+
             db.initDatabase();
+            db.deleteDatabase();
 
             // stmt is a statement object
             /*
@@ -65,7 +58,7 @@ public class DatabaseFacade {
             */
 
 
-            con.close();
+            cm.closeConnection();
         } catch (SQLException err) {
             System.out.println("Error: " + err.getMessage());
             System.out.println("Error: " + err.toString());
