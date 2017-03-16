@@ -1,22 +1,18 @@
 import java.sql.*;
 
 public class DatabaseFacade {
-    private static Connection conn;
-    private static Statement stmt;
+
 
     public static void main(String[] args) {
         try {
             ConnectionManager cm = ConnectionManager.getInstance();
-            conn = cm.getConnection();
-
-            stmt = conn.createStatement();
+            Connection conn = cm.getConnection();
 
             Database db = new Database();
 
             db.deleteDatabase();
 
             db.initDatabase();
-            db.deleteDatabase();
 
             // stmt is a statement object
             /*
