@@ -1,10 +1,11 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConnectionManager {
 
-    private Connection connection;
+    private static Connection connection;
     private static ConnectionManager instance;
 
     private ConnectionManager() throws SQLException {
@@ -23,6 +24,8 @@ public class ConnectionManager {
     public Connection getConnection() {
         return connection;
     }
+
+    public static Statement getStatement() throws SQLException { return connection.createStatement(); }
 
     public void closeConnection() throws SQLException {
         connection.close();

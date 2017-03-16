@@ -6,7 +6,6 @@ public class DatabaseFacade {
     public static void main(String[] args) {
         try {
             ConnectionManager cm = ConnectionManager.getInstance();
-            Connection conn = cm.getConnection();
 
             Database db = new Database();
 

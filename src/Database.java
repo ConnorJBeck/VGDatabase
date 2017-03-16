@@ -1,16 +1,11 @@
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Database {
-    ConnectionManager cm;
-    Connection conn;
     Statement stmt;
 
     Database () throws SQLException {
-        cm = ConnectionManager.getInstance();
-        conn = cm.getConnection();
-        stmt = conn.createStatement();
+        stmt = ConnectionManager.getStatement();
     }
 
     public void initDatabase() throws SQLException {
