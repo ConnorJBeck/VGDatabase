@@ -13,21 +13,21 @@ public class ConnectionManager {
         connection = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1522:ug", "ora_s8h0b", "a57723158");
     }
 
-    public static ConnectionManager getInstance() throws SQLException {
+    public static void initConnection() throws SQLException {
         if(instance == null) {
             instance = new ConnectionManager();
         }
-
-        return instance;
     }
 
-    public Connection getConnection() {
-        return connection;
+    public static Statement getStatement() throws SQLException {
+        if (connection == null) {
+            initConnection();
+        }
+
+        return connection.createStatement();
     }
 
-    public static Statement getStatement() throws SQLException { return connection.createStatement(); }
-
-    public void closeConnection() throws SQLException {
+    public static void closeConnection() throws SQLException {
         connection.close();
     }
 }

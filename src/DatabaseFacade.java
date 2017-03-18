@@ -5,7 +5,7 @@ public class DatabaseFacade {
 
     public static void main(String[] args) {
         try {
-            ConnectionManager cm = ConnectionManager.getInstance();
+            ConnectionManager.initConnection();
 
             Database db = new Database();
 
@@ -53,7 +53,7 @@ public class DatabaseFacade {
             */
 
 
-            cm.closeConnection();
+            ConnectionManager.closeConnection();
         } catch (SQLException err) {
             System.out.println("Error: " + err.getMessage());
             System.out.println("Error: " + err.toString());

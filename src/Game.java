@@ -9,14 +9,10 @@ public class Game {
     private ESRBRating esrbRating;
     private String name;
 
-    private ConnectionManager cm;
-    private Connection conn;
     private Statement stmt;
 
     Game() throws SQLException {
-        cm = ConnectionManager.getInstance();
-        conn = cm.getConnection();
-        stmt = conn.createStatement();
+        stmt = ConnectionManager.getStatement();
     }
 
 
