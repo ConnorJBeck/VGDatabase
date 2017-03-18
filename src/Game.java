@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Game {
 
@@ -8,6 +9,7 @@ public class Game {
     private int gameID;
     private ESRBRating esrbRating;
     private String name;
+    private ArrayList<Release> releases;
 
     private Statement stmt;
 
