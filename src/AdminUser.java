@@ -7,11 +7,7 @@ public class AdminUser extends RegisteredUser {
     }
 
     public void addAdminToDatabase() throws SQLException {
-        stmt.executeUpdate("INSERT INTO RegisteredUser (UserName, Email, Password) VALUES ('" +
-                username + "', '" +
-                email + "', '" +
-                password + "')"
-        );
+        addUserToDatabase();
         stmt.executeUpdate("INSERT INTO Admin (UserName, Email, Password) VALUES ('" +
                 username + "', '" +
                 email + "', '" +

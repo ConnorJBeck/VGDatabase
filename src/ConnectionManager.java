@@ -1,12 +1,10 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class ConnectionManager {
 
     private static Connection connection;
     private static ConnectionManager instance;
+    private static Statement stmt;
 
     private ConnectionManager() throws SQLException {
         DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
@@ -19,15 +17,28 @@ public class ConnectionManager {
         }
     }
 
+    public static void closeConnection() throws SQLException {
+        connection.close();
+    }
+
     public static Statement getStatement() throws SQLException {
         if (connection == null) {
             initConnection();
         }
+        if (stmt == null) {
+            connection.createStatement();
+        }
 
-        return connection.createStatement();
+        return stmt;
     }
 
-    public static void closeConnection() throws SQLException {
-        connection.close();
+    /*
+    public static void executeUpdate(String sqlStatement) throws SQLException {
+        stmt.executeUpdate(sqlStatement);
     }
+
+    public static ResultSet executeQuery(String sqlStatement) throws SQLException {
+        return stmt.executeQuery(sqlStatement);
+    }
+    */
 }

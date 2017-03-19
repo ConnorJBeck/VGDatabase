@@ -15,6 +15,14 @@ public class RegisteredUser {
         stmt = ConnectionManager.getStatement();
     }
 
+    public void addUserToDatabase() throws SQLException {
+        stmt.executeUpdate("INSERT INTO RegisteredUser (UserName, Email, Password) VALUES ('" +
+                username + "', '" +
+                email + "', '" +
+                password + "')"
+        );
+    }
+
     public String getUsername() {
         return username;
     }
