@@ -10,7 +10,7 @@ public class Database {
 
     public void initDatabase() throws SQLException {
         stmt.executeUpdate("CREATE TABLE ESRBRating (" +
-                "shortName  CHAR(2)," +
+                "shortName  VARCHAR(2)," +
                 "ratingName VARCHAR(20) NOT NULL UNIQUE, " +
                 "PRIMARY KEY (shortName))");
         stmt.executeUpdate("CREATE TABLE RegisteredUser" +
@@ -28,7 +28,7 @@ public class Database {
         stmt.executeUpdate("CREATE TABLE Game" +
                 "(gameID        INTEGER," +
                 " addedBy       VARCHAR(20)," +
-                " ESRBrating    CHAR(2) NOT NULL," +
+                " ESRBrating    VARCHAR(2) NOT NULL," +
                 " name          VARCHAR(100) NOT NULL," +
                 "PRIMARY KEY (gameID)," +
                 "FOREIGN KEY (addedBy) REFERENCES Admin(userName)" +
@@ -93,6 +93,9 @@ public class Database {
                 " ON DELETE CASCADE," +
                 "FOREIGN KEY (gameID) REFERENCES Game" +
                 " ON DELETE CASCADE)");
+        stmt.executeUpdate("INSERT INTO ESRBRATING (SHORTNAME, RATINGNAME) VALUES ('" +
+                ESRBRating.E.getShortName() + "', '" +
+                ESRBRating.E.getRatingName() + "')");
     }
 
     public void deleteDatabase() throws SQLException {

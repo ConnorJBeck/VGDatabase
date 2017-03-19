@@ -2,7 +2,6 @@ import java.sql.*;
 
 public class DatabaseFacade {
 
-
     public static void main(String[] args) {
         try {
             ConnectionManager.initConnection();

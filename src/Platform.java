@@ -125,9 +125,13 @@ public enum Platform {
     WindowsMobile("Windows Mobile"),
     XboxOne("Xbox One");
 
-    private final String name;
+    private final String fullName;
 
     Platform(String name) {
-        this.name = name;
+        this.fullName = name;
+    }
+
+    public String getName() {
+        return fullName;
     }
 }
