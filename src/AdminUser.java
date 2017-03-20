@@ -14,4 +14,17 @@ public class AdminUser extends RegisteredUser {
                 password + "')"
         );
     }
+
+    public AdminUser giveAdminPrivileges(RegisteredUser user) throws SQLException {
+        stmt.executeUpdate("INSERT INTO Admin (UserName, Email, Password) VALUES ('" +
+                username + "', '" +
+                        email + "', '" +
+                        password + "')"
+        );
+        return (AdminUser) user;
+    }
+
+    public void revokeAdminPriviliges() throws SQLException {
+        stmt.executeUpdate("DELETE FROM Admin WHERE USERNAME='" + username + "'");
+    }
 }
