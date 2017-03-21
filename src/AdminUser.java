@@ -2,7 +2,7 @@ import java.sql.SQLException;
 
 public class AdminUser extends RegisteredUser {
 
-    public AdminUser(String username, String email, String password) throws SQLException{
+    public AdminUser(String username, String email, String password) throws SQLException {
         super(username, email, password);
     }
 
@@ -18,8 +18,8 @@ public class AdminUser extends RegisteredUser {
     public AdminUser giveAdminPrivileges(RegisteredUser user) throws SQLException {
         stmt.executeUpdate("INSERT INTO Admin (UserName, Email, Password) VALUES ('" +
                 username + "', '" +
-                        email + "', '" +
-                        password + "')"
+                email + "', '" +
+                password + "')"
         );
         return (AdminUser) user;
     }

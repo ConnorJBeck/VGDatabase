@@ -6,14 +6,14 @@ public class ConnectionManager {
     private static ConnectionManager instance;
     private static Statement stmt;
 
-    private ConnectionManager() throws SQLException {
+    private ConnectionManager(String user, String password) throws SQLException {
         DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-        connection = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1522:ug", "ora_s8h0b", "a57723158");
+        connection = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1522:ug", user, password);
     }
 
-    public static void initConnection() throws SQLException {
+    public static void initConnection(String user, String password) throws SQLException {
         if(instance == null) {
-            instance = new ConnectionManager();
+            instance = new ConnectionManager(user, password);
         }
     }
 
@@ -23,10 +23,10 @@ public class ConnectionManager {
 
     public static Statement getStatement() throws SQLException {
         if (connection == null) {
-            initConnection();
+            throw new SQLException("Not really an SQL exception, but you need to initialize the connection first");
         }
         if (stmt == null) {
-            connection.createStatement();
+            stmt = connection.createStatement();
         }
 
         return stmt;

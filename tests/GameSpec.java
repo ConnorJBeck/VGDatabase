@@ -18,7 +18,7 @@ public class GameSpec {
 
     @BeforeClass
     public static void runBefore() throws SQLException {
-        ConnectionManager.initConnection();
+        ConnectionManager.initConnection("ora_z3n0b", "a53123155");
         stmt = ConnectionManager.getStatement();
 
         db = new Database();

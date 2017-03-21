@@ -4,7 +4,7 @@ public class DatabaseFacade {
 
     public static void main(String[] args) {
         try {
-            ConnectionManager.initConnection();
+            ConnectionManager.initConnection("ora_s8h0b", "a57723158");
 
             Database db = new Database();
 

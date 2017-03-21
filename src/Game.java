@@ -38,17 +38,9 @@ public class Game {
                     name + "')";
             stmt.executeUpdate(sql);
             for (Release release : releases) {
-                sql = "INSERT INTO Release (gameID, region, platform, addedBy, releaseDate) VALUES (" +
-                        gameID + ", '" +
-                        release.getRegion().name() + "', '" +
-                        release.getPlatform().getName() + "', '" +
-                        release.getAddedBy().getUsername() + "', TO_DATE('" +
-                        release.getReleaseDate().toString() + "','yyyy-mm-dd'))";
-                stmt.executeUpdate(sql);
+                release.AddReleaseToDatabase(gameID);
             }
-
         }
-
     }
 
 
@@ -97,34 +89,24 @@ public class Game {
     public void setESRBRating(String rating) throws SQLException {
         try {
             this.esrbRating = ESRBRating.getRatingFromString(rating);
-            stmt.executeUpdate("UPDATE GAME " +
-                    "SET ESRBRating = " + rating +
-                    " WHERE gameID = " + gameID
-            );
         } catch (Exception err) {
             throw new SQLException("Unable to set ESRB Rating: Invalid rating.");
         }
+
+        stmt.executeUpdate("UPDATE GAME " +
+                "SET ESRBRating = " + rating +
+                " WHERE gameID = " + gameID
+        );
     }
 
     public void addRelease(Release release) throws SQLException {
         releases.add(release);
-        stmt.executeUpdate("INSERT INTO Release " +
-                "(gameID, region, platform, addedBy, releaseDate) VALUES (" +
-                gameID + ", '" +
-                release.getRegion() + "', '" +
-                release.getPlatform().getName() + "', '" +
-                release.getAddedBy().getUsername() + "', TO_DATE('" +
-                release.getReleaseDate().toString() + "','yyyy-mm-dd'))"
-        );
+        release.AddReleaseToDatabase(gameID);
     }
 
     public void deleteRelease(Release release) throws SQLException {
         releases.remove(release);
-        stmt.executeUpdate("DELETE FROM Release WHERE " +
-                "gameID=" + gameID + " AND " +
-                "region='" + release.getRegion() + "' AND " +
-                "platform='" + release.getPlatform().name() + "'"
-        );
+        release.removeReleaseFromDB();
     }
 
     public List<Release> getReleases() {
