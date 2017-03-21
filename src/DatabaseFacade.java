@@ -6,12 +6,6 @@ public class DatabaseFacade {
         try {
             ConnectionManager.initConnection("ora_s8h0b", "a57723158");
 
-            Database db = new Database();
-
-            db.deleteDatabase();
-
-            db.initDatabase();
-
             // stmt is a statement object
             /*
             int created = stmt.executeUpdate("CREATE TABLE branch (" +
