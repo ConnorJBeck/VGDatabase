@@ -55,24 +55,43 @@ public class Release {
         return region;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
+    public void setRegion(Region region) throws SQLException {
 
+        stmt.executeUpdate("UPDATE Release " +
+                "SET region='" + region.name() +
+                "' WHERE gameID=" + gameID +
+                " AND region='" + this.region.name() +
+                "' AND platform='" + platform.getName() + "'"
+        );
+        this.region = region;
     }
 
     public Platform getPlatform() {
         return platform;
     }
 
-    public void setPlatform(Platform platform) {
+    public void setPlatform(Platform platform) throws SQLException {
+        stmt.executeUpdate("UPDATE Release " +
+                "SET platform='" + platform.getName() +
+                "' WHERE gameID=" + gameID +
+                " AND region='" + this.region.name() +
+                "' AND platform='" + this.platform.getName() + "'"
+        );
         this.platform = platform;
     }
+
 
     public AdminUser getAddedBy() {
         return addedBy;
     }
 
-    public void setAddedBy(AdminUser addedBy) {
+    public void setAddedBy(AdminUser addedBy) throws SQLException {
+        stmt.executeUpdate("UPDATE Release " +
+                "SET ADDEDBY='" + addedBy.getUsername() +
+                "' WHERE gameID=" + gameID +
+                " AND region='" + region.name() +
+                "' AND platform='" + platform.getName() + "'"
+        );
         this.addedBy = addedBy;
     }
 
@@ -80,7 +99,13 @@ public class Release {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(Date releaseDate) throws SQLException {
+        stmt.executeUpdate("UPDATE Release " +
+                "SET RELEASEDATE=TO_DATE('" + releaseDate.toString() + "','yyyy-mm-dd')" +
+                " WHERE gameID=" + gameID +
+                " AND region='" + region.name() +
+                "' AND platform='" + platform.getName() + "'"
+        );
         this.releaseDate = releaseDate;
     }
 
@@ -88,7 +113,7 @@ public class Release {
         stmt.executeUpdate("INSERT INTO Release " +
                 "(gameID, region, platform, addedBy, releaseDate) VALUES (" +
                 gameID + ", '" +
-                region + "', '" +
+                region.name() + "', '" +
                 platform.getName() + "', '" +
                 addedBy.getUsername() + "', TO_DATE('" +
                 releaseDate.toString() + "','yyyy-mm-dd'))"
