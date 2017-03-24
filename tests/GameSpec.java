@@ -10,7 +10,6 @@ import java.sql.Statement;
 
 public class GameSpec {
 
-    private static Game game;
     private static AdminUser admin;
     private static Statement stmt;
     private static Database db;

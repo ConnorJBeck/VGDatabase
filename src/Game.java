@@ -1,115 +1,109 @@
-import java.sql.Date;
+import Exceptions.InstanceNotFoundException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game {
 
-    private static AtomicInteger nextGameId = new AtomicInteger();
-    private AdminUser addedBy;
-    private int gameID;
-    private ESRBRating esrbRating;
-    private String name;
-    private List<Release> releases;
+    private static Statement stmt;
+    private static ResultSet rs;
 
-    private Statement stmt;
-
-    public Game(AdminUser addedBy, ESRBRating esrbRating, String name, Region region, Platform platform, Date releaseDate) throws SQLException {
-        gameID = nextGameId.incrementAndGet();
-        this.addedBy = addedBy;
-        this.esrbRating = esrbRating;
-        this.name = name;
-        releases = new ArrayList<>();
-        releases.add(new Release(gameID, region, platform, addedBy, releaseDate));
-
+    public static void addGameToDatabase(Release release, AdminUser addedBy, ESRBRating esrbRating, String name) throws SQLException{
         stmt = ConnectionManager.getStatement();
+        ResultSet rs = stmt.executeQuery("SELECT Max(GAMEID) FROM GAME");
+        int gameID = 0;
+        if (rs.first()) {
+            gameID = rs.getInt(1);
+        }
+        gameID++;
 
+        String sql = "INSERT INTO Game (gameID, addedBy, ESRBRating, name) VALUES (" +
+                gameID + ", '" +
+                addedBy.getUsername() + "', '" +
+                esrbRating.getShortName() + "', '" +
+                name + "')";
+        stmt.executeUpdate(sql);
+        ReleaseAdaptor.AddReleaseToDatabase(gameID);
     }
 
-    public void addGameToDatabase() throws SQLException{
-        if (releases.size() > 0) {
-            String sql = "INSERT INTO Game (gameID, addedBy, ESRBRating, name) VALUES (" +
-                    gameID + ", '" +
-                    addedBy.getUsername() + "', '" +
-                    esrbRating.getShortName() + "', '" +
-                    name + "')";
-            stmt.executeUpdate(sql);
-            for (Release release : releases) {
-                release.AddReleaseToDatabase(gameID);
-            }
+
+    public static String getAddedBy(int gameID) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT AddedBy FROM GAME WHERE GAMEID=" + gameID;
+        rs = stmt.executeQuery(sql);
+        if (rs.first()) {
+            return rs.getString(1);
+        } else {
+            throw new InstanceNotFoundException("No record found in GAME for " + gameID);
         }
     }
 
-
-    public AdminUser getAddedBy() {
-        return addedBy;
-    }
-
-    public void setAddedBy(AdminUser addedBy) throws SQLException {
-        this.addedBy = addedBy;
+    public static void setAddedBy(int gameID, String addedBy) throws SQLException {
+        stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("UPDATE GAME " +
-                "SET addedby = " + addedBy.getUsername() +
+                "SET addedby = " + addedBy +
                 " WHERE gameID = " + gameID
         );
     }
 
-    public int getGameID() throws SQLException {
-        return gameID;
+    public static String getName(int gameID) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT Name FROM GAME WHERE GAMEID=" + gameID;
+        rs = stmt.executeQuery(sql);
+        if (rs.first()) {
+            return rs.getString(1);
+        } else {
+            throw new InstanceNotFoundException("No record found in GAME for " + gameID);
+        }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) throws SQLException {
-        this.name = name;
+    public static void setName(int gameID, String name) throws SQLException {
+        stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("UPDATE GAME " +
                 "SET name = " + name +
                 " WHERE gameID = " + gameID
         );
     }
 
-    public ESRBRating getEsrbRating() {
-        return esrbRating;
+    public static ESRBRating getESRBRating(int gameID) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT ESRBRATING FROM GAME WHERE GAMEID=" + gameID;
+        rs = stmt.executeQuery(sql);
+        if (rs.first()) {
+            return ESRBRating.getRatingFromString(rs.getString(1));
+        } else {
+            throw new InstanceNotFoundException("No record found in GAME for " + gameID);
+        }
     }
 
-    public void setESRBRating(ESRBRating esrbRating) throws SQLException {
-        this.esrbRating = esrbRating;
+    public static void setESRBRating(int gameID, ESRBRating esrbRating) throws SQLException {
+        stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("UPDATE GAME " +
                 "SET ESRBRating = " + esrbRating.getShortName() +
                 " WHERE gameID = " + gameID
         );
     }
 
-    // Note, not currently working.
-    // ToDo: create specialized exception for ESRBRating? Maybe find better built-in?
-    public void setESRBRating(String rating) throws SQLException {
-        try {
-            this.esrbRating = ESRBRating.getRatingFromString(rating);
-        } catch (Exception err) {
-            throw new SQLException("Unable to set ESRB Rating: Invalid rating.");
+    public static List<Release> getReleases(int gameID) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT GAMEID, REGION, PLATFORM FROM RELEASE WHERE GAMEID=" + gameID;
+        rs = stmt.executeQuery(sql);
+        List<Release> releases = new ArrayList<>();
+        Region region;
+        Platform platform;
+        while (rs.next()) {
+            region = Region.valueOf(rs.getString("REGION"));
+            platform = Platform.valueOf(rs.getString("PLATFORM"));
+            releases.add(new Release(gameID, region, platform));
+        }
+        if (releases.size() > 0) {
+            return releases;
+        } else {
+            throw new InstanceNotFoundException("No releases found for GameID " + gameID);
         }
 
-        stmt.executeUpdate("UPDATE GAME " +
-                "SET ESRBRating = " + rating +
-                " WHERE gameID = " + gameID
-        );
-    }
-
-    public void addRelease(Release release) throws SQLException {
-        releases.add(release);
-        release.AddReleaseToDatabase(gameID);
-    }
-
-    public void deleteRelease(Release release) throws SQLException {
-        releases.remove(release);
-        release.removeReleaseFromDB();
-    }
-
-    public List<Release> getReleases() {
-        return releases;
     }
 }
