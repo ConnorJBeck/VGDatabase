@@ -1,4 +1,5 @@
 import Exceptions.InstanceNotFoundException;
+import oracle.sql.DATE;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -10,7 +11,41 @@ public class ReleaseAdaptor {
     private static Statement stmt;
     private static ResultSet rs;
 
+    public static Release AddReleaseToDatabase(Game game, Region region, Platform platform, AdminUser addedBy, Date releaseDate) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        stmt.executeUpdate("INSERT INTO Release " +
+                "(gameID, region, platform, addedBy, releaseDate) VALUES (" +
+                game.getGameID() + ", '" +
+                region.name() + "', '" +
+                platform.getName() + "', '" +
+                addedBy.getUsername() + "', TO_DATE('" +
+                releaseDate.toString() + "','yyyy-mm-dd'))"
+        );
+        return new Release(game, region, platform);
+    }
+
+    public static void removeReleaseFromDB(Release release) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        stmt.executeUpdate("DELETE FROM Release WHERE " +
+                "gameID=" + release.getGameID() + " AND " +
+                "region='" + release.getRegion().name() + "' AND " +
+                "platform='" + release.getPlatform().getName() + "'"
+        );
+    }
+
+    public static void setGameID(Release release, Game game) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        stmt.executeUpdate("UPDATE Release " +
+                "SET GAMEID=" + game.getGameID() +
+                " WHERE gameID=" + release.getGameID() +
+                " AND region='" + release.getRegion() +
+                "' AND platform='" + release.getPlatform().getName() + "'"
+        );
+        release.setGameID(game);
+    }
+
     public static void setRegion(Release release, Region region) throws SQLException {
+        stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("UPDATE Release " +
                 "SET region='" + region.name() +
                 "' WHERE gameID=" + release.getGameID() +
@@ -20,7 +55,8 @@ public class ReleaseAdaptor {
         release.setRegion(region);
     }
 
-    public void setPlatform(Release release, Platform platform) throws SQLException {
+    public static void setPlatform(Release release, Platform platform) throws SQLException {
+        stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("UPDATE Release " +
                 "SET platform='" + platform.getName() +
                 "' WHERE gameID=" + release.getGameID() +
@@ -31,58 +67,50 @@ public class ReleaseAdaptor {
     }
 
 
-    public AdminUser getAddedBy() throws SQLException {
+    public static AdminUser getAddedBy(Release release) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        String sql = "SELECT AddedBy FROM GAME WHERE GAMEID=" + gameID;
+        String sql = "SELECT AddedBy FROM RELEASE " +
+                "WHERE GAMEID=" + release.getGameID() +
+                " REGION='" + release.getRegion() +
+                "' PLATFORM='" + release.getPlatform() + "'";
         rs = stmt.executeQuery(sql);
         if (rs.first()) {
-            return rs.getString(1);
+            return new AdminUser(rs.getString("ADDEDBY"));
         } else {
-            throw new InstanceNotFoundException("No record found in GAME for " + gameID);
+            throw new InstanceNotFoundException("No record found in RELEASE for " + release.getGameID());
         }
     }
 
-    public void setAddedBy(AdminUser addedBy) throws SQLException {
+    public static void setAddedBy(Release release, AdminUser addedBy) throws SQLException {
+        stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("UPDATE Release " +
                 "SET ADDEDBY='" + addedBy.getUsername() +
-                "' WHERE gameID=" + gameID +
-                " AND region='" + region.name() +
-                "' AND platform='" + platform.getName() + "'"
+                "' WHERE gameID=" + release.getGameID() +
+                " AND region='" + release.getRegion().name() +
+                "' AND platform='" + release.getPlatform().getName() + "'"
         );
-        this.addedBy = addedBy;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
+    public static Date getReleaseDate(Release release) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT DATE FROM GAME WHERE GAMEID=" + release.getGameID();
+        rs = stmt.executeQuery(sql);
+        if (rs.first()) {
+            return rs.getDate("Date");
+        } else {
+            throw new InstanceNotFoundException("No record found in RELEASE for " + release.getGameID());
+        }
     }
 
-    public void setReleaseDate(Date releaseDate) throws SQLException {
+    public static void setReleaseDate(Release release, Date releaseDate) throws SQLException {
+        stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("UPDATE Release " +
                 "SET RELEASEDATE=TO_DATE('" + releaseDate.toString() + "','yyyy-mm-dd')" +
-                " WHERE gameID=" + gameID +
-                " AND region='" + region.name() +
-                "' AND platform='" + platform.getName() + "'"
-        );
-        this.releaseDate = releaseDate;
-    }
-
-    public static void AddReleaseToDatabase(Release release, String addedBy, Date releaseDate) throws SQLException {
-        stmt = ConnectionManager.getStatement();
-        stmt.executeUpdate("INSERT INTO Release " +
-                "(gameID, region, platform, addedBy, releaseDate) VALUES (" +
-                gameID + ", '" +
-                region.name() + "', '" +
-                platform.getName() + "', '" +
-                addedBy.getUsername() + "', TO_DATE('" +
-                releaseDate.toString() + "','yyyy-mm-dd'))"
+                " WHERE gameID=" + release.getGameID() +
+                " AND region='" + release.getRegion().name() +
+                "' AND platform='" + release.getPlatform().getName() + "'"
         );
     }
 
-    public void removeReleaseFromDB() throws SQLException {
-        stmt.executeUpdate("DELETE FROM Release WHERE " +
-                "gameID=" + gameID + " AND " +
-                "region='" + region + "' AND " +
-                "platform='" + platform.getName() + "'"
-        );
-    }
+
 }

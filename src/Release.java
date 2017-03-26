@@ -1,25 +1,23 @@
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Release {
 
-    private int gameID;
+    private Game game;
     private Region region;
     private Platform platform;
-    private static Statement stmt;
 
-    public Release(int gameID, Region region, Platform platform) throws SQLException {
-        this.gameID = gameID;
+    public Release(Game game, Region region, Platform platform) throws SQLException {
+        this.game = game;
         this.region = region;
         this.platform = platform;
     }
 
-    public int getGameID() {
-        return gameID;
+    public Game getGameID() {
+        return game;
     }
 
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
+    public void setGameID(Game game) {
+        this.game = game;
     }
 
     public Region getRegion() {
