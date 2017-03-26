@@ -14,6 +14,8 @@ public class GameSpec {
     private static Statement stmt;
     private static Database db;
     private static Date date;
+    private static RegisteredUser adminRU;
+    private static Game game;
 
     @BeforeClass
     public static void runBefore() throws SQLException {
@@ -24,8 +26,9 @@ public class GameSpec {
         db.deleteDatabase();
         db.initDatabase();
 
-        admin = new AdminUser("testAdmin", "testAdmin@gmail.com", "hunter2");
-        admin.addAdminToDatabase();
+        adminRU = RegisteredUser.addRegisteredUserToDatabase("testAdmin", "testAdmin@gmail.com", "hunter2")
+        admin = admin.addAdminUserToDatabase(adminRU);
+
         ResultSet rs = stmt.executeQuery("SELECT userName, email, password " +
                 "FROM Admin " +
                 "WHERE userName='testAdmin'");
@@ -35,8 +38,8 @@ public class GameSpec {
         assertEquals("hunter2",rs.getString(3));
 
         date = new Date(0);
-        game = new Game(admin, ESRBRating.E, "Test Game", Region.NTSC, Platform.Atari2600, date);
-        game.addGameToDatabase();
+
+        game = GameAdaptor.addGameToDatabase(admin, ESRBRating.E, "Test Game", Region.NTSC, Platform.Atari2600, date);
 
     }
 
@@ -66,8 +69,7 @@ public class GameSpec {
     @Test
     public void testAddRelease() throws SQLException {
         Date dateNew = new Date(1);
-        Release release = new Release(game.getGameID(), Region.PAL, Platform.Nintendo64, admin, dateNew);
-        game.addRelease(release);
+        ReleaseAdaptor.addReleaseToDatabase(game, Region.PAL, Platform.Nintendo64, admin, dateNew);
         String sql = "SELECT G.GameID, G.ESRBRating, G.AddedBy, G.Name, R.Region, " +
                 "R.Platform, R.ReleaseDate, R.AddedBy " +
                 "FROM GAME G INNER JOIN RELEASE R ON G.GAMEID = R.GAMEID " +

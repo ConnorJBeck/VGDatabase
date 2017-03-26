@@ -11,7 +11,7 @@ public class ReleaseAdaptor {
     private static Statement stmt;
     private static ResultSet rs;
 
-    public static Release AddReleaseToDatabase(Game game, Region region, Platform platform, AdminUser addedBy, Date releaseDate) throws SQLException {
+    public static Release addReleaseToDatabase(Game game, Region region, Platform platform, AdminUser addedBy, Date releaseDate) throws SQLException {
         stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("INSERT INTO Release " +
                 "(gameID, region, platform, addedBy, releaseDate) VALUES (" +

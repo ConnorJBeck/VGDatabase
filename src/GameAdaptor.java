@@ -28,7 +28,7 @@ public class GameAdaptor {
                 name + "')";
         stmt.executeUpdate(sql);
         Game newGame = new Game(gameID);
-        ReleaseAdaptor.AddReleaseToDatabase(newGame, region, platform, addedBy, releaseDate);
+        ReleaseAdaptor.addReleaseToDatabase(newGame, region, platform, addedBy, releaseDate);
         return newGame;
     }
 
