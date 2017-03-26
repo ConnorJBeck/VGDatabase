@@ -12,21 +12,20 @@ public class GameSpec {
 
     private static AdminUser admin;
     private static Statement stmt;
-    private static Database db;
-    private static Date date;
-    private static RegisteredUser adminRU;
     private static Game game;
 
     @BeforeClass
     public static void runBefore() throws SQLException {
+        Date date;
+        RegisteredUser adminRU;
+
         ConnectionManager.initConnection("ora_z3n0b", "a53123155");
         stmt = ConnectionManager.getStatement();
 
-        db = new Database();
-        db.deleteDatabase();
-        db.initDatabase();
+        Database.deleteDatabase();
+        Database.initDatabase();
 
-        adminRU = RegisteredUser.addRegisteredUserToDatabase("testAdmin", "testAdmin@gmail.com", "hunter2")
+        adminRU = RegisteredUser.addRegisteredUserToDatabase("testAdmin", "testAdmin@gmail.com", "hunter2");
         admin = admin.addAdminUserToDatabase(adminRU);
 
         ResultSet rs = stmt.executeQuery("SELECT userName, email, password " +
@@ -45,7 +44,7 @@ public class GameSpec {
 
     @AfterClass
     public static void runAfter() throws SQLException {
-        db.deleteDatabase();
+        Database.deleteDatabase();
         ConnectionManager.closeConnection();
     }
 
