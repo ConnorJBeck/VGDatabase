@@ -1,4 +1,8 @@
-import Exceptions.InstanceNotFoundException;
+package com.vgdatabase304.Adaptors;
+
+import com.vgdatabase304.Exceptions.*;
+import com.vgdatabase304.Structures.*;
+import com.vgdatabase304.Utils.*;
 
 import java.sql.Date;
 import java.sql.ResultSet;

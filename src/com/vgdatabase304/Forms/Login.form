@@ -54,7 +54,7 @@
         </constraints>
         <properties>
           <font size="28"/>
-          <text value="Welcome to Game Net"/>
+          <text value="Welcome to com.vgdatabase304.Structures.Game Net"/>
         </properties>
       </component>
       <component id="1bbf0" class="javax.swing.JTextField" binding="textField1" default-binding="true">
