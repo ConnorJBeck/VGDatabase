@@ -12,11 +12,11 @@ public class Release {
         this.platform = platform;
     }
 
-    public Game getGameID() {
+    public Game getGame() {
         return game;
     }
 
-    public void setGameID(Game game) {
+    public void setGame(Game game) {
         this.game = game;
     }
 

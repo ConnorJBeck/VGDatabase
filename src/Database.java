@@ -90,6 +90,7 @@ public class Database {
                 " ON DELETE CASCADE," +
                 "FOREIGN KEY (gameID) REFERENCES Game" +
                 " ON DELETE CASCADE)");
+
         stmt.executeUpdate("INSERT INTO ESRBRATING (SHORTNAME, RATINGNAME) VALUES ('" +
                 ESRBRating.E.getShortName() + "', '" +
                 ESRBRating.E.getRatingName() + "')");
