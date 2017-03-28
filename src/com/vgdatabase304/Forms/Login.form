@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Login">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.vgdatabase304.Forms.Login">
   <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="FormLayout">
     <rowspec value="center:d:grow"/>
     <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:max(d;4px):noGrow"/>
     <rowspec value="top:4dlu:noGrow"/>
-    <rowspec value="center:max(d;4px):noGrow"/>
-    <rowspec value="top:4dlu:noGrow"/>
-    <rowspec value="center:d:grow"/>
+    <rowspec value="center:30px:noGrow"/>
+    <rowspec value="center:135px:grow"/>
+    <rowspec value="center:78px:noGrow"/>
     <colspec value="fill:40px:noGrow"/>
     <colspec value="left:4dlu:noGrow"/>
     <colspec value="fill:84px:noGrow"/>
@@ -15,14 +15,14 @@
     <colspec value="fill:384px:grow"/>
     <colspec value="left:3dlu:noGrow"/>
     <constraints>
-      <xy x="20" y="20" width="547" height="400"/>
+      <xy x="20" y="20" width="662" height="406"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
       <component id="146d" class="javax.swing.JButton" binding="loginButton" default-binding="true">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <forms/>
         </constraints>
         <properties>
@@ -74,6 +74,15 @@
           <forms defaultalign-horz="false"/>
         </constraints>
         <properties/>
+      </component>
+      <component id="3840f" class="javax.swing.JButton" binding="createAccount">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="Create an Account"/>
+        </properties>
       </component>
     </children>
   </grid>
