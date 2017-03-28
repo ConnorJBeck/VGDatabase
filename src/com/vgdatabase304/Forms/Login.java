@@ -1,3 +1,6 @@
+package com.vgdatabase304.Forms;
+import com.vgdatabase304.Structures.RegisteredUser;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,8 @@
+package com.vgdatabase304.Structures;
+
 import java.sql.SQLException;
+import com.vgdatabase304.Exceptions.*;
+import com.vgdatabase304.Utils.*;
 
 public class Release {
 

@@ -1,3 +1,4 @@
+package com.vgdatabase304.Utils;
 import java.sql.*;
 
 public class ConnectionManager {

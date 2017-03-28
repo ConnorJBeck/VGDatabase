@@ -1,4 +1,4 @@
-package Exceptions;
+package com.vgdatabase304.Exceptions;
 
 import java.sql.SQLException;
 
