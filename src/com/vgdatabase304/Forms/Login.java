@@ -1,9 +1,12 @@
 package com.vgdatabase304.Forms;
+import com.vgdatabase304.Adaptors.RegisteredUserAdaptor;
+import com.vgdatabase304.Structures.Platform;
 import com.vgdatabase304.Structures.RegisteredUser;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 /**
  * Created by Raymond on 2017-03-23.
@@ -21,13 +24,18 @@ public class Login {
                 String username, password;
                 username = textField1.getText();
                 password = passwordField1.getText();
+                try {
+                    RegisteredUser user = new RegisteredUser(username);
+                    if (RegisteredUserAdaptor.getPassword(user).equals(password)) {
+                        //TODO: Log in the user
+                    }
+                    else {
+                        //TODO: Reject user
+                    }
+                } catch (SQLException err) {
 
-                if (RegisteredUser.getPassword(password).equals(password)) {
-                    //TODO: Log in the user
                 }
-                else {
-                    //TODO: Reject user
-                }
+
             }
         });
     }
