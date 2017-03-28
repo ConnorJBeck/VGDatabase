@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Forms.Search">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="FormLayout">
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:32dlu:noGrow"/>
+    <rowspec value="center:d:noGrow"/>
+    <rowspec value="top:12dlu:noGrow"/>
+    <rowspec value="center:69px:noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:141px:noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <colspec value="fill:64px:noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:494px:grow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:max(d;4px):noGrow"/>
+    <constraints>
+      <xy x="20" y="20" width="580" height="410"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="c4cbe" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <minimumSize width="18" height="31"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="c01ff" class="javax.swing.JComboBox" binding="searchBy" default-binding="true">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <model>
+            <item value="User"/>
+            <item value="Tag"/>
+            <item value="Rating"/>
+            <item value="Game Title"/>
+            <item value="Game Platform"/>
+            <item value="Game Year"/>
+          </model>
+          <name value=""/>
+        </properties>
+      </component>
+      <component id="412ba" class="javax.swing.JButton" binding="submitSearchButton">
+        <constraints>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <label value="Submit"/>
+          <text value="Submit"/>
+        </properties>
+      </component>
+      <component id="3b1d0" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <horizontalAlignment value="10"/>
+          <text value="Search:"/>
+        </properties>
+      </component>
+      <component id="711a2" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <text value="In:"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
