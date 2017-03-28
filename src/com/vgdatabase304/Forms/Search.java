@@ -1,4 +1,4 @@
-package Forms;
+package com.vgdatabase304.Forms;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
