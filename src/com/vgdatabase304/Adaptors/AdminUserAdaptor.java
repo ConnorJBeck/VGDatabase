@@ -8,8 +8,8 @@ import java.sql.SQLException;
 public class AdminUserAdaptor extends RegisteredUserAdaptor {
 
 
-    public static AdminUser addAdminToDatabase(String username, String email, String password) throws SQLException {
-        addUserToDatabase(username, email, password);
+    public static AdminUser addAdminUserToDatabase(String username, String email, String password) throws SQLException {
+        addRegisteredUserToDatabase(username, email, password);
         stmt.executeUpdate("INSERT INTO Admin (UserName, Email, Password) VALUES ('" +
                 username + "', '" +
                 email + "', '" +

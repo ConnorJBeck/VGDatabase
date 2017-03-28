@@ -1,9 +1,10 @@
 import java.sql.Date;
 import java.sql.SQLException;
+import com.vgdatabase304.Structures.*;
+import com.vgdatabase304.Utils.*;
+import com.vgdatabase304.Adaptors.*;
+import com.vgdatabase304.Exceptions.*;
 
-/**
- * Created by Connor on 3/27/2017.
- */
 public class TestUtils {
 
     public static void initDBForTests() throws SQLException {
@@ -18,12 +19,12 @@ public class TestUtils {
     }
 
     public static RegisteredUser addTestRegisteredUser() throws SQLException {
-        return RegisteredUser.addRegisteredUserToDatabase("testAdmin", "testAdmin@gmail.com", "hunter2");
+        return RegisteredUserAdaptor.addRegisteredUserToDatabase("testAdmin", "testAdmin@gmail.com", "hunter2");
     }
 
     public static AdminUser addTestAdmin() throws SQLException {
         RegisteredUser adminRU = addTestRegisteredUser();
-        return AdminUser.addAdminUserToDatabase(adminRU);
+        return AdminUserAdaptor.giveAdminPrivileges(adminRU);
     }
 
     public static Game addTestGame() throws SQLException {
@@ -46,6 +47,6 @@ public class TestUtils {
     public static VGListEntry addTestListEntry() throws SQLException {
         VGList vgList = addTestList();
         Game game = addTestGame();
-        return VGListEntryAdaptor.addListEntryToDatabase();
+        return VGListEntryAdaptor.addListEntryToDatabase(vgList, game, new Date(0));
     }
 }
