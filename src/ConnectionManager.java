@@ -8,7 +8,7 @@ public class ConnectionManager {
 
     private ConnectionManager(String user, String password) throws SQLException {
         DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-        connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1522:ug", user, password);
+        connection = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1522:ug", user, password);
     }
 
     public static void initConnection(String user, String password) throws SQLException {

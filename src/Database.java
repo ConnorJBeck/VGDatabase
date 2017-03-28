@@ -2,13 +2,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Database {
-    Statement stmt;
+    private static Statement stmt;
 
-    Database () throws SQLException {
+    public static void initDatabase() throws SQLException {
         stmt = ConnectionManager.getStatement();
-    }
-
-    public void initDatabase() throws SQLException {
         stmt.executeUpdate("CREATE TABLE ESRBRating (" +
                 "shortName  VARCHAR(2)," +
                 "ratingName VARCHAR(20) NOT NULL UNIQUE, " +
@@ -93,12 +90,13 @@ public class Database {
                 " ON DELETE CASCADE," +
                 "FOREIGN KEY (gameID) REFERENCES Game" +
                 " ON DELETE CASCADE)");
+
         stmt.executeUpdate("INSERT INTO ESRBRATING (SHORTNAME, RATINGNAME) VALUES ('" +
                 ESRBRating.E.getShortName() + "', '" +
                 ESRBRating.E.getRatingName() + "')");
     }
 
-    public void deleteDatabase() throws SQLException {
+    public static void deleteDatabase() throws SQLException {
         try {
             stmt.executeUpdate("DROP TABLE ListEntries CASCADE CONSTRAINTS");
             System.out.println("ListEntries table successfully dropped.");
