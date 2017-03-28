@@ -1,3 +1,4 @@
+import Exceptions.InstanceNotFoundException;
 
 public enum ESRBRating {
     EC ("EC", "Early Childhood"),
@@ -22,7 +23,7 @@ public enum ESRBRating {
         return ratingName;
     }
 
-    public static ESRBRating getRatingFromString(String rating) throws Exception {
+    public static ESRBRating getRatingFromString(String rating) throws InstanceNotFoundException {
         switch (rating) {
             case "EC":
             case "Early Childhood":
@@ -43,7 +44,7 @@ public enum ESRBRating {
             case "Adults Only":
                 return AO;
             default:
-                throw new Exception("ESRB Rating not found");
+                throw new InstanceNotFoundException("ESRB Rating not found");
         }
 
     }

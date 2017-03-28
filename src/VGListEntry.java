@@ -2,18 +2,14 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class VGListEntries {
+public class VGListEntry {
 
     private VGList list;
     private Game game;
-    private Date dateAdded;
-    private Statement stmt;
 
-    public VGListEntries(VGList list, Game game, Date dateAdded) throws SQLException {
+    public VGListEntry(VGList list, Game game) throws SQLException {
         this.list = list;
         this.game = game;
-        this.dateAdded = dateAdded;
-        this.stmt = ConnectionManager.getStatement();
     }
 
     public VGList getList() {
@@ -30,13 +26,5 @@ public class VGListEntries {
 
     public void setGame(Game game) {
         this.game = game;
-    }
-
-    public Date getDateAdded() {
-        return dateAdded;
-    }
-
-    public void setDateAdded(Date dateAdded) {
-        this.dateAdded = dateAdded;
     }
 }

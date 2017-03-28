@@ -1,4 +1,4 @@
 
 public enum Region {
-    NTSC,PAL;
+    NTSC,PAL
 }
