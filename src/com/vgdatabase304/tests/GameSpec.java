@@ -1,4 +1,8 @@
+
 import org.junit.*;
+import com.vgdatabase304.Structures.*;
+import com.vgdatabase304.Utils.*;
+import com.vgdatabase304.Exceptions.*;
 
 import static org.junit.Assert.*;
 

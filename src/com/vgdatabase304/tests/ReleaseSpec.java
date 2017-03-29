@@ -1,6 +1,10 @@
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import com.vgdatabase304.Structures.*;
+import com.vgdatabase304.Utils.*;
+import com.vgdatabase304.Adaptors.*;
+import com.vgdatabase304.Exceptions.*;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -48,7 +52,7 @@ public class ReleaseSpec {
     @Test
     public void testAddSecondRelease() throws SQLException {
         Date dateNew = new Date(1);
-        AdminUser admin = AdminUser.addAdminUserToDatabase("testAdmin2", "testAdmin2@gmail.com", "hunter3")
+        AdminUser admin = AdminUserAdaptor.addAdminUserToDatabase("testAdmin2", "testAdmin2@gmail.com", "hunter3");
         ReleaseAdaptor.addReleaseToDatabase(release.getGame(), Region.PAL, Platform.Nintendo64, admin, dateNew);
         String sql = "SELECT G.GameID, G.ESRBRating, G.AddedBy, G.Name, R.Region, " +
                 "R.Platform, R.ReleaseDate, R.AddedBy " +

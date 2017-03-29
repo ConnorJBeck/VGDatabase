@@ -14,7 +14,7 @@ public class RegisteredUserAdaptor {
     protected static ResultSet rs;
     protected static Statement stmt;
 
-    public static RegisteredUser addUserToDatabase(String username, String email, String password) throws SQLException {
+    public static RegisteredUser addRegisteredUserToDatabase(String username, String email, String password) throws SQLException {
         stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("INSERT INTO RegisteredUser (UserName, Email, Password) VALUES ('" +
                 username + "', '" +
