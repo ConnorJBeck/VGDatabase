@@ -17,7 +17,7 @@ public class VGListAdaptor {
         stmt = ConnectionManager.getStatement();
         rs = stmt.executeQuery("SELECT Max(LISTID) FROM LIST");
         int listID = 0;
-        if (rs.first()) {
+        if (rs.next()) {
             listID = rs.getInt(1);
         }
         listID++;
@@ -50,7 +50,7 @@ public class VGListAdaptor {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT NAME FROM LIST WHERE LISTID=" + list.getListID();
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return rs.getString(1);
         } else {
             throw new InstanceNotFoundException("No record found in LIST for " + list.getListID());
@@ -69,7 +69,7 @@ public class VGListAdaptor {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT USERNAME FROM LIST WHERE LISTID=" + list.getListID();
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return new RegisteredUser(rs.getString(1));
         } else {
             throw new InstanceNotFoundException("No record found in LIST for " + list.getListID());

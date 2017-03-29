@@ -59,7 +59,7 @@ public class VGListEntryAdaptor {
                 "LISTID=" + listEntry.getList().getListID() +
                 " GAMEID=" + listEntry.getGame().getGameID();
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return rs.getDate(1);
         } else {
             throw new InstanceNotFoundException("No record found in LISTENTRY for ListID: " +

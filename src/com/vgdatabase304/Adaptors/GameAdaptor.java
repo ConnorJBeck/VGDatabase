@@ -20,7 +20,7 @@ public class GameAdaptor {
         stmt = ConnectionManager.getStatement();
         ResultSet rs = stmt.executeQuery("SELECT Max(GAMEID) FROM GAME");
         int gameID = 0;
-        if (rs.first()) {
+        if (rs.next()) {
             gameID = rs.getInt(1);
         }
         gameID++;
@@ -57,7 +57,7 @@ public class GameAdaptor {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT AddedBy FROM GAME WHERE GAMEID=" + game.getGameID();
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return rs.getString(1);
         } else {
             throw new InstanceNotFoundException("No record found in GAME for " + game.getGameID());
@@ -76,7 +76,7 @@ public class GameAdaptor {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT Name FROM GAME WHERE GAMEID=" + game.getGameID();
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return rs.getString(1);
         } else {
             throw new InstanceNotFoundException("No record found in GAME for " + game.getGameID());
@@ -95,7 +95,7 @@ public class GameAdaptor {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT ESRBRATING FROM GAME WHERE GAMEID=" + game.getGameID();
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return ESRBRating.getRatingFromString(rs.getString(1));
         } else {
             throw new InstanceNotFoundException("No record found in GAME for " + game.getGameID());

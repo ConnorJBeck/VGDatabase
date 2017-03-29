@@ -1,9 +1,10 @@
+package com.vgdatabase304.Utils;
+
 import java.sql.Date;
 import java.sql.SQLException;
 import com.vgdatabase304.Structures.*;
 import com.vgdatabase304.Utils.*;
 import com.vgdatabase304.Adaptors.*;
-import com.vgdatabase304.Exceptions.*;
 
 public class TestUtils {
 
@@ -15,6 +16,7 @@ public class TestUtils {
     }
 
     public static void endTesting() throws SQLException {
+
         ConnectionManager.closeConnection();
     }
 
@@ -32,9 +34,17 @@ public class TestUtils {
         return GameAdaptor.addGameToDatabase(admin, ESRBRating.E, "Test Game", Region.NTSC, Platform.Atari2600, new Date(0));
     }
 
+    public static Game addTestGame(AdminUser admin) throws SQLException {
+        return GameAdaptor.addGameToDatabase(admin, ESRBRating.E, "Test Game", Region.NTSC, Platform.Atari2600, new Date(0));
+    }
+
     public static Release addTestRelease() throws SQLException {
         AdminUser admin = addTestAdmin();
         Game game = addTestGame();
+        return ReleaseAdaptor.addReleaseToDatabase(game, Region.PAL, Platform.Xbox, admin, new Date(0));
+    }
+
+    public static Release addTestRelease(Game game, AdminUser admin) throws SQLException {
         return ReleaseAdaptor.addReleaseToDatabase(game, Region.PAL, Platform.Xbox, admin, new Date(0));
     }
 

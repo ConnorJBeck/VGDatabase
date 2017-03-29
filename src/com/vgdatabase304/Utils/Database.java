@@ -100,6 +100,7 @@ public class Database {
     }
 
     public static void deleteDatabase() throws SQLException {
+        stmt = ConnectionManager.getStatement();
         try {
             stmt.executeUpdate("DROP TABLE ListEntries CASCADE CONSTRAINTS");
             System.out.println("ListEntries table successfully dropped.");
@@ -123,9 +124,9 @@ public class Database {
 
         try {
             stmt.executeUpdate("DROP TABLE CreateReview CASCADE CONSTRAINTS");
-            System.out.println("com.vgdatabase304.Structures.CreateReview table successfully dropped.");
+            System.out.println("CreateReview table successfully dropped.");
         } catch (SQLException err) {
-            System.out.println("com.vgdatabase304.Structures.CreateReview table not found.");
+            System.out.println("CreateReview table not found.");
         }
 
         try {
@@ -137,23 +138,23 @@ public class Database {
 
         try {
             stmt.executeUpdate("DROP TABLE Release CASCADE CONSTRAINTS");
-            System.out.println("com.vgdatabase304.Structures.Release table successfully dropped.");
+            System.out.println("Release table successfully dropped.");
         } catch (SQLException err) {
-            System.out.println("com.vgdatabase304.Structures.Release table not found.");
+            System.out.println("Release table not found.");
         }
 
         try {
             stmt.executeUpdate("DROP TABLE Game CASCADE CONSTRAINTS");
-            System.out.println("com.vgdatabase304.Structures.Game table successfully dropped.");
+            System.out.println("Game table successfully dropped.");
         } catch (SQLException err) {
-            System.out.println("com.vgdatabase304.Structures.Game table not found.");
+            System.out.println("Game table not found.");
         }
 
         try {
             stmt.executeUpdate("DROP TABLE ESRBRating CASCADE CONSTRAINTS");
-            System.out.println("com.vgdatabase304.Structures.ESRBRating table successfully dropped.");
+            System.out.println("ESRBRating table successfully dropped.");
         } catch (SQLException err) {
-            System.out.println("com.vgdatabase304.Structures.ESRBRating table not found.");
+            System.out.println("ESRBRating table not found.");
         }
 
         try {
@@ -165,13 +166,10 @@ public class Database {
 
         try {
             stmt.executeUpdate("DROP TABLE RegisteredUser CASCADE CONSTRAINTS");
-            System.out.println("com.vgdatabase304.Structures.RegisteredUser table successfully dropped.");
+            System.out.println("RegisteredUser table successfully dropped.");
         } catch (SQLException err) {
-            System.out.println("com.vgdatabase304.Structures.RegisteredUser table not found.");
+            System.out.println("RegisteredUser table not found.");
         }
-
-
-
 
     }
 }
