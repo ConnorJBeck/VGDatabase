@@ -15,17 +15,21 @@ public class RegisteredUserAdaptor {
     protected static Statement stmt;
 
     public static RegisteredUser addRegisteredUserToDatabase(String username, String email, String password) throws SQLException {
+        System.out.println("before stmt");
         stmt = ConnectionManager.getStatement();
+        System.out.println("after statement");
         try {
+            System.out.println("before update");
             stmt.executeUpdate("INSERT INTO RegisteredUser (UserName, Email, Password) VALUES ('" +
                     username + "', '" +
                     email + "', '" +
                     password + "')"
             );
+            System.out.println("after update");
         } catch (SQLException e) {
-
+            System.out.println("exception thrown: " + e);
         }
-
+        System.out.println("before return");
         return new RegisteredUser(username);
     }
 

@@ -1,12 +1,10 @@
 package com.vgdatabase304.Structures;
 
-import java.sql.SQLException;
-
 public class RegisteredUser {
 
     private String username;
 
-    public RegisteredUser(String username) throws SQLException {
+    public RegisteredUser(String username) {
         this.username = username;
     }
 
