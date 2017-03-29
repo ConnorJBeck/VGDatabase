@@ -12,6 +12,7 @@ public class Search {
     private JPanel panel1;
     private JComboBox searchBy;
     private JButton submitSearchButton;
+    private JButton backButton;
 
     public Search() {
         submitSearchButton.addActionListener(new ActionListener() {

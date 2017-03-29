@@ -7,16 +7,18 @@
     <rowspec value="top:12dlu:noGrow"/>
     <rowspec value="center:69px:noGrow"/>
     <rowspec value="top:4dlu:noGrow"/>
-    <rowspec value="center:141px:noGrow"/>
+    <rowspec value="center:81px:noGrow"/>
     <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:max(d;4px):noGrow"/>
-    <colspec value="fill:64px:noGrow"/>
+    <colspec value="fill:87px:noGrow"/>
+    <colspec value="left:5dlu:noGrow"/>
+    <colspec value="fill:523px:grow"/>
     <colspec value="left:4dlu:noGrow"/>
-    <colspec value="fill:494px:grow"/>
+    <colspec value="fill:d:grow"/>
     <colspec value="left:4dlu:noGrow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
     <constraints>
-      <xy x="20" y="20" width="580" height="410"/>
+      <xy x="20" y="20" width="671" height="410"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -52,8 +54,8 @@
       </component>
       <component id="412ba" class="javax.swing.JButton" binding="submitSearchButton">
         <constraints>
-          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <forms/>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-vert="false"/>
         </constraints>
         <properties>
           <label value="Submit"/>
@@ -79,6 +81,21 @@
           <text value="Search:"/>
         </properties>
       </component>
+      <component id="8ed56" class="javax.swing.JButton" binding="backButton" default-binding="true">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="Back"/>
+        </properties>
+      </component>
+      <hspacer id="c1d55">
+        <constraints>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+      </hspacer>
     </children>
   </grid>
 </form>
