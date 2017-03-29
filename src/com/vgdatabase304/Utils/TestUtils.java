@@ -34,9 +34,17 @@ public class TestUtils {
         return GameAdaptor.addGameToDatabase(admin, ESRBRating.E, "Test Game", Region.NTSC, Platform.Atari2600, new Date(0));
     }
 
+    public static Game addTestGame(AdminUser admin) throws SQLException {
+        return GameAdaptor.addGameToDatabase(admin, ESRBRating.E, "Test Game", Region.NTSC, Platform.Atari2600, new Date(0));
+    }
+
     public static Release addTestRelease() throws SQLException {
         AdminUser admin = addTestAdmin();
         Game game = addTestGame();
+        return ReleaseAdaptor.addReleaseToDatabase(game, Region.PAL, Platform.Xbox, admin, new Date(0));
+    }
+
+    public static Release addTestRelease(Game game, AdminUser admin) throws SQLException {
         return ReleaseAdaptor.addReleaseToDatabase(game, Region.PAL, Platform.Xbox, admin, new Date(0));
     }
 
