@@ -2,7 +2,6 @@
 import org.junit.*;
 import com.vgdatabase304.Structures.*;
 import com.vgdatabase304.Utils.*;
-import com.vgdatabase304.Exceptions.*;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +18,11 @@ public class GameSpec {
     @BeforeClass
     public static void runBefore() throws SQLException {
         TestUtils.initDBForTests();
-        game = TestUtils.addTestGame();
+        try {
+            game = TestUtils.addTestGame();
+        } catch (SQLException e) {
+
+        }
         stmt = ConnectionManager.getStatement();
     }
 

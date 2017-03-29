@@ -16,11 +16,16 @@ public class RegisteredUserAdaptor {
 
     public static RegisteredUser addRegisteredUserToDatabase(String username, String email, String password) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        stmt.executeUpdate("INSERT INTO RegisteredUser (UserName, Email, Password) VALUES ('" +
-                username + "', '" +
-                email + "', '" +
-                password + "')"
-        );
+        try {
+            stmt.executeUpdate("INSERT INTO RegisteredUser (UserName, Email, Password) VALUES ('" +
+                    username + "', '" +
+                    email + "', '" +
+                    password + "')"
+            );
+        } catch (SQLException e) {
+
+        }
+
         return new RegisteredUser(username);
     }
 
@@ -30,7 +35,7 @@ public class RegisteredUserAdaptor {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT PASSWORD FROM REGISTEREDUSER WHERE USERNAME='" + user.getUsername() + "'";
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return rs.getString("PASSWORD");
         } else {
             throw new InstanceNotFoundException("No record found in REGISTEREDUSER for " + user.getUsername());
@@ -49,7 +54,7 @@ public class RegisteredUserAdaptor {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT EMAIL FROM REGISTEREDUSER WHERE USERNAME='" + user.getUsername() + "'";
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return rs.getString("EMAIL");
         } else {
             throw new InstanceNotFoundException("No record found in REGISTEREDUSER for " + user.getUsername());

@@ -1,9 +1,10 @@
+package com.vgdatabase304.Utils;
+
 import java.sql.Date;
 import java.sql.SQLException;
 import com.vgdatabase304.Structures.*;
 import com.vgdatabase304.Utils.*;
 import com.vgdatabase304.Adaptors.*;
-import com.vgdatabase304.Exceptions.*;
 
 public class TestUtils {
 
@@ -15,6 +16,7 @@ public class TestUtils {
     }
 
     public static void endTesting() throws SQLException {
+
         ConnectionManager.closeConnection();
     }
 

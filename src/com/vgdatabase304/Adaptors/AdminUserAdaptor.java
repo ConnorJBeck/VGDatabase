@@ -9,22 +9,22 @@ public class AdminUserAdaptor extends RegisteredUserAdaptor {
 
 
     public static AdminUser addAdminUserToDatabase(String username, String email, String password) throws SQLException {
-        addRegisteredUserToDatabase(username, email, password);
-        stmt.executeUpdate("INSERT INTO Admin (UserName, Email, Password) VALUES ('" +
-                username + "', '" +
-                email + "', '" +
-                password + "')"
-        );
-        return new AdminUser("username");
+        RegisteredUser user = addRegisteredUserToDatabase(username, email, password);
+        return giveAdminPrivileges(user);
     }
 
     public static AdminUser giveAdminPrivileges(RegisteredUser user) throws SQLException {
-        stmt.executeUpdate("INSERT INTO Admin (UserName, Email, Password) VALUES ('" +
-                user.getUsername() + "', '" +
-                RegisteredUserAdaptor.getEmail(user) + "', '" +
-                RegisteredUserAdaptor.getPassword(user) + "')"
-        );
-        return (AdminUser) user;
+        try {
+            stmt.executeUpdate("INSERT INTO Admin (UserName, Email, Password) VALUES ('" +
+                    user.getUsername() + "', '" +
+                    RegisteredUserAdaptor.getEmail(user) + "', '" +
+                    RegisteredUserAdaptor.getPassword(user) + "')"
+            );
+        } catch (SQLException e) {
+
+        }
+
+        return new AdminUser(user.getUsername());
     }
 
     public void revokeAdminPriviliges(AdminUser admin) throws SQLException {

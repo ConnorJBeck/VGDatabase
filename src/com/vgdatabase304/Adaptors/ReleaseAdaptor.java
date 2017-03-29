@@ -16,14 +16,14 @@ public class ReleaseAdaptor {
 
     public static Release addReleaseToDatabase(Game game, Region region, Platform platform, AdminUser addedBy, Date releaseDate) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        stmt.executeUpdate("INSERT INTO Release " +
+        String sql = "INSERT INTO Release " +
                 "(gameID, region, platform, addedBy, releaseDate) VALUES (" +
                 game.getGameID() + ", '" +
                 region.name() + "', '" +
                 platform.getName() + "', '" +
                 addedBy.getUsername() + "', TO_DATE('" +
-                releaseDate.toString() + "','yyyy-mm-dd'))"
-        );
+                releaseDate.toString() + "','yyyy-mm-dd'))";
+        stmt.executeUpdate(sql);
         return new Release(game, region, platform);
     }
 
@@ -77,7 +77,7 @@ public class ReleaseAdaptor {
                 " REGION='" + release.getRegion() +
                 "' PLATFORM='" + release.getPlatform() + "'";
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return new AdminUser(rs.getString("ADDEDBY"));
         } else {
             throw new InstanceNotFoundException("No record found in RELEASE for " + release.getGame());
@@ -98,7 +98,7 @@ public class ReleaseAdaptor {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT DATE FROM GAME WHERE GAMEID=" + release.getGame();
         rs = stmt.executeQuery(sql);
-        if (rs.first()) {
+        if (rs.next()) {
             return rs.getDate("Date");
         } else {
             throw new InstanceNotFoundException("No record found in RELEASE for " + release.getGame());

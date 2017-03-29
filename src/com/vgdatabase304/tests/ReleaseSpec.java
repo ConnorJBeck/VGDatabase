@@ -1,10 +1,7 @@
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import com.vgdatabase304.Structures.*;
 import com.vgdatabase304.Utils.*;
 import com.vgdatabase304.Adaptors.*;
-import com.vgdatabase304.Exceptions.*;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -36,7 +33,7 @@ public class ReleaseSpec {
         String sql = "SELECT G.GameID, G.ESRBRating, G.AddedBy, G.Name, R.Region, " +
                 "R.Platform, R.ReleaseDate, R.AddedBy " +
                 "FROM GAME G INNER JOIN RELEASE R ON G.GAMEID = R.GAMEID " +
-                "WHERE G.gameID=" + release.getGame() +
+                "WHERE G.gameID=" + release.getGame().getGameID() +
                 " ORDER BY R.Region ASC";
         ResultSet rs = stmt.executeQuery(sql);
         rs.next();
@@ -57,7 +54,7 @@ public class ReleaseSpec {
         String sql = "SELECT G.GameID, G.ESRBRating, G.AddedBy, G.Name, R.Region, " +
                 "R.Platform, R.ReleaseDate, R.AddedBy " +
                 "FROM GAME G INNER JOIN RELEASE R ON G.GAMEID = R.GAMEID " +
-                "WHERE G.gameID=" + release.getGame() +
+                "WHERE G.gameID=" + release.getGame().getGameID() +
                 " ORDER BY R.Region ASC";
         ResultSet rs = stmt.executeQuery(sql);
         rs.next();
@@ -75,7 +72,7 @@ public class ReleaseSpec {
         assertEquals("Test Game", rs.getString(4));
         assertEquals("PAL", rs.getString(5));
         assertEquals("Nintendo 64", rs.getString(6));
-        assertEquals("testAdmin", rs.getString(8));
+        assertEquals("testAdmin2", rs.getString(8));
     }
 
 

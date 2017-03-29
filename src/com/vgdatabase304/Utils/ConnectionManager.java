@@ -19,7 +19,11 @@ public class ConnectionManager {
     }
 
     public static void closeConnection() throws SQLException {
+        stmt.close();
+        stmt = null;
         connection.close();
+        connection = null;
+        instance = null;
     }
 
     public static Statement getStatement() throws SQLException {
