@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * Created by jessyang90 on 2017-03-28.
  */
-public class UserUserProfile {
+public class AdminAdminProfile {
     private JLabel username;
     private JLabel email;
     private JButton searchButton;
@@ -17,4 +17,9 @@ public class UserUserProfile {
     private JTextArea eMail;
     private JPanel ReivewPanel;
     private JPanel ListPanel;
+    private JPanel TagPanel;
+    private JComboBox listofTags;
+    private JButton DeleteTag;
+    private JTextField newTagName;
+    private JButton CreateTag;
 }

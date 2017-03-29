@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * Created by jessyang90 on 2017-03-28.
  */
-public class UserUserProfile {
+public class UserSelfProfile {
     private JLabel username;
     private JLabel email;
     private JButton searchButton;
@@ -17,4 +17,9 @@ public class UserUserProfile {
     private JTextArea eMail;
     private JPanel ReivewPanel;
     private JPanel ListPanel;
+    private JComboBox selectedGame;
+    private JTextField newListName;
+    private JTextArea newReview;
+    private JButton createList;
+    private JButton createReview;
 }
