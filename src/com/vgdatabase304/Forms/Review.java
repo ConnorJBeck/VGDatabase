@@ -7,7 +7,7 @@ import javax.swing.*;
  */
 public class Review {
     private JPanel panel1;
-    private JLabel reviewLabel;
+    private JTextField reviewName;
     private JButton backButton;
     private JTextArea reviewText;
 }

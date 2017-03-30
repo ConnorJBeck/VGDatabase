@@ -2,7 +2,6 @@ package com.vgdatabase304.Forms;
 import com.vgdatabase304.Adaptors.AdminUserAdaptor;
 import com.vgdatabase304.Adaptors.RegisteredUserAdaptor;
 import com.vgdatabase304.Structures.AdminUser;
-import com.vgdatabase304.Structures.Platform;
 import com.vgdatabase304.Structures.RegisteredUser;
 import com.vgdatabase304.Utils.ConnectionManager;
 
@@ -14,8 +13,8 @@ import java.sql.SQLException;
 public class Login extends JFrame {
     private JButton loginButton;
     private JPanel panel1;
-    private JTextField textField1;
-    private JPasswordField passwordField1;
+    private JTextField usernameField;
+    private JPasswordField passwordField;
     private JButton createAccountButton;
     private JTextField emailField;
     private JLabel emailLabel;
@@ -29,8 +28,8 @@ public class Login extends JFrame {
                 String event = e.getActionCommand();
                 System.out.println(event);
                 String username, password;
-                username = textField1.getText();
-                password = passwordField1.getText();
+                username = usernameField.getText();
+                password = passwordField.getText();
                 System.out.println(username);
                 System.out.println(password);
                 RegisteredUser user = new RegisteredUser(username);
@@ -64,8 +63,8 @@ public class Login extends JFrame {
                     emailLabel.setVisible(true);
                 } else {
                     String username, password, email;
-                    username = textField1.getText();
-                    password = passwordField1.getText();
+                    username = usernameField.getText();
+                    password = passwordField.getText();
                     email = emailField.getText();
                     System.out.println(username);
                     System.out.println(password);

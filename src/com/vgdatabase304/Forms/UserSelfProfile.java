@@ -28,11 +28,8 @@ public class UserSelfProfile extends JFrame {
     private JTextArea eMail;
     private JPanel ReivewPanel;
     private JPanel ListPanel;
-    private JComboBox selectedGame;
     private JTextField newListName;
-    private JTextArea newReview;
     private JButton createList;
-    private JButton createReview;
     public JPanel mainPanel;
     private JScrollPane listsScrollPane;
     private JScrollPane reviewsScrollPane;

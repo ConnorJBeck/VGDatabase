@@ -46,11 +46,7 @@
           <component id="511de" class="javax.swing.JList" binding="resultList">
             <constraints/>
             <properties>
-              <model>
-                <item value="Test1"/>
-                <item value="Test2"/>
-                <item value="Test3"/>
-              </model>
+              <model/>
             </properties>
           </component>
         </children>

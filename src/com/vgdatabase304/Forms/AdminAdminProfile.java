@@ -15,7 +15,7 @@ public class AdminAdminProfile {
     private JList listofReviews;
     private JTextArea userName;
     private JTextArea eMail;
-    private JPanel ReivewPanel;
+    private JPanel ReviewPanel;
     private JPanel ListPanel;
     private JPanel TagPanel;
     private JComboBox listofTags;

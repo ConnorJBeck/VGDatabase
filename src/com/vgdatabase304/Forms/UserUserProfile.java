@@ -11,8 +11,8 @@ public class UserUserProfile {
     private JButton searchButton;
     private JLabel reviewLabel;
     private JLabel listPanel;
-    private JList myList;
-    private JList listofReviews;
+    private JList userLists;
+    private JList userReviews;
     private JTextArea userName;
     private JTextArea eMail;
     private JPanel ReivewPanel;

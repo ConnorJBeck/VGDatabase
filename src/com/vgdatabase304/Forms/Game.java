@@ -14,5 +14,5 @@ public class Game {
     private JTextField textField1;
     private JTextField textField2;
     private JList platformList;
-    private JList regionList;
+    private JLabel releaseList;
 }

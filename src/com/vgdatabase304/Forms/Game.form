@@ -11,8 +11,6 @@
     <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:94px:noGrow"/>
     <rowspec value="top:4dlu:noGrow"/>
-    <rowspec value="center:106px:noGrow"/>
-    <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:max(d;4px):noGrow"/>
     <colspec value="fill:d:noGrow"/>
     <colspec value="left:4dlu:noGrow"/>
@@ -20,7 +18,7 @@
     <colspec value="left:4dlu:noGrow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
     <constraints>
-      <xy x="20" y="20" width="574" height="402"/>
+      <xy x="20" y="20" width="574" height="287"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -81,13 +79,13 @@
           <text value="Rating"/>
         </properties>
       </component>
-      <component id="18ba6" class="javax.swing.JLabel">
+      <component id="18ba6" class="javax.swing.JLabel" binding="releaseList">
         <constraints>
           <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <forms defaultalign-horz="false"/>
         </constraints>
         <properties>
-          <text value="Platforms"/>
+          <text value="Releases"/>
         </properties>
       </component>
       <component id="b801c" class="javax.swing.JTextField" binding="textField1" default-binding="true">
@@ -108,31 +106,22 @@
         </constraints>
         <properties/>
       </component>
-      <component id="2f7cf" class="javax.swing.JList" binding="platformList">
+      <scrollpane id="915ed">
         <constraints>
           <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <forms defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties/>
-      </component>
-      <component id="1fc55" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-          <forms defaultalign-horz="false"/>
-        </constraints>
-        <properties>
-          <text value="Regions"/>
-        </properties>
-      </component>
-      <component id="860f2" class="javax.swing.JList" binding="regionList">
-        <constraints>
-          <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
-          <forms defaultalign-horz="false" defaultalign-vert="false"/>
-        </constraints>
-        <properties/>
-      </component>
+        <border type="none"/>
+        <children>
+          <component id="2f7cf" class="javax.swing.JList" binding="platformList">
+            <constraints/>
+            <properties>
+              <model/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>
