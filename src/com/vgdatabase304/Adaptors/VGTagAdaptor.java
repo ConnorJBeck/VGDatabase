@@ -2,7 +2,6 @@ package com.vgdatabase304.Adaptors;
 
 import com.vgdatabase304.Exceptions.InstanceNotFoundException;
 import com.vgdatabase304.Structures.AdminUser;
-import com.vgdatabase304.Structures.VGList;
 import com.vgdatabase304.Structures.VGTag;
 import com.vgdatabase304.Utils.ConnectionManager;
 

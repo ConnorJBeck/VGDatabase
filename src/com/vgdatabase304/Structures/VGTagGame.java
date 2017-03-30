@@ -1,44 +1,39 @@
 package com.vgdatabase304.Structures;
-import com.vgdatabase304.Utils.*;
-import com.vgdatabase304.Exceptions.*;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class VGTagGame {
 
-    private VGTag tagName;
-    private Game gameID;
-    private RegisteredUser userName;
-    private Statement stmt;
+    private VGTag tag;
+    private Game game;
+    private RegisteredUser user;
 
-    public VGTagGame(VGTag tagName, Game gameID, RegisteredUser userName) throws SQLException {
-        this.tagName = tagName;
-        this.gameID = gameID;
-        this.userName = userName;
-        this.stmt = ConnectionManager.getStatement();
+    public VGTagGame(VGTag tagName, Game gameID, RegisteredUser user) {
+        this.tag = tagName;
+        this.game = gameID;
+        this.user = user;
     }
 
-    public VGTag getTagName() {
-        return tagName;
+    public VGTag getTag() {
+        return tag;
     }
 
-    public void setTagName(VGTag tagName) {
-        this.tagName = tagName;
+    public void setTag(VGTag tag) {
+        this.tag = tag;
     }
 
-    public Game getGameID() {
-        return gameID;
+    public Game getGame() {
+        return game;
     }
 
-    public void setGameID(Game gameID) {
-        this.gameID = gameID;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
-    public RegisteredUser getUserName() {
-        return userName;
+    public RegisteredUser getUser() {
+        return user;
     }
 
-    public void setUserName(RegisteredUser userName) {
-        this.userName = userName;
+    public void setUser(RegisteredUser user) {
+        this.user = user;
     }
 }
