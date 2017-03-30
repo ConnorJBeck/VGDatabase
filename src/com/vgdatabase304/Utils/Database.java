@@ -124,9 +124,9 @@ public class Database {
 
         try {
             stmt.executeUpdate("DROP TABLE CreateReview CASCADE CONSTRAINTS");
-            System.out.println("CreateReview table successfully dropped.");
+            System.out.println("Review table successfully dropped.");
         } catch (SQLException err) {
-            System.out.println("CreateReview table not found.");
+            System.out.println("Review table not found.");
         }
 
         try {

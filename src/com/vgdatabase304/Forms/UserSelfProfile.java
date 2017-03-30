@@ -2,10 +2,13 @@ package com.vgdatabase304.Forms;
 
 import com.vgdatabase304.Adaptors.RegisteredUserAdaptor;
 import com.vgdatabase304.Adaptors.VGListAdaptor;
+import com.vgdatabase304.Structures.CellRenderer;
 import com.vgdatabase304.Structures.RegisteredUser;
 import com.vgdatabase304.Structures.VGList;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -52,36 +55,16 @@ public class UserSelfProfile extends JFrame {
             eMail.setText("Unable to retrieve email from database");
         }
 
-        class MyCellRenderer extends JLabel implements ListCellRenderer<Object> {
 
-            // This is the only method defined by ListCellRenderer.
-            // We just reconfigure the JLabel each time we're called.
-
-            public Component getListCellRendererComponent(
-                    JList<?> list,           // the list
-                    Object value,            // value to display
-                    int index,               // cell index
-                    boolean isSelected,      // is the cell selected
-                    boolean cellHasFocus)    // does the cell have focus
-            {
-                String s = value.toString();
-                setText(s);
-                if (isSelected) {
-                    setBackground(list.getSelectionBackground());
-                    setForeground(list.getSelectionForeground());
-                } else {
-                    setBackground(list.getBackground());
-                    setForeground(list.getForeground());
-                }
-                setEnabled(list.isEnabled());
-                setFont(list.getFont());
-                setOpaque(true);
-                return this;
-            }
-        }
 
         try {
             listOfVGLists.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            listOfVGLists.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    //open new list interface
+                }
+            });
             List<VGList> VGListList = VGListAdaptor.getAllListsByUser(user);
             DefaultListModel vgList = new DefaultListModel();
             listOfVGLists.setModel(vgList);
@@ -90,7 +73,7 @@ public class UserSelfProfile extends JFrame {
                 System.out.println(listObject.getListID());
                 vgList.addElement(VGListAdaptor.getListName(listObject));
             }
-            listOfVGLists.setCellRenderer(new MyCellRenderer());
+            listOfVGLists.setCellRenderer(new CellRenderer());
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
