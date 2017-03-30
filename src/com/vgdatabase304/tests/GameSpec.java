@@ -1,3 +1,4 @@
+package com.vgdatabase304.tests;
 
 import org.junit.*;
 import com.vgdatabase304.Structures.*;
