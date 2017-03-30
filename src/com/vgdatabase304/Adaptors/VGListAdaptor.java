@@ -7,6 +7,8 @@ import com.vgdatabase304.Utils.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VGListAdaptor {
 
@@ -46,7 +48,7 @@ public class VGListAdaptor {
         list.setListID(listID);
     }
 
-    public String getListName(VGList list) throws SQLException {
+    public static String getListName(VGList list) throws SQLException {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT NAME FROM LIST WHERE LISTID=" + list.getListID();
         rs = stmt.executeQuery(sql);
@@ -57,7 +59,7 @@ public class VGListAdaptor {
         }
     }
 
-    public void setListName(VGList list, String listName) throws SQLException {
+    public static void setListName(VGList list, String listName) throws SQLException {
         stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("UPDATE LIST " +
                 "SET NAME='" + listName +
@@ -65,7 +67,7 @@ public class VGListAdaptor {
         );
     }
 
-    public RegisteredUser getUserName(VGList list) throws SQLException {
+    public static RegisteredUser getUserName(VGList list) throws SQLException {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT USERNAME FROM LIST WHERE LISTID=" + list.getListID();
         rs = stmt.executeQuery(sql);
@@ -76,11 +78,28 @@ public class VGListAdaptor {
         }
     }
 
-    public void setUserName(VGList list, RegisteredUser userName) throws SQLException {
+    public static void setUserName(VGList list, RegisteredUser userName) throws SQLException {
         stmt = ConnectionManager.getStatement();
         stmt.executeUpdate("UPDATE LIST " +
                 "SET USERNAME='" + userName.getUsername() +
                 "' WHERE listID=" + list.getListID()
         );
     }
+
+    public static List<VGList> getAllListsByUser(RegisteredUser user) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        List<VGList> listOfVGLists = new ArrayList<>();
+        rs = stmt.executeQuery("SELECT LISTID FROM LIST WHERE USERNAME='" + user.getUsername() + "'");
+        while (rs.next()) {
+            listOfVGLists.add(new VGList(rs.getInt("LISTID")));
+        }
+        if (listOfVGLists.size() > 0) {
+            return listOfVGLists;
+        } else {
+            throw new InstanceNotFoundException("No lists found for user " + user.getUsername());
+        }
+
+    }
+
+
 }

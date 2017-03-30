@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VGListEntryAdaptor {
@@ -74,5 +75,65 @@ public class VGListEntryAdaptor {
                 "' WHERE listID=" + listEntry.getList().getListID() +
                 " AND gameID=" + listEntry.getGame().getGameID()
         );
+    }
+
+    public static List<Game> getAllGamesInList(VGList list) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        List<Game> listOfGames = new ArrayList<>();
+        rs = stmt.executeQuery("SELECT GAMEID FROM LISTENTRIES WHERE LISTID='" + list.getListID() + "'");
+        while (rs.next()) {
+            listOfGames.add(new Game(rs.getInt("GAMEID")));
+        }
+        if (listOfGames.size() > 0) {
+            return listOfGames;
+        } else {
+            throw new InstanceNotFoundException("No games found for list " + list.getListID());
+        }
+    }
+
+    public static List<VGList> getAllListsByGame(Game game) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        List<VGList> listOfVGLists = new ArrayList<>();
+        rs = stmt.executeQuery("SELECT LISTID FROM LISTENTRIES WHERE GAMEID='" + game.getGameID() + "'");
+        while (rs.next()) {
+            listOfVGLists.add(new VGList(rs.getInt("LISTID")));
+        }
+        if (listOfVGLists.size() > 0) {
+            return listOfVGLists;
+        } else {
+            throw new InstanceNotFoundException("No lists found for game " + game.getGameID());
+        }
+    }
+
+    public static Game getHighestRatedGame(VGList list) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+
+        rs = stmt.executeQuery("SELECT GAMEID, MAX(AVERAGERATING) AS MAXRATING FROM " +
+                "(SELECT L.GAMEID, AVERAGERATING " +
+                "FROM LISTENTRIES L INNER JOIN " +
+                "(SELECT G.GAMEID, AVG(C.RATING) AS AVERAGERATING FROM CREATEREVIEW C INNER JOIN GAME G ON C.GAMEID=G.GAMEID GROUP BY G.GAMEID) " +
+                "ON L.GAMEID=GAME.GAMEID " +
+                "WHERE LISTID=" + list.getListID() + ")");
+        if (!rs.next()) {
+            throw new InstanceNotFoundException("No Games or reviews in database");
+        }
+
+        return new Game(rs.getInt(1));
+    }
+
+    public static Game getLowestRatedGame(VGList list) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+
+        rs = stmt.executeQuery("SELECT GAMEID, MIN(AVERAGERATING) AS MAXRATING FROM " +
+                "(SELECT L.GAMEID, AVERAGERATING " +
+                "FROM LISTENTRIES L INNER JOIN " +
+                "(SELECT G.GAMEID, AVG(C.RATING) AS AVERAGERATING FROM CREATEREVIEW C INNER JOIN GAME G ON C.GAMEID=G.GAMEID GROUP BY G.GAMEID) " +
+                "ON L.GAMEID=GAME.GAMEID " +
+                "WHERE LISTID=" + list.getListID() + ")");
+        if (!rs.next()) {
+            throw new InstanceNotFoundException("No Games or reviews in database");
+        }
+
+        return new Game(rs.getInt(1));
     }
 }

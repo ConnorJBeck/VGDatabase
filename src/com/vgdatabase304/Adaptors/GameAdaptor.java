@@ -38,7 +38,10 @@ public class GameAdaptor {
 
     public static void removeGameFromDatabase(Game game) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        String sql = "DELETE FROM GAME WHERE " +
+        String sql = "DELETE FROM RELEASE WHERE " +
+                "GAMEID=" + game.getGameID();
+        stmt.executeUpdate(sql);
+        sql = "DELETE FROM GAME WHERE " +
                 "GAMEID=" + game.getGameID();
         stmt.executeUpdate(sql);
     }
@@ -127,6 +130,5 @@ public class GameAdaptor {
         } else {
             throw new InstanceNotFoundException("No releases found for GameID " + game.getGameID());
         }
-
     }
 }
