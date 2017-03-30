@@ -7,6 +7,8 @@ import com.vgdatabase304.Structures.Review;
 import com.vgdatabase304.Utils.ConnectionManager;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReviewAdaptor {
 
@@ -142,5 +144,20 @@ public class ReviewAdaptor {
                 "SET POSTDATETIME='" + timestamp +
                 "' WHERE REVIEWID=" + review.getReviewID()
         );
+    }
+
+    public static List<Review> getAllReviewsByUser(RegisteredUser user) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        List<Review> listOfReviews = new ArrayList<>();
+        rs = stmt.executeQuery("SELECT REVIEWID FROM REVIEW WHERE USERNAME='" + user.getUsername() + "'");
+        while (rs.next()) {
+            listOfReviews.add(new Review(rs.getInt("REVIEWID")));
+        }
+        if (listOfReviews.size() > 0) {
+            return listOfReviews;
+        } else {
+            throw new InstanceNotFoundException("No reviews found for user " + user.getUsername());
+        }
+
     }
 }

@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * Created by Skyline on 2017-03-29.
  */
-public class Review {
+public class ReviewGUI {
     private JPanel panel1;
     private JTextField reviewName;
     private JButton backButton;

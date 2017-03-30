@@ -1,15 +1,11 @@
 package com.vgdatabase304.Forms;
 
-import com.vgdatabase304.Adaptors.RegisteredUserAdaptor;
-import com.vgdatabase304.Adaptors.VGListAdaptor;
-import com.vgdatabase304.Structures.CellRenderer;
-import com.vgdatabase304.Structures.RegisteredUser;
-import com.vgdatabase304.Structures.VGList;
+import com.vgdatabase304.Adaptors.*;
+import com.vgdatabase304.Structures.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -40,8 +36,6 @@ public class UserSelfProfile extends JFrame {
         parent.setVisible(true);
         parent.pack();
         parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
     }
 
     public void setAccount(RegisteredUser user) {
@@ -51,8 +45,6 @@ public class UserSelfProfile extends JFrame {
         } catch (SQLException e) {
             eMail.setText("Unable to retrieve email from database");
         }
-
-
 
         try {
             listOfVGLists.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -71,6 +63,24 @@ public class UserSelfProfile extends JFrame {
                 vgList.addElement(VGListAdaptor.getListName(listObject));
             }
             listOfVGLists.setCellRenderer(new CellRenderer());
+
+            listofReviews.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            listofReviews.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    //open new list interface
+                }
+            });
+            List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(user);
+            DefaultListModel reviewListModel = new DefaultListModel();
+            listofReviews.setModel(reviewListModel);
+            listofReviews.setCellRenderer(new CellRenderer());
+            reviewsScrollPane.setViewportView(listofReviews);
+            for (Review reviewObject : reviewList) {
+                System.out.println(reviewObject.getReviewID());
+                vgList.addElement(ReviewAdaptor.getGame(reviewObject));
+            }
+
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }

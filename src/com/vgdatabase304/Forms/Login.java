@@ -22,6 +22,7 @@ public class Login extends JFrame {
 
 
     public Login() {
+        JFrame thing = this;
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,7 +44,6 @@ public class Login extends JFrame {
                         }
                         JFrame frame = new JFrame("Profile");
                         UserSelfProfile profile = new UserSelfProfile(frame, user);
-
 
                     } else {
                         System.out.println("Username and password do not match.");
