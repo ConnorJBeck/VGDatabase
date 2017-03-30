@@ -27,7 +27,16 @@ public class AdminUserAdaptor extends RegisteredUserAdaptor {
         return new AdminUser(user.getUsername());
     }
 
-    public void revokeAdminPriviliges(AdminUser admin) throws SQLException {
+    public static void revokeAdminPriviliges(AdminUser admin) throws SQLException {
         stmt.executeUpdate("DELETE FROM Admin WHERE USERNAME='" + admin.getUsername() + "'");
+    }
+
+    public static boolean isAdmin(RegisteredUser user) throws SQLException {
+        rs = stmt.executeQuery("SELECT * FROM ADMIN WHERE USERNAME='" + user.getUsername() + "'");
+        if (rs.next()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.vgdatabase304.Forms;
+import com.vgdatabase304.Adaptors.AdminUserAdaptor;
 import com.vgdatabase304.Adaptors.RegisteredUserAdaptor;
+import com.vgdatabase304.Structures.AdminUser;
 import com.vgdatabase304.Structures.Platform;
 import com.vgdatabase304.Structures.RegisteredUser;
 import com.vgdatabase304.Utils.ConnectionManager;
@@ -17,7 +19,6 @@ public class Login extends JFrame {
     private JButton createAccountButton;
     private JTextField emailField;
     private JLabel emailLabel;
-    private static UserSelfProfile profile;
 
 
 
@@ -38,8 +39,13 @@ public class Login extends JFrame {
                     System.out.println(existingPassword);
                     if (existingPassword.equals(password)) {
                         System.out.println("Username exists setup profile");
-                        profile.setAccount(user);
-                        profile.setVisible(true);
+                        if (AdminUserAdaptor.isAdmin(user)) {
+                            user = new AdminUser(username);
+                        }
+                        JFrame frame = new JFrame("Profile");
+                        UserSelfProfile profile = new UserSelfProfile(frame, user);
+
+
                     } else {
                         System.out.println("Username and password do not match.");
                     }
@@ -87,7 +93,7 @@ public class Login extends JFrame {
         frame.pack();
         frame.setVisible(true);
 
-        profile = new UserSelfProfile();
+
     }
 }
 

@@ -1,10 +1,13 @@
 package com.vgdatabase304.Forms;
 
 import com.vgdatabase304.Adaptors.RegisteredUserAdaptor;
+import com.vgdatabase304.Adaptors.VGListAdaptor;
 import com.vgdatabase304.Structures.RegisteredUser;
+import com.vgdatabase304.Structures.VGList;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by jessyang90 on 2017-03-28.
@@ -26,18 +29,39 @@ public class UserSelfProfile extends JFrame {
     private JTextArea newReview;
     private JButton createList;
     private JButton createReview;
+    public JPanel mainPanel;
+    private JScrollPane listsScrollPane;
 
-    public UserSelfProfile() {
+    public UserSelfProfile(JFrame parent, RegisteredUser user) {
+        setAccount(user);
+        parent.setContentPane(mainPanel);
+        parent.setVisible(true);
+        parent.pack();
+        parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
     }
 
     public void setAccount(RegisteredUser user) {
-        this.username.setText(user.getUsername());
+        this.userName.setText(user.getUsername());
         try {
-            email.setText(RegisteredUserAdaptor.getEmail(user));
+            eMail.setText(RegisteredUserAdaptor.getEmail(user));
         } catch (SQLException e) {
-            email.setText("Unable to retrieve email from database");
+            eMail.setText("Unable to retrieve email from database");
         }
+
+        try {
+            List<VGList> VGListList = VGListAdaptor.getAllListsByUser(user);
+            DefaultListModel vglist = new DefaultListModel();
+            listsScrollPane.setViewportView(myList);
+            for (VGList listObject : VGListList) {
+                vglist.addElement(listObject);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+
 
         /*
         try {
@@ -46,5 +70,10 @@ public class UserSelfProfile extends JFrame {
             password.setText("Unable to retrieve password from database");
         }
         */
+    }
+
+
+    private void createUIComponents() {
+
     }
 }
