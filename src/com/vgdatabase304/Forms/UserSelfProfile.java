@@ -111,6 +111,10 @@ public class UserSelfProfile extends JFrame {
 
 
     private void createUIComponents() {
-
+        //search user by name;
+        //search game by platform;
+        //search game by release year;
+        //search game by rating;
+        //search game by VGtag
     }
 }

@@ -111,4 +111,15 @@ public class RegisteredUserAdaptor {
 
         return new Ranking(personalCount, totalCount);
     }
+
+    public static List<RegisteredUser> searchUserByUserName(String username) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT USERNAME FROM REGISTEREDUSER WHERE USERNAME LIKE '%" + username + "%'";
+        rs = stmt.executeQuery(sql);
+        List<RegisteredUser> games = new ArrayList<>();
+        while (rs.next()) {
+            games.add(new RegisteredUser(rs.getString(1)));
+        }
+        return games;
+    }
 }
