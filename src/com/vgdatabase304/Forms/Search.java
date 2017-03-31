@@ -16,11 +16,12 @@ public class Search {
     private JComboBox searchBy;
     private JButton submitSearchButton;
     private JButton backButton;
-    private static JFrame frame;
+    private JFrame f;
 
     public Search() {
-        //f = new JFrame("Search");
-        //f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        f = new JFrame("Search");
+        f.setContentPane(panel1);
+        f.pack();
 
         submitSearchButton.addActionListener(new ActionListener() {
             @Override
@@ -52,13 +53,13 @@ public class Search {
 
                 }
 
-                frame.dispose();
+                f.dispose();
             }
         });
-        frame.setVisible(true);
+        f.setVisible(true);
     }
 
-    public static void main(String[] args){
+/*    public static void main(String[] args){
         try {
             ConnectionManager.initConnection("ora_s8h0b", "a57723158");
         } catch (SQLException e) {
@@ -71,7 +72,7 @@ public class Search {
         frame.pack();
         frame.setVisible(true);
 
-    }
+    }*/
 
     private void createUIComponents() {
         searchBy.addItem("User");

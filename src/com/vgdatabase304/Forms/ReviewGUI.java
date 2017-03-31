@@ -10,4 +10,13 @@ public class ReviewGUI {
     private JTextField reviewName;
     private JButton backButton;
     private JTextArea reviewText;
+    private JFrame f;
+
+    public ReviewGUI() {
+        f = new JFrame("Search");
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        f.setContentPane(panel1);
+        f.pack();
+    }
 }
+

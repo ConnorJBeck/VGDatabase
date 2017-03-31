@@ -18,4 +18,13 @@ public class AdminUserProfile {
     private JButton deleteUser;
     private JPanel ReivewPanel;
     private JPanel ListPanel;
+    private JPanel mainPanel;
+    private JFrame f;
+
+    public AdminUserProfile() {
+        f = new JFrame("Search");
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        f.setContentPane(mainPanel);
+        f.pack();
+    }
 }

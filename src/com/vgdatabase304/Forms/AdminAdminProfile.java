@@ -1,6 +1,11 @@
 package com.vgdatabase304.Forms;
 
+import com.vgdatabase304.Structures.AdminUser;
+import com.vgdatabase304.Structures.RegisteredUser;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by jessyang90 on 2017-03-28.
@@ -22,4 +27,22 @@ public class AdminAdminProfile {
     private JButton DeleteTag;
     private JTextField newTagName;
     private JButton CreateTag;
+    private JPanel mainPanel;
+    private JFrame f;
+
+    public AdminAdminProfile(RegisteredUser user) {
+        f = new JFrame("Admin");
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Search();
+            }
+        });
+
+        f.setVisible(true);
+        f.setContentPane(mainPanel);
+        f.pack();
+    }
 }

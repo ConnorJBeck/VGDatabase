@@ -40,8 +40,11 @@ public class Login extends JFrame {
                         System.out.println("Username exists setup profile");
                         if (AdminUserAdaptor.isAdmin(user)) {
                             user = new AdminUser(username);
+                            new AdminAdminProfile(user);
                         }
-                        new UserSelfProfile(user);
+                        else{
+                            new UserSelfProfile(user);
+                        }
                         frame.dispose();
 
                     } else {
@@ -89,8 +92,6 @@ public class Login extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
-
     }
 }
 

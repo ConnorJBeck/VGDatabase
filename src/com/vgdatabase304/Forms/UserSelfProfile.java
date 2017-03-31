@@ -6,6 +6,8 @@ import com.vgdatabase304.Structures.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -37,6 +39,13 @@ public class UserSelfProfile extends JFrame {
         parent.setVisible(true);
         parent.pack();
         parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Search();
+            }
+        });
     }
 
     public void setAccount(RegisteredUser user) {

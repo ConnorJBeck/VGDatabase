@@ -17,8 +17,12 @@ public class GameGUI {
     private JTextField textField2;
     private JList platformList;
     private JLabel releaseList;
+    private JFrame f;
 
     public GameGUI(JFrame frame, Game game) {
+        f = new JFrame("GameGUI");
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
 
     }
 }
