@@ -5,6 +5,7 @@ import com.vgdatabase304.Adaptors.VGListAdaptor;
 import com.vgdatabase304.Adaptors.VGListEntryAdaptor;
 import com.vgdatabase304.Structures.CellRenderer;
 import com.vgdatabase304.Structures.Game;
+import com.vgdatabase304.Structures.GameRenderer;
 import com.vgdatabase304.Structures.VGList;
 
 import javax.swing.*;
@@ -67,9 +68,9 @@ public class ListGUI {
             gameScrollPane.setViewportView(listGames);
             for (Game gameObject : listOfGames) {
                 System.out.println(gameObject.getGameID());
-                vgList.addElement(gameObject.getGameID());
+                vgList.addElement(gameObject);
             }
-            listGames.setCellRenderer(new CellRenderer());
+            listGames.setCellRenderer(new GameRenderer());
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
