@@ -25,7 +25,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="b0c3f" class="javax.swing.JLabel" binding="username">
+      <component id="b0c3f" class="javax.swing.JLabel" binding="usernameLabel">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="62" height="16"/>
@@ -36,7 +36,7 @@
           <text value="Username"/>
         </properties>
       </component>
-      <component id="eefa8" class="javax.swing.JLabel" binding="email">
+      <component id="eefa8" class="javax.swing.JLabel" binding="emailLabel">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <forms/>
@@ -138,7 +138,7 @@
           </vspacer>
         </children>
       </grid>
-      <component id="2ded3" class="javax.swing.JTextArea" binding="userName">
+      <component id="2ded3" class="javax.swing.JTextArea" binding="username">
         <constraints>
           <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -149,7 +149,7 @@
           <editable value="false"/>
         </properties>
       </component>
-      <component id="14bb3" class="javax.swing.JTextArea" binding="eMail">
+      <component id="14bb3" class="javax.swing.JTextArea" binding="email">
         <constraints>
           <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>

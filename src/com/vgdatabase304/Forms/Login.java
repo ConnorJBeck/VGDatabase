@@ -39,8 +39,8 @@ public class Login extends JFrame {
                     if (existingPassword.equals(password)) {
                         System.out.println("Username exists setup profile");
                         if (AdminUserAdaptor.isAdmin(user)) {
-                            user = new AdminUser(username);
-                            new AdminAdminProfile(user);
+                            AdminUser admin = new AdminUser(username);
+                            new AdminAdminProfile(admin);
                         }
                         else{
                             new UserSelfProfile(user);
