@@ -3,10 +3,7 @@ package com.vgdatabase304.Forms;
 import com.vgdatabase304.Adaptors.GameAdaptor;
 import com.vgdatabase304.Adaptors.VGListAdaptor;
 import com.vgdatabase304.Adaptors.VGListEntryAdaptor;
-import com.vgdatabase304.Structures.CellRenderer;
-import com.vgdatabase304.Structures.Game;
-import com.vgdatabase304.Structures.GameRenderer;
-import com.vgdatabase304.Structures.VGList;
+import com.vgdatabase304.Structures.*;
 import jdk.nashorn.internal.runtime.ListAdapter;
 
 import javax.swing.*;
@@ -32,7 +29,7 @@ public class ListGUI {
     private JFrame frame;
     private DefaultListModel vgList;
 
-    public ListGUI(VGList list) {
+    public ListGUI(VGList list, RegisteredUser user) {
         try {
             frame = new JFrame(VGListAdaptor.getListName(list));
         } catch (SQLException err) {
@@ -42,7 +39,7 @@ public class ListGUI {
         frame.setContentPane(panel1);
         frame.setVisible(true);
         frame.pack();
-        setupListGUI(list);
+        setupListGUI(list, user);
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -52,7 +49,7 @@ public class ListGUI {
         });
     }
 
-    private void setupListGUI (VGList list) {
+    private void setupListGUI (VGList list, RegisteredUser user) {
         try {
             listName.setText(VGListAdaptor.getListName(list));
         }catch (SQLException err) {
@@ -67,7 +64,7 @@ public class ListGUI {
                 public void valueChanged(ListSelectionEvent e) {
                     System.out.println("value changed");
                     Game game = new Game((int) listGames.getSelectedValue());
-                    new GameGUI(game);
+                    new GameGUI(game, user);
                     frame.dispose();
                 }
             });

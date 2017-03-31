@@ -2,6 +2,7 @@ package com.vgdatabase304.Forms;
 
 import com.vgdatabase304.Adaptors.GameAdaptor;
 import com.vgdatabase304.Structures.Game;
+import com.vgdatabase304.Structures.RegisteredUser;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +23,7 @@ public class Search {
     private JButton backButton;
     private JFrame f;
 
-    public Search() {
+    public Search(RegisteredUser user) {
         f = new JFrame("Search");
         f.setContentPane(panel1);
         f.pack();
@@ -40,7 +41,7 @@ public class Search {
                 }
                 else if (searchFilter == "Game Title") {
                     try {
-                        resultGameList = GameAdaptor.getGameByTitle(query);
+                        resultGameList = GameAdaptor.searchGameByTitle(query);
                     } catch (SQLException err){
                         System.out.println("Error: " + err.getMessage());
                     }

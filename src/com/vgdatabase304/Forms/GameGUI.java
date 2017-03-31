@@ -1,9 +1,9 @@
 package com.vgdatabase304.Forms;
 
 import com.vgdatabase304.Adaptors.GameAdaptor;
+import com.vgdatabase304.Adaptors.VGTagAdaptor;
 import com.vgdatabase304.Adaptors.VGTagGameAdaptor;
-import com.vgdatabase304.Structures.Game;
-import com.vgdatabase304.Structures.VGTag;
+import com.vgdatabase304.Structures.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +27,7 @@ public class GameGUI {
     private JFrame f;
     private List<VGTag> tags;
 
-    public GameGUI(JFrame frame, Game game) {
+    public GameGUI(Game game, RegisteredUser user) {
         f = new JFrame("GameGUI");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
@@ -47,6 +47,12 @@ public class GameGUI {
         attachTagToGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    VGTagGameAdaptor.addTagGameToDatabase(new VGTag((String) listOfTags.getSelectedItem()), game, user);
+                    listOfTags.setSelectedIndex(0);
+                } catch (SQLException err) {
+
+                }
 
             }
         });
@@ -58,7 +64,7 @@ public class GameGUI {
 
     private void setName(Game game) {
         try {
-            gameName.setText(GameAdaptor.getName(game);
+            gameName.setText(GameAdaptor.getName(game));
         } catch (SQLException e) {
             System.out.println("Game name cannot be set");
         }
@@ -66,7 +72,7 @@ public class GameGUI {
 
     private void populateTags() {
         try {
-            tags = VGTagGameAdaptor.;
+            tags = VGTagAdaptor.getAllTags();
             for (VGTag tag: tags) {
                 listOfTags.addItem(tag.getTagName());
             }

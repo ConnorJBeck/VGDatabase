@@ -4,15 +4,10 @@ import com.vgdatabase304.Adaptors.*;
 import com.vgdatabase304.Structures.*;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by jessyang90 on 2017-03-28.
- */
 public class UserSelfProfile extends JFrame {
     private JLabel username;
     private JLabel email;
@@ -70,7 +65,7 @@ public class UserSelfProfile extends JFrame {
                     if (e.getClickCount() == 2) {
                         System.out.println("list clicked");
                         VGList vgList = (VGList) listOfVGLists.getSelectedValue();
-                        new ListGUI(vgList);
+                        new ListGUI(vgList, user);
                     }
                 }
             });
@@ -95,7 +90,7 @@ public class UserSelfProfile extends JFrame {
                     if (e.getClickCount() == 2) {
                         System.out.println("review clicked");
                         Review review = (Review) listOfReviews.getSelectedValue();
-                        new ReviewGUI(review);
+                        new ReviewGUI(review, user);
                     }
                 }
             });

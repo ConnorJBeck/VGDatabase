@@ -132,7 +132,7 @@ public class GameAdaptor {
         }
     }
 
-    public static List<Game> getGameByTitle(String gameTitle) throws SQLException {
+    public static List<Game> searchGameByTitle(String gameTitle) throws SQLException {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT GAMEID FROM GAME WHERE NAME LIKE '%" + gameTitle + "%'";
         rs = stmt.executeQuery(sql);
@@ -189,6 +189,17 @@ public class GameAdaptor {
             games.add(new Game(rs.getInt(1)));
         }
         return games;
+    }
+
+    public static Release getEarliestRelease(Game game) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT GAMEID, REGION, PLATFORM, MIN(RELEASEDATE) AS EARLIESTDATE FROM RELEASE WHERE GAMEID=" + game.getGameID();
+        rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            return new Release(game, Region.valueOf(rs.getString(2)), Platform.valueOf(rs.getString(3)));
+        } else {
+            throw new InstanceNotFoundException("No releases found for game");
+        }
     }
 
 }

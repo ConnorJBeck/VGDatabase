@@ -1,5 +1,6 @@
 package com.vgdatabase304.Forms;
 
+import com.vgdatabase304.Structures.RegisteredUser;
 import com.vgdatabase304.Structures.Review;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class ReviewGUI {
     private JTextArea reviewText;
     private JFrame f;
 
-    public ReviewGUI(Review review) {
+    public ReviewGUI(Review review, RegisteredUser user) {
         f = new JFrame("Review");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         f.setContentPane(mainPanel);
