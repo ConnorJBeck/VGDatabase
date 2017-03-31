@@ -28,19 +28,24 @@ public class ListGUI {
     private JTextField textField1;
     private JTextField textField2;
     private JScrollPane gameScrollPane;
-    private JFrame parent;
+    private JFrame frame;
 
-    public ListGUI(JFrame parent, VGList list) {
-        this.parent = parent;
-        parent.setContentPane(panel1);
-        parent.setVisible(true);
-        parent.pack();
+    public ListGUI(VGList list) {
+        try {
+            frame = new JFrame(VGListAdaptor.getListName(list));
+        } catch (SQLException err) {
+            frame = new JFrame("Could not retrieve list");
+        }
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setContentPane(panel1);
+        frame.setVisible(true);
+        frame.pack();
         setupListGUI(list);
 
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.dispose();
+                frame.dispose();
             }
         });
     }
@@ -53,14 +58,9 @@ public class ListGUI {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
                     System.out.println("value changed");
-                    try {
-                        Game game = new Game((int) listGames.getSelectedValue());
-                        JFrame frame = new JFrame((GameAdaptor.getName(game)));
-                        new GameGUI(frame, game);
-                        parent.dispose();
-                    } catch (SQLException err) {
-                        System.out.println(err.getMessage());
-                    }
+                    Game game = new Game((int) listGames.getSelectedValue());
+                    new GameGUI(game);
+                    frame.dispose();
                 }
             });
             DefaultListModel vgList = new DefaultListModel();
