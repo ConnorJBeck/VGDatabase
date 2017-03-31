@@ -79,7 +79,7 @@ public class UserSelfProfile extends JFrame {
             listsScrollPane.setViewportView(listOfVGLists);
             for (VGList listObject : VGListList) {
                 System.out.println(listObject.getListID());
-                vgList.addElement(listObject.getListID());
+                vgList.addElement(listObject);
             }
             listOfVGLists.setCellRenderer(new ListRenderer());
 
