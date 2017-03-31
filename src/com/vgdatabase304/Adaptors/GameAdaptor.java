@@ -179,10 +179,16 @@ public class GameAdaptor {
         return games;
     }
 
+    public static List<Game> searchGameByTag(VGTag tag) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN TAGGAME ON GAME.GAMEID = TAGGAME.GAMEID " +
+                "WHERE TAGNAME='" + tag.getTagName() + "'";
+        rs = stmt.executeQuery(sql);
+        List<Game> games = new ArrayList<>();
+        while (rs.next()) {
+            games.add(new Game(rs.getInt(1)));
+        }
+        return games;
+    }
 
-
-    //search game by platform;
-    //search game by release year;
-    //search game by rating;
-    //search game by VGtag
 }
