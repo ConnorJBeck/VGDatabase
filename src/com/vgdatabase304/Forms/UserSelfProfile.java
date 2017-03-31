@@ -19,7 +19,7 @@ public class UserSelfProfile extends JFrame {
     private JLabel reviewLabel;
     private JLabel listPanel;
     private JList listOfVGLists;
-    private JList listofReviews;
+    private JList listOfReviews;
     private JTextArea userName;
     private JTextArea eMail;
     private JPanel ReivewPanel;
@@ -29,8 +29,10 @@ public class UserSelfProfile extends JFrame {
     public JPanel mainPanel;
     private JScrollPane listsScrollPane;
     private JScrollPane reviewsScrollPane;
+    private JFrame parent = new JFrame("Profile");
 
-    public UserSelfProfile(JFrame parent, RegisteredUser user) {
+    public UserSelfProfile(RegisteredUser user) {
+        parent = new JFrame("Profile");
         setAccount(user);
         parent.setContentPane(mainPanel);
         parent.setVisible(true);
@@ -51,7 +53,14 @@ public class UserSelfProfile extends JFrame {
             listOfVGLists.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
-                    //open new list interface
+                    System.out.println("value changed");
+                    try {
+                        VGList vgList = new VGList((int) listOfVGLists.getSelectedValue());
+                        JFrame frame = new JFrame((VGListAdaptor.getListName(vgList)));
+                        new ListGUI(frame, vgList);
+                    } catch (SQLException err) {
+                        System.out.println(err.getMessage());
+                    }
                 }
             });
             List<VGList> VGListList = VGListAdaptor.getAllListsByUser(user);
@@ -60,26 +69,27 @@ public class UserSelfProfile extends JFrame {
             listsScrollPane.setViewportView(listOfVGLists);
             for (VGList listObject : VGListList) {
                 System.out.println(listObject.getListID());
-                vgList.addElement(VGListAdaptor.getListName(listObject));
+                vgList.addElement(listObject.getListID());
             }
             listOfVGLists.setCellRenderer(new CellRenderer());
 
-            listofReviews.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-            listofReviews.addListSelectionListener(new ListSelectionListener() {
+            listOfReviews.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            listOfReviews.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
-                    //open new list interface
+
                 }
             });
             List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(user);
             DefaultListModel reviewListModel = new DefaultListModel();
-            listofReviews.setModel(reviewListModel);
-            listofReviews.setCellRenderer(new CellRenderer());
-            reviewsScrollPane.setViewportView(listofReviews);
+            listOfReviews.setModel(reviewListModel);
+            listOfReviews.setCellRenderer(new CellRenderer());
+            reviewsScrollPane.setViewportView(listOfReviews);
             for (Review reviewObject : reviewList) {
                 System.out.println(reviewObject.getReviewID());
                 vgList.addElement(ReviewAdaptor.getGame(reviewObject));
             }
+
 
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());

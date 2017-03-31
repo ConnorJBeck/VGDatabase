@@ -143,7 +143,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="6ac81" class="javax.swing.JList" binding="listofReviews">
+              <component id="6ac81" class="javax.swing.JList" binding="listOfReviews">
                 <constraints/>
                 <properties/>
               </component>

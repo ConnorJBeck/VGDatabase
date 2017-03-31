@@ -18,11 +18,10 @@ public class Login extends JFrame {
     private JButton createAccountButton;
     private JTextField emailField;
     private JLabel emailLabel;
-
+    private static  JFrame frame = new JFrame("Login");
 
 
     public Login() {
-        JFrame thing = this;
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,8 +41,8 @@ public class Login extends JFrame {
                         if (AdminUserAdaptor.isAdmin(user)) {
                             user = new AdminUser(username);
                         }
-                        JFrame frame = new JFrame("Profile");
-                        UserSelfProfile profile = new UserSelfProfile(frame, user);
+                        new UserSelfProfile(user);
+                        frame.dispose();
 
                     } else {
                         System.out.println("Username and password do not match.");
@@ -86,7 +85,6 @@ public class Login extends JFrame {
         } catch (SQLException e) {
             System.out.println("Unable to make connection to database (" + e.getMessage() + ")");
         }
-        JFrame frame = new JFrame("Login");
         frame.setContentPane(new Login().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
