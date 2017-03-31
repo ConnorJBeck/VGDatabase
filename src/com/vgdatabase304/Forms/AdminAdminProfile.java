@@ -40,7 +40,7 @@ public class AdminAdminProfile {
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         //Display username and email
-        username.append(user.getUsername());
+        username.setText(user.getUsername());
         try {
             email.append(RegisteredUserAdaptor.getEmail(user));
         } catch (SQLException e) {

@@ -25,8 +25,7 @@ public class Search {
 
     public Search(RegisteredUser user) {
         f = new JFrame("Search");
-        f.setContentPane(panel1);
-        f.pack();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         submitSearchButton.addActionListener(new ActionListener() {
             @Override
@@ -72,6 +71,8 @@ public class Search {
         });
 
         f.setVisible(true);
+        f.setContentPane(panel1);
+        f.pack();
     }
 
 /*    public static void main(String[] args){

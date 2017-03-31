@@ -8,6 +8,8 @@ import com.vgdatabase304.Utils.ConnectionManager;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 public class Login extends JFrame {
@@ -77,6 +79,16 @@ public class Login extends JFrame {
                     } catch (SQLException err) {
                         System.out.println("An error occurred: " + err.getMessage());
                     }
+                }
+            }
+        });
+
+        passwordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    e.consume();
+                    loginButton.doClick();
                 }
             }
         });

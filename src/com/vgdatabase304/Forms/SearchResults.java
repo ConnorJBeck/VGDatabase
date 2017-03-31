@@ -56,7 +56,7 @@ public class SearchResults {
         resultList.setCellRenderer(new CellRenderer());
 
         f.setVisible(true);
-        f.pack();
         f.setContentPane(panel1);
+        f.pack();
     }
 }
