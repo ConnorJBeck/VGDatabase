@@ -32,7 +32,6 @@ public class UserSelfProfile extends JFrame {
     private JFrame parent = new JFrame("Profile");
 
     public UserSelfProfile(RegisteredUser user) {
-        parent = new JFrame("Profile");
         setAccount(user);
         parent.setContentPane(mainPanel);
         parent.setVisible(true);
@@ -55,7 +54,7 @@ public class UserSelfProfile extends JFrame {
                 public void valueChanged(ListSelectionEvent e) {
                     System.out.println("value changed");
                     try {
-                        VGList vgList = new VGList((int) listOfVGLists.getSelectedValue());
+                        VGList vgList = (VGList) listOfVGLists.getSelectedValue();
                         JFrame frame = new JFrame((VGListAdaptor.getListName(vgList)));
                         new ListGUI(frame, vgList);
                     } catch (SQLException err) {
@@ -71,7 +70,7 @@ public class UserSelfProfile extends JFrame {
                 System.out.println(listObject.getListID());
                 vgList.addElement(listObject.getListID());
             }
-            listOfVGLists.setCellRenderer(new CellRenderer());
+            listOfVGLists.setCellRenderer(new ListRenderer());
 
             listOfReviews.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             listOfReviews.addListSelectionListener(new ListSelectionListener() {

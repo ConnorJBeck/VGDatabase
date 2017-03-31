@@ -25,8 +25,10 @@ public class ListGUI {
     private JTextField textField1;
     private JTextField textField2;
     private JScrollPane gameScrollPane;
+    private JFrame parent;
 
     public ListGUI(JFrame parent, VGList list) {
+        this.parent = parent;
         parent.setContentPane(panel1);
         parent.setVisible(true);
         parent.pack();
@@ -45,6 +47,7 @@ public class ListGUI {
                         Game game = new Game((int) listGames.getSelectedValue());
                         JFrame frame = new JFrame((GameAdaptor.getName(game)));
                         new GameGUI(frame, game);
+                        parent.dispose();
                     } catch (SQLException err) {
                         System.out.println(err.getMessage());
                     }

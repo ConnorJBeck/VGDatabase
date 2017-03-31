@@ -131,4 +131,15 @@ public class GameAdaptor {
             throw new InstanceNotFoundException("No releases found for GameID " + game.getGameID());
         }
     }
+
+    public static List<Game> getGameByTitle(String gameTitle) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT GAMEID FROM GAME WHERE NAME LIKE '%" + gameTitle + "%'";
+        rs = stmt.executeQuery(sql);
+        List<Game> games = new ArrayList<>();
+        while (rs.next()) {
+            games.add(new Game(rs.getInt(1)));
+        }
+        return games;
+    }
 }
