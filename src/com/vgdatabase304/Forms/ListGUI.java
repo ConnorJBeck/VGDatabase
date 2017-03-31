@@ -7,6 +7,7 @@ import com.vgdatabase304.Structures.CellRenderer;
 import com.vgdatabase304.Structures.Game;
 import com.vgdatabase304.Structures.GameRenderer;
 import com.vgdatabase304.Structures.VGList;
+import jdk.nashorn.internal.runtime.ListAdapter;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -25,10 +26,11 @@ public class ListGUI {
     private JPanel panel1;
     private JTextField listName;
     private JList listGames;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTextField highestRatedGameField;
+    private JTextField lowestRatedGameField;
     private JScrollPane gameScrollPane;
     private JFrame frame;
+    private DefaultListModel vgList;
 
     public ListGUI(VGList list) {
         try {
@@ -52,6 +54,12 @@ public class ListGUI {
 
     private void setupListGUI (VGList list) {
         try {
+            listName.setText(VGListAdaptor.getListName(list));
+        }catch (SQLException err) {
+            listName.setText("Unknown List");
+        }
+
+        try {
             List<Game> listOfGames = VGListEntryAdaptor.getAllGamesInList(list);
             listGames.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             listGames.addListSelectionListener(new ListSelectionListener() {
@@ -63,7 +71,7 @@ public class ListGUI {
                     frame.dispose();
                 }
             });
-            DefaultListModel vgList = new DefaultListModel();
+            vgList = new DefaultListModel();
             listGames.setModel(vgList);
             gameScrollPane.setViewportView(listGames);
             for (Game gameObject : listOfGames) {
@@ -71,8 +79,24 @@ public class ListGUI {
                 vgList.addElement(gameObject);
             }
             listGames.setCellRenderer(new GameRenderer());
+
+
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
+
+        try {
+            highestRatedGameField.setText(GameAdaptor.getName(VGListEntryAdaptor.getHighestRatedGame(list)));
+        } catch (SQLException err) {
+            highestRatedGameField.setText("Could not find highest Rated game");
+        }
+
+        try {
+            lowestRatedGameField.setText(GameAdaptor.getName(VGListEntryAdaptor.getLowestRatedGame(list)));
+        } catch (SQLException err) {
+            lowestRatedGameField.setText("Could not find lowest rated game");
+        }
+
+
     }
 }

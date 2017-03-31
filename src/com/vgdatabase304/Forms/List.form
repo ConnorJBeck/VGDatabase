@@ -73,7 +73,7 @@
           <text value="Lowest Rated:"/>
         </properties>
       </component>
-      <component id="21e96" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+      <component id="21e96" class="javax.swing.JTextField" binding="lowestRatedGameField">
         <constraints>
           <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -84,7 +84,7 @@
           <editable value="false"/>
         </properties>
       </component>
-      <component id="b6cea" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="b6cea" class="javax.swing.JTextField" binding="highestRatedGameField">
         <constraints>
           <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
