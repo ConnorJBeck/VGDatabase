@@ -12,13 +12,23 @@ public class SearchResults {
     private JLabel results;
     private JButton backButton;
     private JList resultList;
+    private JFrame f;
 
-    public SearchResults() {
+    public SearchResults(JFrame parent) {
+        f = parent;
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         resultList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
             }
         });
+
+        f.setVisible(true);
+        f.pack();
+        f.setContentPane(panel1);
+        f.setSize(600,600);
+
     }
 }
