@@ -68,6 +68,13 @@ public class Search {
             }
         });
 
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+            }
+        });
+
         f.setVisible(true);
     }
 

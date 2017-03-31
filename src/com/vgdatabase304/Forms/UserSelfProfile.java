@@ -31,13 +31,11 @@ public class UserSelfProfile extends JFrame {
     public JPanel mainPanel;
     private JScrollPane listsScrollPane;
     private JScrollPane reviewsScrollPane;
-    private JFrame parent = new JFrame("Profile");
+    private JFrame parent;
 
     public UserSelfProfile(RegisteredUser user) {
         setAccount(user);
-        parent.setContentPane(mainPanel);
-        parent.setVisible(true);
-        parent.pack();
+        parent = new JFrame("Profile");
         parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         searchButton.addActionListener(new ActionListener() {
@@ -46,6 +44,10 @@ public class UserSelfProfile extends JFrame {
                 new Search();
             }
         });
+
+        parent.setVisible(true);
+        parent.setContentPane(mainPanel);
+        parent.pack();
     }
 
     public void setAccount(RegisteredUser user) {

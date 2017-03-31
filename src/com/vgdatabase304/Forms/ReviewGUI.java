@@ -1,12 +1,14 @@
 package com.vgdatabase304.Forms;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Skyline on 2017-03-29.
  */
 public class ReviewGUI {
-    private JPanel panel1;
+    private JPanel mainPanel;
     private JTextField reviewName;
     private JButton backButton;
     private JTextArea reviewText;
@@ -15,8 +17,17 @@ public class ReviewGUI {
     public ReviewGUI() {
         f = new JFrame("Search");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        f.setContentPane(panel1);
+        f.setContentPane(mainPanel);
         f.pack();
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+            }
+        });
+
+        f.setVisible(true);
     }
 }
 
