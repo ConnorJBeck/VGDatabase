@@ -97,11 +97,11 @@ public class UserSelfProfile extends JFrame {
             List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(user);
             reviewListModel = new DefaultListModel();
             listOfReviews.setModel(reviewListModel);
-            listOfReviews.setCellRenderer(new CellRenderer());
+            listOfReviews.setCellRenderer(new ReviewRenderer());
             reviewsScrollPane.setViewportView(listOfReviews);
             for (Review reviewObject : reviewList) {
                 System.out.println(reviewObject.getReviewID());
-                reviewListModel.addElement(ReviewAdaptor.getGame(reviewObject));
+                reviewListModel.addElement(reviewObject);
             }
         } catch (SQLException err) {
             System.out.println("List Of Reviews Error: No Reviews Found");

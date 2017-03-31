@@ -21,13 +21,15 @@ public class GameGUI {
     private JButton gameReviews;
     private JComboBox listOfTags;
     private JTextField textField2;
-    private JList platformList;
-    private JLabel releaseList;
+    private JList releaseList;
+    private JLabel releaseListLabel;
     private JButton attachTagToGame;
     private JButton addReview;
     private JLabel ratingLabel;
+    private JScrollPane releaseScrollPane;
     private JFrame f;
     private List<VGTag> tags;
+    private DefaultListModel releaseListModel;
 
     public GameGUI(Game game, RegisteredUser user) {
         f = new JFrame("GameGUI");
@@ -69,6 +71,20 @@ public class GameGUI {
         f.setVisible(true);
         f.setContentPane(mainPanel);
         f.pack();
+
+        try {
+            releaseList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            List<Release> listOfReleases = GameAdaptor.getReleases(game);
+            releaseListModel = new DefaultListModel();
+            releaseList.setModel(releaseListModel);
+            releaseList.setCellRenderer(new ReleaseRenderer());
+            releaseScrollPane.setViewportView(releaseList);
+            for (Release releaseObject : listOfReleases) {
+                releaseListModel.addElement(releaseObject);
+            }
+        } catch (SQLException err) {
+            System.out.println("List Of Reviews Error: No Reviews Found");
+        }
     }
 
     private void setName(Game game) {
