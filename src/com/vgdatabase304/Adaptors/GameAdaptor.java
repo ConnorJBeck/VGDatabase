@@ -122,7 +122,7 @@ public class GameAdaptor {
         Platform platform;
         while (rs.next()) {
             region = Region.valueOf(rs.getString("REGION"));
-            platform = Platform.valueOf(rs.getString("PLATFORM"));
+            platform = Platform.valueOf(rs.getString("PLATFORM").replaceAll("\\s+", ""));
             releases.add(new Release(game, region, platform));
         }
         if (releases.size() > 0) {

@@ -63,7 +63,7 @@ public class ListGUI {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
                     System.out.println("value changed");
-                    Game game = new Game((int) listGames.getSelectedValue());
+                    Game game = (Game) listGames.getSelectedValue();
                     new GameGUI(game, user);
                     frame.dispose();
                 }

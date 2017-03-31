@@ -96,10 +96,13 @@ public class ReleaseAdaptor {
 
     public static Date getReleaseDate(Release release) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        String sql = "SELECT DATE FROM GAME WHERE GAMEID=" + release.getGame().getGameID();
+        String sql = "SELECT RELEASEDATE FROM RELEASE WHERE " +
+                "GAMEID=" + release.getGame().getGameID() +
+                " AND REGION='" + release.getRegion().name() + "' AND " +
+                " PLATFORM='" + release.getPlatform().getName() + "'";
         rs = stmt.executeQuery(sql);
         if (rs.next()) {
-            return rs.getDate("Date");
+            return rs.getDate(1);
         } else {
             throw new InstanceNotFoundException("No record found in RELEASE for " + release.getGame());
         }
