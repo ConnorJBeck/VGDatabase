@@ -8,6 +8,8 @@ import com.vgdatabase304.Utils.ConnectionManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VGTagAdaptor {
 
@@ -25,10 +27,10 @@ public class VGTagAdaptor {
         return new VGTag(tagName);
     }
 
-    public static void removeTagFromDatabase(VGTag tag) throws SQLException {
+    public static void removeTagFromDatabase(String tag) throws SQLException {
         stmt = ConnectionManager.getStatement();
         String sql = "DELETE FROM TAG WHERE " +
-                "NAME='" + tag.getTagName() + "'";
+                "NAME='" + tag + "'";
         stmt.executeUpdate(sql);
     }
 
@@ -60,5 +62,14 @@ public class VGTagAdaptor {
         );
     }
 
-
+    public static List<VGTag> getAllTags() throws SQLException {
+      stmt = ConnectionManager.getStatement();
+      List<VGTag> listOfVGTags = new ArrayList<>();
+      String sql = "SELECT NAME FROM TAG";
+      rs = stmt.executeQuery(sql);
+      while (rs.next()) {
+          listOfVGTags.add(new VGTag(rs.getString("NAME")));
+      }
+      return listOfVGTags;
+    }
 }

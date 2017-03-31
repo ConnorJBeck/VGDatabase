@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by jessyang90 on 2017-03-28.
@@ -32,6 +33,7 @@ public class AdminAdminProfile {
     private JButton CreateTag;
     private JPanel mainPanel;
     private JFrame f;
+    private List<VGTag> tags;
 
     public AdminAdminProfile(AdminUser user) {
         f = new JFrame("Admin");
@@ -44,6 +46,9 @@ public class AdminAdminProfile {
         } catch (SQLException e) {
             System.out.println("Could not get admin user email");
         }
+
+        //Get all tags for dropdown
+        populateTags();
 
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -61,6 +66,9 @@ public class AdminAdminProfile {
                 } catch (SQLException e1) {
                     System.out.println("Admin user could not add tag");
                 }
+                newTagName.setText(null);
+                deleteAllTags();
+                populateTags();
                 System.out.println("New Tag: " + tag);
             }
         });
@@ -68,19 +76,36 @@ public class AdminAdminProfile {
         DeleteTag.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                VGTag selectedTag = (VGTag) listofTags.getSelectedItem();
+                String selectedTag = (String) listofTags.getSelectedItem();
                 System.out.println("Selected Tag: " + selectedTag);
                 try {
                     VGTagAdaptor.removeTagFromDatabase(selectedTag);
-                    System.out.println("Successful removal of tag");
+                    System.out.println("Successful removal of tag: " + selectedTag);
                 } catch (SQLException e1) {
-                    System.out.println("Unsuccessful removal");
+                    System.out.println("Unsuccessful removal of tag: " + selectedTag);
                 }
+                deleteAllTags();
+                populateTags();
             }
         });
 
         f.setVisible(true);
         f.setContentPane(mainPanel);
         f.pack();
+    }
+
+    private void populateTags() {
+        try {
+            tags = VGTagAdaptor.getAllTags();
+            for (VGTag tag: tags) {
+                listofTags.addItem(tag.getTagName());
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving tags");
+        }
+    }
+
+    private void deleteAllTags() {
+        listofTags.removeAllItems();
     }
 }
