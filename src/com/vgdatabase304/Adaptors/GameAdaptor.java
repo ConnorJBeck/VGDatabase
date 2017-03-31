@@ -142,4 +142,21 @@ public class GameAdaptor {
         }
         return games;
     }
+
+    public static List<Game> searchGameByPlatform(Platform platform) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN RELEASE ON GAME.GAMEID = RELEASE.GAMEID " +
+                "WHERE RELEASE.PLATFORM='" + platform.getName() + "' ";
+        rs = stmt.executeQuery(sql);
+        List<Game> games = new ArrayList<>();
+        while (rs.next()) {
+            games.add(new Game(rs.getInt(1)));
+        }
+        return games;
+    }
+
+    //search game by platform;
+    //search game by release year;
+    //search game by rating;
+    //search game by VGtag
 }
