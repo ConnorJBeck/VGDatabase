@@ -7,6 +7,8 @@ import com.vgdatabase304.Structures.Game;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,8 +22,9 @@ public class SearchResults {
     private JList resultList;
     private JFrame f;
 
-    public SearchResults(JFrame parent, List<Game> resultGameList) throws SQLException{
-
+    public SearchResults(List<Game> resultGameList) {
+        f = new JFrame("SearchResults");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         resultList.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -29,22 +32,31 @@ public class SearchResults {
 
             }
         });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+            }
+        });
+
         DefaultListModel gameList = new DefaultListModel();
         resultList.setModel(gameList);
         for (Game listObject : resultGameList){
-            String gameName = GameAdaptor.getName(listObject);
+            String gameName = null;
+            try {
+                gameName = GameAdaptor.getName(listObject);
+            } catch (SQLException e) {
+                System.out.println("Game name could not be retrieved");
+            }
             System.out.println(gameName);
             System.out.println(listObject.getGameID());
             gameList.addElement(listObject.getGameID());
         }
         resultList.setCellRenderer(new CellRenderer());
 
-        f = parent;
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
         f.pack();
         f.setContentPane(panel1);
-        f.setSize(600,600);
-
     }
 }

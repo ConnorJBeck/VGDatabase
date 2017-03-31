@@ -24,6 +24,8 @@ public class GameGUI {
     private JList platformList;
     private JLabel releaseList;
     private JButton attachTagToGame;
+    private JButton addReview;
+    private JLabel ratingLabel;
     private JFrame f;
     private List<VGTag> tags;
 
@@ -51,9 +53,16 @@ public class GameGUI {
                     VGTagGameAdaptor.addTagGameToDatabase(new VGTag((String) listOfTags.getSelectedItem()), game, user);
                     listOfTags.setSelectedIndex(0);
                 } catch (SQLException err) {
-
+                    System.out.println("Tag not attached");
                 }
 
+            }
+        });
+
+        addReview.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CreateReview(user, game);
             }
         });
 

@@ -59,12 +59,7 @@ public class Search {
                     // double
                 }
 
-                try {
-                    new SearchResults(new JFrame("SearchResults"), resultGameList);
-                }catch (SQLException err){
-                    System.out.println("Error: " + err.getMessage());
-                }
-
+                new SearchResults(resultGameList);
                 f.dispose();
             }
         });

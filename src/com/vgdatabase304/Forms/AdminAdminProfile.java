@@ -53,7 +53,7 @@ public class AdminAdminProfile {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Search();
+                new Search(user);
             }
         });
 

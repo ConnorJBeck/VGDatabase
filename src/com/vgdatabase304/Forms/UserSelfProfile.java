@@ -40,7 +40,7 @@ public class UserSelfProfile extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Search();
+                new Search(user);
             }
         });
 

@@ -19,9 +19,8 @@ public class ReviewGUI {
 
     public ReviewGUI(Review review, RegisteredUser user) {
         f = new JFrame("Review");
+
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        f.setContentPane(mainPanel);
-        f.pack();
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -31,6 +30,8 @@ public class ReviewGUI {
         });
 
         f.setVisible(true);
+        f.setContentPane(mainPanel);
+        f.pack();
     }
 }
 
