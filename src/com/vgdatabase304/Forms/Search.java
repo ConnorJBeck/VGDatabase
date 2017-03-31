@@ -1,11 +1,15 @@
 package com.vgdatabase304.Forms;
 
-import com.vgdatabase304.Utils.ConnectionManager;
+import com.vgdatabase304.Adaptors.GameAdaptor;
+import com.vgdatabase304.Structures.Game;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by Skyline on 2017-03-28.
@@ -27,35 +31,43 @@ public class Search {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new SearchResults(new JFrame("SearchResults"));
-
                 String query = searchBar.getText();
                 String searchFilter = (String) searchBy.getSelectedItem();
+                List<Game> resultGameList = new ArrayList<Game>();
+
                 if (searchFilter == "User") {
 
                 }
                 else if (searchFilter == "Game Title") {
-
+                    try {
+                        resultGameList = GameAdaptor.getGameByTitle(query);
+                    } catch (SQLException err){
+                        System.out.println("Error: " + err.getMessage());
+                    }
                 }
                 else if (searchFilter == "Game Platform"){
 
                 }
                 else if (searchFilter == "Game Year"){
-
+                    // int
                 }
                 else if (searchFilter == "Tag"){
 
                 }
                 else if (searchFilter == "Rating"){
-
+                    // double
                 }
-                else {
 
+                try {
+                    new SearchResults(new JFrame("SearchResults"), resultGameList);
+                }catch (SQLException err){
+                    System.out.println("Error: " + err.getMessage());
                 }
 
                 f.dispose();
             }
         });
+
         f.setVisible(true);
     }
 
