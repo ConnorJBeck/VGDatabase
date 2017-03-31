@@ -7,7 +7,7 @@ import java.awt.*;
 import java.sql.SQLException;
 
 
-public class ListRenderer extends JLabel implements ListCellRenderer<Object> {
+public class ListRenderer extends CellRenderer implements ListCellRenderer<Object> {
 
     // This is the only method defined by ListCellRenderer.
     // We just reconfigure the JLabel each time we're called.
@@ -19,25 +19,13 @@ public class ListRenderer extends JLabel implements ListCellRenderer<Object> {
             boolean isSelected,      // is the cell selected
             boolean cellHasFocus)    // does the cell have focus
     {
-        VGList vgList = (VGList) value;
         String s;
         try {
-            s = VGListAdaptor.getListName(vgList);
+            s = VGListAdaptor.getListName((VGList) value);
         } catch (SQLException err) {
             s = "List could not be found";
         }
 
-        setText(s);
-        if (isSelected) {
-            setBackground(list.getSelectionBackground());
-            setForeground(list.getSelectionForeground());
-        } else {
-            setBackground(list.getBackground());
-            setForeground(list.getForeground());
-        }
-        setEnabled(list.isEnabled());
-        setFont(list.getFont());
-        setOpaque(true);
-        return this;
+        return super.setVariables(list, s, index, isSelected, cellHasFocus);
     }
 }

@@ -17,6 +17,10 @@ public class CellRenderer extends JLabel implements ListCellRenderer<Object> {
             boolean cellHasFocus)    // does the cell have focus
     {
         String s = value.toString();
+        return setVariables(list, s, index, isSelected, cellHasFocus);
+    }
+
+    public Component setVariables(JList<?> list, String s, int index, boolean isSelected, boolean cellHasFocus) {
         setText(s);
         if (isSelected) {
             setBackground(list.getSelectionBackground());
