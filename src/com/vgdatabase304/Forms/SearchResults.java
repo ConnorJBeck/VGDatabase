@@ -1,8 +1,8 @@
 package com.vgdatabase304.Forms;
 
 import com.vgdatabase304.Adaptors.GameAdaptor;
+import com.vgdatabase304.Structures.CellRenderer;
 import com.vgdatabase304.Structures.Game;
-import com.vgdatabase304.Structures.ListRenderer;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -37,7 +37,7 @@ public class SearchResults {
             System.out.println(listObject.getGameID());
             gameList.addElement(listObject.getGameID());
         }
-        resultList.setCellRenderer(new ListRenderer());
+        resultList.setCellRenderer(new CellRenderer());
 
         f = parent;
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
