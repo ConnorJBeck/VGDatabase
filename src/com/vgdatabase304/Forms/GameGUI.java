@@ -1,6 +1,7 @@
 package com.vgdatabase304.Forms;
 
 import com.vgdatabase304.Adaptors.GameAdaptor;
+import com.vgdatabase304.Adaptors.ReviewAdaptor;
 import com.vgdatabase304.Adaptors.VGTagAdaptor;
 import com.vgdatabase304.Adaptors.VGTagGameAdaptor;
 import com.vgdatabase304.Structures.*;
@@ -8,6 +9,8 @@ import com.vgdatabase304.Structures.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -28,9 +31,11 @@ public class GameGUI {
     private JScrollPane releaseScrollPane;
     private JLabel reviewsLabel;
     private JList reviewsList;
+    private JScrollPane reviewScrollPane;
     private JFrame f;
     private List<VGTag> tags;
     private DefaultListModel releaseListModel;
+    private DefaultListModel reviewListModel;
 
     public GameGUI(Game game, RegisteredUser user) {
         f = new JFrame("GameGUI");
@@ -78,6 +83,31 @@ public class GameGUI {
             releaseScrollPane.setViewportView(releaseList);
             for (Release releaseObject : listOfReleases) {
                 releaseListModel.addElement(releaseObject);
+            }
+        } catch (SQLException err) {
+            System.out.println("List Of Reviews Error: No Reviews Found");
+        }
+
+        try {
+            reviewsList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            reviewsList.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2) {
+                        System.out.println("review clicked");
+                        Review review = (Review) reviewsList.getSelectedValue();
+                        new ReviewGUI(review, user);
+                    }
+                }
+            });
+            List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(user);
+            reviewListModel = new DefaultListModel();
+            reviewsList.setModel(reviewListModel);
+            reviewsList.setCellRenderer(new ReviewRenderer());
+            reviewScrollPane.setViewportView(reviewsList);
+            for (Review reviewObject : reviewList) {
+                System.out.println(reviewObject.getReviewID());
+                reviewListModel.addElement(reviewObject);
             }
         } catch (SQLException err) {
             System.out.println("List Of Reviews Error: No Reviews Found");

@@ -131,7 +131,7 @@
           <text value="Reviews"/>
         </properties>
       </component>
-      <scrollpane id="e2e16">
+      <scrollpane id="e2e16" binding="reviewScrollPane">
         <constraints>
           <grid row="10" column="4" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <forms defaultalign-vert="false"/>
