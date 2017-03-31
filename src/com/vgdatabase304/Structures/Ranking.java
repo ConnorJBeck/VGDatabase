@@ -1,13 +1,17 @@
 package com.vgdatabase304.Structures;
 
+
+
 public class Ranking {
 
     private int personalTotal;
     private int overallTotal;
+    private int rank;
 
-    public Ranking(int personalTotal, int overallTotal) {
+    public Ranking(int personalTotal, int overallTotal, int rank) {
         this.personalTotal = personalTotal;
         this.overallTotal = overallTotal;
+        this.rank = rank;
     }
 
     public int getPersonalTotal() {
@@ -24,5 +28,13 @@ public class Ranking {
 
     public void setOverallTotal(int overallTotal) {
         this.overallTotal = overallTotal;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 }

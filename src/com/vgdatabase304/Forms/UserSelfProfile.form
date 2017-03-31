@@ -51,7 +51,7 @@
           <text value="Go to Search"/>
         </properties>
       </component>
-      <grid id="1b634" binding="ListPanel" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="1b634" binding="ListPanel" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="4" column="6" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -110,9 +110,17 @@
               </component>
             </children>
           </scrollpane>
+          <component id="aa0dc" class="javax.swing.JButton" binding="deleteListButton">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Delete Selected List"/>
+            </properties>
+          </component>
         </children>
       </grid>
-      <grid id="87faf" binding="ReivewPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="87faf" binding="ReviewPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="4" column="2" row-span="2" col-span="3" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -129,13 +137,6 @@
               <text value="Reviews"/>
             </properties>
           </component>
-          <vspacer id="7043">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                <preferred-size width="219" height="14"/>
-              </grid>
-            </constraints>
-          </vspacer>
           <scrollpane id="b5613" binding="reviewsScrollPane">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -149,6 +150,24 @@
               </component>
             </children>
           </scrollpane>
+          <component id="76bfe" class="javax.swing.JButton" binding="deleteReviewButton">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Delete Selected Review"/>
+            </properties>
+          </component>
+          <component id="db5cb" class="javax.swing.JTextArea" binding="reviewRankingTextArea">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="Number of Reviews You've Posted: &#10;Total Number of Review Posted:&#10;Your Ranking:"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <component id="2ded3" class="javax.swing.JTextArea" binding="userName">

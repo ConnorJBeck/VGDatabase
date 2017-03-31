@@ -23,16 +23,19 @@ public class UserSelfProfile extends JFrame {
     private JList listOfReviews;
     private JTextArea userName;
     private JTextArea eMail;
-    private JPanel ReivewPanel;
+    private JPanel ReviewPanel;
     private JPanel ListPanel;
     private JTextField newListName;
     private JButton createList;
     public JPanel mainPanel;
     private JScrollPane listsScrollPane;
     private JScrollPane reviewsScrollPane;
+    private JButton deleteListButton;
+    private JButton deleteReviewButton;
     private JFrame parent;
     private DefaultListModel vgList;
     private DefaultListModel reviewListModel;
+    private JTextArea reviewRankingTextArea;
 
     public UserSelfProfile(RegisteredUser user) {
         setAccount(user);
@@ -126,6 +129,31 @@ public class UserSelfProfile extends JFrame {
                 }
             }
         });
+
+        deleteListButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object badVGList = listOfVGLists.getSelectedValue();
+                vgList.removeElement(badVGList);
+            }
+        });
+
+        deleteReviewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object review = listOfReviews.getSelectedValue();
+                vgList.removeElement(review);
+            }
+        });
+
+        try {
+            Ranking ranking = RegisteredUserAdaptor.getUsersReviewRanking(user);
+            reviewRankingTextArea.setText("Number of Reviews You've Posted: " + ranking.getPersonalTotal() + "\n" +
+                    "Total Number of Review Posted: " + ranking.getOverallTotal() + "\n" +
+                    "Your Ranking: " + ranking.getRank());
+        } catch (SQLException err) {
+            System.out.println("Could not get users review ranking: " + err.getMessage());
+        }
 
 
         /*
