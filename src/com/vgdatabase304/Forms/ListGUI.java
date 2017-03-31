@@ -7,6 +7,7 @@ import com.vgdatabase304.Structures.CellRenderer;
 import com.vgdatabase304.Structures.Game;
 import com.vgdatabase304.Structures.GameRenderer;
 import com.vgdatabase304.Structures.VGList;
+import jdk.nashorn.internal.runtime.ListAdapter;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -25,27 +26,39 @@ public class ListGUI {
     private JPanel panel1;
     private JTextField listName;
     private JList listGames;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTextField highestRatedGameField;
+    private JTextField lowestRatedGameField;
     private JScrollPane gameScrollPane;
-    private JFrame parent;
+    private JFrame frame;
+    private DefaultListModel vgList;
 
-    public ListGUI(JFrame parent, VGList list) {
-        this.parent = parent;
-        parent.setContentPane(panel1);
-        parent.setVisible(true);
-        parent.pack();
+    public ListGUI(VGList list) {
+        try {
+            frame = new JFrame(VGListAdaptor.getListName(list));
+        } catch (SQLException err) {
+            frame = new JFrame("Could not retrieve list");
+        }
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setContentPane(panel1);
+        frame.setVisible(true);
+        frame.pack();
         setupListGUI(list);
 
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.dispose();
+                frame.dispose();
             }
         });
     }
 
     private void setupListGUI (VGList list) {
+        try {
+            listName.setText(VGListAdaptor.getListName(list));
+        }catch (SQLException err) {
+            listName.setText("Unknown List");
+        }
+
         try {
             List<Game> listOfGames = VGListEntryAdaptor.getAllGamesInList(list);
             listGames.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -53,17 +66,12 @@ public class ListGUI {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
                     System.out.println("value changed");
-                    try {
-                        Game game = new Game((int) listGames.getSelectedValue());
-                        JFrame frame = new JFrame((GameAdaptor.getName(game)));
-                        new GameGUI(frame, game);
-                        parent.dispose();
-                    } catch (SQLException err) {
-                        System.out.println(err.getMessage());
-                    }
+                    Game game = new Game((int) listGames.getSelectedValue());
+                    new GameGUI(game);
+                    frame.dispose();
                 }
             });
-            DefaultListModel vgList = new DefaultListModel();
+            vgList = new DefaultListModel();
             listGames.setModel(vgList);
             gameScrollPane.setViewportView(listGames);
             for (Game gameObject : listOfGames) {
@@ -71,8 +79,24 @@ public class ListGUI {
                 vgList.addElement(gameObject);
             }
             listGames.setCellRenderer(new GameRenderer());
+
+
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
+
+        try {
+            highestRatedGameField.setText(GameAdaptor.getName(VGListEntryAdaptor.getHighestRatedGame(list)));
+        } catch (SQLException err) {
+            highestRatedGameField.setText("Could not find highest Rated game");
+        }
+
+        try {
+            lowestRatedGameField.setText(GameAdaptor.getName(VGListEntryAdaptor.getLowestRatedGame(list)));
+        } catch (SQLException err) {
+            lowestRatedGameField.setText("Could not find lowest rated game");
+        }
+
+
     }
 }

@@ -6,8 +6,7 @@ import com.vgdatabase304.Structures.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,14 +23,19 @@ public class UserSelfProfile extends JFrame {
     private JList listOfReviews;
     private JTextArea userName;
     private JTextArea eMail;
-    private JPanel ReivewPanel;
+    private JPanel ReviewPanel;
     private JPanel ListPanel;
     private JTextField newListName;
     private JButton createList;
     public JPanel mainPanel;
     private JScrollPane listsScrollPane;
     private JScrollPane reviewsScrollPane;
+    private JButton deleteListButton;
+    private JButton deleteReviewButton;
     private JFrame parent;
+    private DefaultListModel vgList;
+    private DefaultListModel reviewListModel;
+    private JTextArea reviewRankingTextArea;
 
     public UserSelfProfile(RegisteredUser user) {
         setAccount(user);
@@ -60,21 +64,18 @@ public class UserSelfProfile extends JFrame {
 
         try {
             listOfVGLists.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-            listOfVGLists.addListSelectionListener(new ListSelectionListener() {
+            listOfVGLists.addMouseListener(new MouseAdapter() {
                 @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    System.out.println("value changed");
-                    try {
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2) {
+                        System.out.println("list clicked");
                         VGList vgList = (VGList) listOfVGLists.getSelectedValue();
-                        JFrame frame = new JFrame((VGListAdaptor.getListName(vgList)));
-                        new ListGUI(frame, vgList);
-                    } catch (SQLException err) {
-                        System.out.println(err.getMessage());
+                        new ListGUI(vgList);
                     }
                 }
             });
             List<VGList> VGListList = VGListAdaptor.getAllListsByUser(user);
-            DefaultListModel vgList = new DefaultListModel();
+            vgList = new DefaultListModel();
             listOfVGLists.setModel(vgList);
             listsScrollPane.setViewportView(listOfVGLists);
             for (VGList listObject : VGListList) {
@@ -82,33 +83,77 @@ public class UserSelfProfile extends JFrame {
                 vgList.addElement(listObject);
             }
             listOfVGLists.setCellRenderer(new ListRenderer());
+        } catch (SQLException err) {
+            System.out.println("List Of Lists Error: No Lists Found");
+        }
 
+        try {
             listOfReviews.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-            listOfReviews.addListSelectionListener(new ListSelectionListener() {
+            listOfReviews.addMouseListener(new MouseAdapter() {
                 @Override
-                public void valueChanged(ListSelectionEvent e) {
-
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2) {
+                        System.out.println("review clicked");
+                        Review review = (Review) listOfReviews.getSelectedValue();
+                        new ReviewGUI(review);
+                    }
                 }
             });
             List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(user);
-            DefaultListModel reviewListModel = new DefaultListModel();
+            reviewListModel = new DefaultListModel();
             listOfReviews.setModel(reviewListModel);
             listOfReviews.setCellRenderer(new CellRenderer());
             reviewsScrollPane.setViewportView(listOfReviews);
             for (Review reviewObject : reviewList) {
                 System.out.println(reviewObject.getReviewID());
-                vgList.addElement(ReviewAdaptor.getGame(reviewObject));
+                reviewListModel.addElement(ReviewAdaptor.getGame(reviewObject));
             }
-
-
-        } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+        } catch (SQLException err) {
+            System.out.println("List Of Reviews Error: No Reviews Found");
         }
 
+        createList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String newListStr = newListName.getText();
+                if (newListStr.length() == 0) {
+                    JOptionPane.showMessageDialog(null, "You must enter a name for your new list.");
+                } else {
+                    try {
+                        VGList newVGList = VGListAdaptor.addListToDatabase(newListStr, user);
+                        vgList.addElement(newVGList);
+                        newListName.setText("");
+                    } catch (SQLException err) {
+                        System.out.println(err.getMessage());
+                    }
+                }
+            }
+        });
 
+        deleteListButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object badVGList = listOfVGLists.getSelectedValue();
+                vgList.removeElement(badVGList);
+            }
+        });
 
+        deleteReviewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object review = listOfReviews.getSelectedValue();
+                vgList.removeElement(review);
+            }
+        });
 
-
+        try {
+            Ranking ranking = RegisteredUserAdaptor.getUsersReviewRanking(user);
+            reviewRankingTextArea.setText("Number of Reviews You've Posted: " + ranking.getPersonalTotal() + "\n" +
+                    "Total Number of Review Posted: " + ranking.getOverallTotal() + "\n" +
+                    "Your Ranking: " + ranking.getRank());
+        } catch (SQLException err) {
+            System.out.println("Could not get users review ranking: " + err.getMessage());
+        }
 
 
         /*

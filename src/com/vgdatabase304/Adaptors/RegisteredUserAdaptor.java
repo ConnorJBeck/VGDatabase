@@ -95,21 +95,31 @@ public class RegisteredUserAdaptor {
         stmt = ConnectionManager.getStatement();
         int personalCount;
         int totalCount;
-        rs = stmt.executeQuery("SELECT COUNT(*) FROM CREATEREVIEW WHERE USERNAME='" + user.getUsername() + "'");
+        int rank;
+        rs = stmt.executeQuery("SELECT COUNT(*) FROM REVIEW WHERE USERNAME='" + user.getUsername() + "'");
         if (rs.next()) {
             personalCount = rs.getInt(1);
         } else {
             personalCount = 0;
         }
 
-        rs = stmt.executeQuery("SELECT MAX(COUNT) FROM (SELECT COUNT(*) AS COUNT FROM CREATEREVIEW GROUP BY USERNAME)");
+        rs = stmt.executeQuery("SELECT MAX(COUNT) FROM (SELECT COUNT(*) AS COUNT FROM REVIEW GROUP BY USERNAME)");
         if (rs.next()) {
             totalCount = rs.getInt(1);
         } else {
             totalCount = 1;
         }
 
-        return new Ranking(personalCount, totalCount);
+        rs = stmt.executeQuery("SELECT COUNT(REVIEWCOUNT) " +
+                "FROM (SELECT USERNAME, COUNT(REVIEWID) AS REVIEWCOUNT FROM REVIEW GROUP BY USERNAME ORDER BY COUNT(REVIEWID) DESC) " +
+                "WHERE REVIEWCOUNT > " + personalCount);
+        if (rs.next()) {
+            rank = rs.getInt(1) + 1;
+        } else {
+            rank = 100;
+        }
+
+        return new Ranking(personalCount, totalCount, rank);
     }
 
     public static List<RegisteredUser> searchUserByUserName(String username) throws SQLException {

@@ -27,7 +27,8 @@ public class VGListAdaptor {
         String sql = "INSERT INTO LIST (listID, name, username) VALUES (" +
                 listID + ", '" +
                 listName + "', '" +
-                user.getUsername() + "'";
+                user.getUsername() + "')";
+        System.out.println(sql);
         stmt.executeUpdate(sql);
         return new VGList(listID);
     }

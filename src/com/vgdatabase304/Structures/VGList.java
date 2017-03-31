@@ -1,11 +1,10 @@
 package com.vgdatabase304.Structures;
-import java.sql.SQLException;
 
 public class VGList {
 
     private int listID;
 
-    public VGList(int listID) throws SQLException {
+    public VGList(int listID) {
         this.listID = listID;
     }
 
