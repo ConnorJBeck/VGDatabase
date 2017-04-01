@@ -34,13 +34,20 @@ public class Login extends JFrame {
                 password = passwordField.getText();
                 System.out.println(username);
                 System.out.println(password);
-                RegisteredUser user = new RegisteredUser(username);
+
                 try {
+                    final RegisteredUser user;
+                    if (AdminUserAdaptor.isAdmin(username)) {
+                        user = new AdminUser(username);
+                    } else {
+                        user = new RegisteredUser(username);
+                    }
+
                     String existingPassword = RegisteredUserAdaptor.getPassword(user);
                     System.out.println(existingPassword);
                     if (existingPassword.equals(password)) {
                         System.out.println("Username exists setup profile");
-                        if (AdminUserAdaptor.isAdmin(user)) {
+                        if (AdminUserAdaptor.isAdmin(user.getUsername())) {
                             AdminUser admin = new AdminUser(username);
                             new AdminAdminProfile(admin);
                         }
