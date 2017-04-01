@@ -147,7 +147,13 @@ public class UserSelfProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object badVGList = listOfVGLists.getSelectedValue();
-                vgList.removeElement(badVGList);
+
+                try {
+                    VGListAdaptor.removeListFromDatabase((VGList) badVGList);
+                    vgList.removeElement(badVGList);
+                } catch (SQLException err) {
+                    System.out.println("Could not remove from database: " + err.getMessage());
+                }
             }
         });
 
@@ -155,7 +161,13 @@ public class UserSelfProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object review = listOfReviews.getSelectedValue();
-                reviewListModel.removeElement(review);
+
+                try {
+                    reviewListModel.removeElement(review);
+                    ReviewAdaptor.removeReviewFromDatabase((Review) review);
+                } catch (SQLException err) {
+                    System.out.println("Could not remove from database: " + err.getMessage());
+                }
             }
         });
 
