@@ -102,5 +102,43 @@ public class VGListAdaptor {
 
     }
 
+    public static List<RegisteredUser> getUsersWhoHavePlayedAllGames(int listID) throws SQLException
+    {
+        List<RegisteredUser> listOfUsers = new ArrayList<>();
+
+        String sql = "SELECT DISTINCT username " +
+                "FROM (Select RegisteredUser.username, gameID " +
+                "      FROM RegisteredUser " +
+                "        INNER JOIN review " +
+                "          ON RegisteredUser.username = review.username) A1 " +
+                "WHERE NOT EXISTS " +
+                "(SELECT * " +
+                "FROM (SELECT gameID " +
+                "      FROM list " +
+                "        INNER JOIN listentries " +
+                "          ON (list.listID = listentries.listID) " +
+                "             AND (list.listID =" + listID + ")) B " +
+                "WHERE NOT EXISTS " +
+                "(SELECT * " +
+                "FROM (Select RegisteredUser.username, gameID " +
+                "      FROM RegisteredUser " +
+                "        INNER JOIN review " +
+                "          ON RegisteredUser.username = review.username) A2 " +
+                "WHERE (A1.username = A2.username) " +
+                "AND (A2.gameID = B.gameID)));";
+
+        rs = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            listOfUsers.add(new RegisteredUser(rs.getString("USERNAME")));
+        }
+        if (listOfUsers.size() > 0) {
+            return listOfUsers;
+        } else {
+            throw new InstanceNotFoundException("No users found who played every game in list " + listID);
+        }
+
+    }
+
 
 }
