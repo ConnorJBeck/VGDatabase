@@ -4,7 +4,6 @@ import com.vgdatabase304.Exceptions.InstanceNotFoundException;
 import com.vgdatabase304.Structures.Ranking;
 import com.vgdatabase304.Structures.RegisteredUser;
 import com.vgdatabase304.Utils.ConnectionManager;
-import sun.security.jca.GetInstance;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -125,6 +124,17 @@ public class RegisteredUserAdaptor {
     public static List<RegisteredUser> searchUserByUserName(String username) throws SQLException {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT USERNAME FROM REGISTEREDUSER WHERE USERNAME LIKE '%" + username + "%'";
+        rs = stmt.executeQuery(sql);
+        List<RegisteredUser> games = new ArrayList<>();
+        while (rs.next()) {
+            games.add(new RegisteredUser(rs.getString(1)));
+        }
+        return games;
+    }
+
+    public static List<RegisteredUser> searchAllUsers() throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT USERNAME FROM REGISTEREDUSER";
         rs = stmt.executeQuery(sql);
         List<RegisteredUser> games = new ArrayList<>();
         while (rs.next()) {

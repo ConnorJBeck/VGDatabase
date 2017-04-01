@@ -213,4 +213,15 @@ public class GameAdaptor {
         }
     }
 
+    public static List<Game> searchAllGames() throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT GAME.GAMEID FROM GAME";
+        rs = stmt.executeQuery(sql);
+        List<Game> games = new ArrayList<>();
+        while (rs.next()) {
+            games.add(new Game(rs.getInt(1)));
+        }
+        return games;
+    }
+
 }
