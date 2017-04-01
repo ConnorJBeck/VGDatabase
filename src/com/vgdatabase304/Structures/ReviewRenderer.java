@@ -23,7 +23,7 @@ public class ReviewRenderer extends CellRenderer implements ListCellRenderer<Obj
     {
         String s;
         try {
-            s = GameAdaptor.getName(ReviewAdaptor.getGame((Review) value));
+            s = GameAdaptor.getName(ReviewAdaptor.getGame((Review) value)) + " : " + ReviewAdaptor.getRating((Review) value);
         } catch (SQLException err) {
             s = "Review could not be found";
         }

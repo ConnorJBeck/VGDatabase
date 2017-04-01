@@ -27,7 +27,7 @@ public class UserSelfProfile extends JFrame {
     private JScrollPane reviewsScrollPane;
     private JButton deleteListButton;
     private JButton deleteReviewButton;
-    private JFrame parent;
+    private JFrame f;
     private DefaultListModel vgList;
     private DefaultListModel reviewListModel;
     private JTextArea reviewRankingTextArea;
@@ -37,8 +37,8 @@ public class UserSelfProfile extends JFrame {
 
     public UserSelfProfile(final RegisteredUser currentUser) {
         setAccount(currentUser);
-        parent = new JFrame("Profile");
-        parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f = new JFrame("Profile");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         searchButton.addActionListener(new ActionListener() {
 
@@ -62,9 +62,9 @@ public class UserSelfProfile extends JFrame {
             }
         });
 
-        parent.setVisible(true);
-        parent.setContentPane(mainPanel);
-        parent.pack();
+        f.setVisible(true);
+        f.setContentPane(mainPanel);
+        f.pack();
     }
 
     public void setAccount(final RegisteredUser user) {
@@ -180,22 +180,6 @@ public class UserSelfProfile extends JFrame {
             System.out.println("Could not get users review ranking: " + err.getMessage());
         }
 
-
-        /*
-        try {
-            password.setTest(RegisteredUserAdaptor.getPassword(user));
-        } catch (SQLException e) {
-            password.setText("Unable to retrieve password from database");
-        }
-        */
-    }
-
-
-    private void createUIComponents() {
-        //search user by name;
-        //search game by platform;
-        //search game by release year;
-        //search game by rating;
-        //search game by VGtag
     }
 }
+

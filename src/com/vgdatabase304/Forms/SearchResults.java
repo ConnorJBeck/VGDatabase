@@ -24,7 +24,7 @@ public class SearchResults {
     private JFrame f;
     boolean isGame;
 
-    public SearchResults(List<SearchResult> inputList, final RegisteredUser user) {
+    public SearchResults(List<SearchResult> inputList, final RegisteredUser currentUser) {
         f = new JFrame("SearchResults");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         if (inputList.get(0).getClass() == Game.class){
@@ -54,23 +54,23 @@ public class SearchResults {
                     // Game List
                     if(isGame){
                         Game game = (Game) resultList.getSelectedValue();
-                        new GameGUI(game, user);
+                        new GameGUI(game, currentUser);
                     }
                     // User List
                     else{
                         try {
                             RegisteredUser selected = (RegisteredUser) resultList.getSelectedValue();
 
-                            if (AdminUserAdaptor.isAdmin(user)) {
-                                new AdminUserProfile(selected,user);
+                            if (AdminUserAdaptor.isAdmin(currentUser)) {
+                                new AdminUserProfile(selected,currentUser);
                             }else{
-                                new UserUserProfile();
+                                new UserUserProfile(selected, currentUser);
                             }
 
                         }catch (SQLException err){
                             System.out.println("Error: " + err.getMessage());
                         }
-                        // click user
+                        // click currentUser
                     }
 
                 }

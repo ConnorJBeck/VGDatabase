@@ -24,7 +24,7 @@ public class Search {
 
     public Search(final RegisteredUser currentUser) {
         f = new JFrame("Search");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         submitSearchButton.addActionListener(new ActionListener() {
             @Override
