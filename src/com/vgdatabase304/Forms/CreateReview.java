@@ -39,9 +39,8 @@ public class CreateReview {
             public void actionPerformed(ActionEvent e) {
                 String review = reviewText.getText();
                 Double rating = Double.valueOf(ratingField.getText());
-                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 try {
-                    ReviewAdaptor.addReviewToDatabase(user, game, review, timestamp, rating);
+                    ReviewAdaptor.addReviewToDatabase(user, game, review, rating);
                 } catch (SQLException e1) {
                     System.out.println("Unable to submit review");
                 }

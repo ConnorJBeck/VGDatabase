@@ -103,7 +103,7 @@ public class RegisteredUserAdaptor {
             personalCount = 0;
         }
 
-        rs = stmt.executeQuery("SELECT MAX(COUNT) FROM (SELECT COUNT(*) AS COUNT FROM REVIEW GROUP BY USERNAME)");
+        rs = stmt.executeQuery("SELECT COUNT(*) FROM REVIEW");
         if (rs.next()) {
             totalCount = rs.getInt(1);
         } else {
