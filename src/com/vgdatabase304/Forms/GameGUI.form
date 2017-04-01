@@ -71,15 +71,6 @@
           <text value="Releases"/>
         </properties>
       </component>
-      <component id="2e6e2" class="javax.swing.JTextField" binding="textField2" default-binding="true">
-        <constraints>
-          <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-          <forms defaultalign-horz="false"/>
-        </constraints>
-        <properties/>
-      </component>
       <scrollpane id="915ed" binding="releaseScrollPane">
         <constraints>
           <grid row="14" column="4" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -171,6 +162,17 @@
         </constraints>
         <properties>
           <text value="Delete This Release"/>
+        </properties>
+      </component>
+      <component id="f147c" class="javax.swing.JTextArea" binding="ratingTextArea">
+        <constraints>
+          <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
         </properties>
       </component>
     </children>

@@ -17,7 +17,6 @@ public class GameGUI {
     private JPanel mainPanel;
     private JTextField gameName;
     private JComboBox listOfTags;
-    private JTextField textField2;
     private JList releaseList;
     private JLabel releaseListLabel;
     private JButton attachTagToGame;
@@ -30,6 +29,7 @@ public class GameGUI {
     private JComboBox listOfAttachedTags;
     private JLabel currentTagsLabel;
     private JButton deleteThisReleaseButton;
+    private JTextArea ratingTextArea;
     private JFrame f;
     private List<VGTag> tags;
     private List<VGTag> attachedTags;
@@ -89,6 +89,13 @@ public class GameGUI {
                 }
             }
         });
+
+        try {
+            ratingTextArea.setText(Double.toString(GameAdaptor.getGameRating(game)));
+        } catch (SQLException err) {
+            ratingTextArea.setText("Could not retrieve game");
+            System.out.println(err.getMessage());
+        }
 
         try {
             releaseList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
