@@ -27,13 +27,13 @@ public class AdminUserProfile {
     private JPanel mainPanel;
     private JFrame f;
 
-    public AdminUserProfile(final RegisteredUser user, RegisteredUser currentUser) {
+    public AdminUserProfile(final RegisteredUser user, final RegisteredUser currentUser) {
         f = new JFrame("Search");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-        username.setText(currentUser.getUsername());
+        username.setText(user.getUsername());
         try {
-            email.append(RegisteredUserAdaptor.getEmail(currentUser));
+            email.append(RegisteredUserAdaptor.getEmail(user));
         } catch (SQLException e) {
             System.out.println("Could not get user's email");
         }
@@ -41,7 +41,7 @@ public class AdminUserProfile {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Search(user);
+                new Search(currentUser);
             }
         });
 
