@@ -27,7 +27,8 @@ public class SearchResults {
     public SearchResults(List<SearchResult> inputList, final RegisteredUser currentUser) {
         f = new JFrame("SearchResults");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        if (inputList.get(0).getClass() == Game.class){
+
+        if (inputList.size() > 0 && inputList.get(0).getClass() == Game.class){
             isGame = true;
         }
 

@@ -134,7 +134,7 @@ public class GameAdaptor {
 
     public static List<Game> searchGameByTitle(String gameTitle) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        String sql = "SELECT GAMEID FROM GAME WHERE NAME LIKE '%" + gameTitle + "%'";
+        String sql = "SELECT DISTINCT GAMEID FROM GAME WHERE NAME LIKE '%" + gameTitle + "%'";
         rs = stmt.executeQuery(sql);
         List<Game> games = new ArrayList<>();
         while (rs.next()) {
@@ -145,7 +145,7 @@ public class GameAdaptor {
 
     public static List<Game> searchGameByPlatform(String platform) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN RELEASE ON GAME.GAMEID = RELEASE.GAMEID " +
+        String sql = "SELECT DISTINCT GAME.GAMEID FROM GAME INNER JOIN RELEASE ON GAME.GAMEID = RELEASE.GAMEID " +
                 "WHERE RELEASE.PLATFORM LIKE '%" + platform + "%'";
         rs = stmt.executeQuery(sql);
         List<Game> games = new ArrayList<>();
@@ -157,7 +157,7 @@ public class GameAdaptor {
 
     public static List<Game> searchGameByYear(int year) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN RELEASE ON GAME.GAMEID = RELEASE.GAMEID " +
+        String sql = "SELECT DISTINCT GAME.GAMEID FROM GAME INNER JOIN RELEASE ON GAME.GAMEID = RELEASE.GAMEID " +
                 "WHERE RELEASE.RELEASEDATE BETWEEN TO_DATE('" + year + "-01-01', 'yyyy-mm-dd') AND TO_DATE('" + (year + 1) + "-01-01', 'yyyy-mm-dd')";
         rs = stmt.executeQuery(sql);
         List<Game> games = new ArrayList<>();
@@ -169,7 +169,7 @@ public class GameAdaptor {
 
     public static List<Game> searchGameByRating(String comparator, double rating) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN REVIEW ON GAME.GAMEID = REVIEW.GAMEID " +
+        String sql = "SELECT DISTINCT GAME.GAMEID FROM GAME INNER JOIN REVIEW ON GAME.GAMEID = REVIEW.GAMEID " +
                 "WHERE RATING " + comparator + " " + rating;
         rs = stmt.executeQuery(sql);
         List<Game> games = new ArrayList<>();
@@ -181,7 +181,7 @@ public class GameAdaptor {
 
     public static List<Game> searchGameByTag(String tagName) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN TAGGAME ON GAME.GAMEID = TAGGAME.GAMEID " +
+        String sql = "SELECT DISTINCT GAME.GAMEID FROM GAME INNER JOIN TAGGAME ON GAME.GAMEID = TAGGAME.GAMEID " +
                 "WHERE TAGNAME LIKE '%" + tagName + "%'";
         rs = stmt.executeQuery(sql);
         List<Game> games = new ArrayList<>();
