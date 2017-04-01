@@ -202,4 +202,26 @@ public class GameAdaptor {
         }
     }
 
+    public static double getGameRating(Game game) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT AVG(RATING) FROM GAME INNER JOIN REVIEW ON GAME.GAMEID = REVIEW.GAMEID WHERE GAME.GAMEID=" + game.getGameID();
+        rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            return rs.getDouble(1);
+        } else {
+            throw new InstanceNotFoundException("No releases found for game");
+        }
+    }
+
+    public static List<Game> searchAllGames() throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        String sql = "SELECT GAME.GAMEID FROM GAME";
+        rs = stmt.executeQuery(sql);
+        List<Game> games = new ArrayList<>();
+        while (rs.next()) {
+            games.add(new Game(rs.getInt(1)));
+        }
+        return games;
+    }
+
 }
