@@ -1,9 +1,6 @@
 package com.vgdatabase304.Forms;
 
-import com.vgdatabase304.Adaptors.GameAdaptor;
-import com.vgdatabase304.Adaptors.ReviewAdaptor;
-import com.vgdatabase304.Adaptors.VGTagAdaptor;
-import com.vgdatabase304.Adaptors.VGTagGameAdaptor;
+import com.vgdatabase304.Adaptors.*;
 import com.vgdatabase304.Structures.*;
 
 import javax.swing.*;
@@ -32,6 +29,7 @@ public class GameGUI {
     private JScrollPane reviewScrollPane;
     private JComboBox listOfAttachedTags;
     private JLabel currentTagsLabel;
+    private JButton deleteThisReleaseButton;
     private JFrame f;
     private List<VGTag> tags;
     private List<VGTag> attachedTags;
@@ -76,6 +74,19 @@ public class GameGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new CreateReview(game, currentUser);
+            }
+        });
+
+        deleteThisReleaseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Release selected = (Release) releaseList.getSelectedValue();
+                try {
+                    ReleaseAdaptor.removeReleaseFromDB(selected);
+                    releaseListModel.removeElement(releaseList.getSelectedValue());
+                } catch (SQLException e1) {
+                    System.out.println("Could not remove release");
+                }
             }
         });
 
