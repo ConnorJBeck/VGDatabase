@@ -32,8 +32,11 @@ public class GameGUI {
     private JLabel reviewsLabel;
     private JList reviewsList;
     private JScrollPane reviewScrollPane;
+    private JComboBox listOfAttachedTags;
+    private JLabel currentTagsLabel;
     private JFrame f;
     private List<VGTag> tags;
+    private List<VGTag> attachedTags;
     private DefaultListModel releaseListModel;
     private DefaultListModel reviewListModel;
 
@@ -44,8 +47,10 @@ public class GameGUI {
         //Set name
         setName(game);
 
-        //Populate tags
-        populateTags();
+        //Populate list of tags that can be added
+        populateListOfTags();
+
+        populateListAttachedTags(game);
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -58,8 +63,10 @@ public class GameGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    VGTagGameAdaptor.addTagGameToDatabase(new VGTag((String) listOfTags.getSelectedItem()), game, user);
-                    listOfTags.setSelectedIndex(0);
+                    VGTag tagToBeAdded = new VGTag((String) listOfTags.getSelectedItem());
+                    VGTagGameAdaptor.addTagGameToDatabase(tagToBeAdded, game, user);
+                    deleteAllAttachedTags();
+                    populateListAttachedTags(game);
                 } catch (SQLException err) {
                     System.out.println("Tag not attached");
                 }
@@ -118,6 +125,17 @@ public class GameGUI {
         f.pack();
     }
 
+    private void populateListAttachedTags(Game game) {
+        try {
+            attachedTags = VGTagGameAdaptor.getAttachedTagsToGame(game);
+            for (VGTag tag: attachedTags) {
+                listOfAttachedTags.addItem(tag.getTagName());
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving attached tags");
+        }
+    }
+
     private void setName(Game game) {
         try {
             gameName.setText(GameAdaptor.getName(game));
@@ -126,7 +144,7 @@ public class GameGUI {
         }
     }
 
-    private void populateTags() {
+    private void populateListOfTags() {
         try {
             tags = VGTagAdaptor.getAllTags();
             for (VGTag tag: tags) {
@@ -135,5 +153,9 @@ public class GameGUI {
         } catch (SQLException e) {
             System.out.println("Error retrieving tags");
         }
+    }
+
+    private void deleteAllAttachedTags() {
+        listOfAttachedTags.removeAllItems();
     }
 }

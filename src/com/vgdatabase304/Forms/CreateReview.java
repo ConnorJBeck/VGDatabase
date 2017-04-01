@@ -40,7 +40,7 @@ public class CreateReview {
                 String review = reviewText.getText();
                 Double rating = Double.valueOf(ratingField.getText());
                 try {
-                    ReviewAdaptor.addReviewToDatabase(user, game, review, rating);
+                    ReviewAdaptor.addReviewToDatabase(user, game, review, timestamp, rating);
                 } catch (SQLException e1) {
                     System.out.println("Unable to submit review");
                 }
