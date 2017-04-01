@@ -37,6 +37,7 @@ public class GameGUI {
     private List<VGTag> attachedTags;
     private DefaultListModel releaseListModel;
     private DefaultListModel reviewListModel;
+    private JButton addReleaseButton;
 
     public GameGUI(final Game game, final RegisteredUser currentUser) {
         f = new JFrame("GameGUI");
@@ -53,6 +54,7 @@ public class GameGUI {
         try {
             if (AdminUserAdaptor.isAdmin(currentUser)) {
                 deleteThisReleaseButton.setEnabled(true);
+                addReleaseButton.setEnabled(true);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -166,6 +168,13 @@ public class GameGUI {
                     System.out.println("Game not added to list");
                 }
 
+            }
+        });
+
+        addReleaseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CreateRelease(currentUser, game);
             }
         });
 
