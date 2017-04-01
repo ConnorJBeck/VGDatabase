@@ -44,4 +44,14 @@ public class AdminUserAdaptor extends RegisteredUserAdaptor {
             return false;
         }
     }
+
+    public static boolean isAdmin(RegisteredUser user) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        rs = stmt.executeQuery("SELECT * FROM ADMIN WHERE USERNAME='" + user.getUsername() + "'");
+        if (rs.next()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
