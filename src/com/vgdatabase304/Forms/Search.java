@@ -14,9 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Created by Skyline on 2017-03-28.
- */
 public class Search {
     private JTextField searchBar;
     private JPanel panel1;
@@ -25,7 +22,7 @@ public class Search {
     private JButton backButton;
     private JFrame f;
 
-    public Search(final RegisteredUser user) {
+    public Search(final RegisteredUser currentUser) {
         f = new JFrame("Search");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -102,7 +99,7 @@ public class Search {
                             resultList.add(game);
                         }
                     }
-                    new SearchResults(resultList, user);
+                    new SearchResults(resultList, currentUser);
 
 
                 f.dispose();
