@@ -32,6 +32,8 @@ public class AdminAdminProfile {
     private JTextField newTagName;
     private JButton CreateTag;
     private JPanel mainPanel;
+    private JButton changeEmailButton;
+    private JTextField newEmail;
     private JFrame f;
     private List<VGTag> tags;
 
@@ -86,6 +88,20 @@ public class AdminAdminProfile {
                 }
                 deleteAllTags();
                 populateTags();
+            }
+        });
+
+        changeEmailButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    RegisteredUserAdaptor.setEmail(user, newEmail.getText());
+                    email.setText(RegisteredUserAdaptor.getEmail(user));
+                    newEmail.setText(null);
+                    System.out.println("Changed email for " + user.getUsername() + " to " + newEmail.getText());
+                } catch (SQLException e1) {
+                    System.out.println("Could not chage email for: " + user.getUsername());
+                }
             }
         });
 

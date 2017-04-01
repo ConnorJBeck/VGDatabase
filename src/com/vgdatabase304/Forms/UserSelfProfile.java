@@ -31,6 +31,9 @@ public class UserSelfProfile extends JFrame {
     private DefaultListModel vgList;
     private DefaultListModel reviewListModel;
     private JTextArea reviewRankingTextArea;
+    private JButton changeEmailButton;
+    private JTextField newEmail;
+    private JLabel newEmailLabel;
 
     public UserSelfProfile(final RegisteredUser user) {
         setAccount(user);
@@ -42,6 +45,20 @@ public class UserSelfProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Search(user);
+            }
+        });
+
+        changeEmailButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    RegisteredUserAdaptor.setEmail(user, newEmail.getText());
+                    eMail.setText(RegisteredUserAdaptor.getEmail(user));
+                    newEmail.setText(null);
+                    System.out.println("Changed email for " + user.getUsername() + " to " + newEmail.getText());
+                } catch (SQLException e1) {
+                    System.out.println("Could not chage email for: " + user.getUsername());
+                }
             }
         });
 
