@@ -7,8 +7,12 @@ import java.awt.*;
 import java.sql.SQLException;
 
 
-public class GameRenderer extends CellRenderer implements ListCellRenderer<Object> {
+public class SearchResultRenderer extends CellRenderer implements ListCellRenderer<Object> {
+        boolean isGame = false;
 
+    public void setGameFlagOn (){
+        this.isGame = true;
+    }
     // This is the only method defined by ListCellRenderer.
     // We just reconfigure the JLabel each time we're called.
     @Override
@@ -21,7 +25,12 @@ public class GameRenderer extends CellRenderer implements ListCellRenderer<Objec
     {
         String s;
         try {
-            s = GameAdaptor.getName((Game) value);
+            if(isGame) {
+                s = GameAdaptor.getName((Game) value);
+            }else{
+                RegisteredUser newValue = (RegisteredUser) value;
+                s = newValue.getUsername();
+            }
         } catch (SQLException err) {
             s = "Game could not be found";
         }

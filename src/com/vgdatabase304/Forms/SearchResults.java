@@ -3,6 +3,7 @@ package com.vgdatabase304.Forms;
 import com.vgdatabase304.Structures.Game;
 import com.vgdatabase304.Structures.GameRenderer;
 import com.vgdatabase304.Structures.SearchResult;
+import com.vgdatabase304.Structures.SearchResultRenderer;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -53,7 +54,7 @@ public class SearchResults {
             }
 //        }
 //        resultList.setCellRenderer(new CellRenderer());
-        GameRenderer renderer = new GameRenderer();
+        SearchResultRenderer renderer = new SearchResultRenderer();
         if (list.getElementAt(0).getClass() == Game.class) {
             renderer.setGameFlagOn();
         }
