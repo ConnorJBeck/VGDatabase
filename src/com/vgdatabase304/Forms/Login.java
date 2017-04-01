@@ -102,7 +102,7 @@ public class Login extends JFrame {
 
     public static void main(String[] args) {
         try {
-            ConnectionManager.initConnection("ora_s8h0b", "a57723158");
+            ConnectionManager.initConnection("ora_f9v7", "a55421101");
         } catch (SQLException e) {
             System.out.println("Unable to make connection to database (" + e.getMessage() + ")");
         }
