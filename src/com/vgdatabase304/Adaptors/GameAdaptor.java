@@ -169,7 +169,7 @@ public class GameAdaptor {
 
     public static List<Game> searchGameByRating(String comparator, double rating) throws SQLException {
         stmt = ConnectionManager.getStatement();
-        String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN REVIEW ON GAME.GAMEID = REVIEWID.GAMEID " +
+        String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN REVIEW ON GAME.GAMEID = REVIEW.GAMEID " +
                 "WHERE RATING " + comparator + " " + rating;
         rs = stmt.executeQuery(sql);
         List<Game> games = new ArrayList<>();
