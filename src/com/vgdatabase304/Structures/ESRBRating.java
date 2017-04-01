@@ -48,6 +48,5 @@ public enum ESRBRating {
             default:
                 throw new InstanceNotFoundException("ESRB Rating not found");
         }
-
     }
 }

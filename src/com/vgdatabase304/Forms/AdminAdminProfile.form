@@ -5,10 +5,10 @@
     <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:23px:noGrow"/>
     <rowspec value="top:3dlu:noGrow"/>
-    <rowspec value="center:23px:noGrow"/>
+    <rowspec value="center:28px:noGrow"/>
     <rowspec value="top:3dlu:noGrow"/>
     <rowspec value="center:35px:noGrow"/>
-    <rowspec value="top:12dlu:noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:264px:grow"/>
     <rowspec value="top:0dlu:noGrow"/>
     <rowspec value="center:0px:noGrow"/>
@@ -24,7 +24,7 @@
     <colspec value="left:4dlu:noGrow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
     <constraints>
-      <xy x="20" y="20" width="649" height="567"/>
+      <xy x="20" y="20" width="649" height="564"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -280,6 +280,15 @@
           <forms defaultalign-horz="false"/>
         </constraints>
         <properties/>
+      </component>
+      <component id="a1728" class="javax.swing.JButton" binding="addAGameButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="Add a Game"/>
+        </properties>
       </component>
     </children>
   </grid>

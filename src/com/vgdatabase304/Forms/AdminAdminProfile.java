@@ -34,6 +34,7 @@ public class AdminAdminProfile {
     private JPanel mainPanel;
     private JButton changeEmailButton;
     private JTextField newEmail;
+    private JButton addAGameButton;
     private JFrame f;
     private List<VGTag> tags;
 
@@ -102,6 +103,13 @@ public class AdminAdminProfile {
                 } catch (SQLException e1) {
                     System.out.println("Could not chage email for: " + user.getUsername());
                 }
+            }
+        });
+
+        addAGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CreateGame(user);
             }
         });
 

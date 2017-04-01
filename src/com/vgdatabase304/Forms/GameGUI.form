@@ -170,6 +170,7 @@
           <forms/>
         </constraints>
         <properties>
+          <enabled value="false"/>
           <text value="Delete This Release"/>
         </properties>
       </component>

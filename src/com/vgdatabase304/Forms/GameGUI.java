@@ -48,6 +48,14 @@ public class GameGUI {
 
         populateListAttachedTags(game);
 
+        try {
+            if (AdminUserAdaptor.isAdmin(currentUser)) {
+                deleteThisReleaseButton.setEnabled(true);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
