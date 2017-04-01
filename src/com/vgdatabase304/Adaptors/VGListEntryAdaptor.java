@@ -107,13 +107,15 @@ public class VGListEntryAdaptor {
 
     public static Game getHighestRatedGame(VGList list) throws SQLException {
         stmt = ConnectionManager.getStatement();
-
-        rs = stmt.executeQuery("SELECT GAMEID, MAX(AVERAGERATING) AS MAXRATING FROM " +
+        String sql = "SELECT GAMEID FROM " +
                 "(SELECT L.GAMEID, AVERAGERATING " +
                 "FROM LISTENTRIES L INNER JOIN " +
-                "(SELECT G.GAMEID, AVG(C.RATING) AS AVERAGERATING FROM CREATEREVIEW C INNER JOIN GAME G ON C.GAMEID=G.GAMEID GROUP BY G.GAMEID) " +
-                "ON L.GAMEID=GAME.GAMEID " +
-                "WHERE LISTID=" + list.getListID() + ")");
+                "(SELECT G.GAMEID AS GAMEID, AVG(C.RATING) AS AVERAGERATING FROM REVIEW C INNER JOIN GAME G ON C.GAMEID=G.GAMEID GROUP BY G.GAMEID) T " +
+                "ON L.GAMEID=T.GAMEID " +
+                "WHERE L.LISTID=" + list.getListID() + " ORDER BY AVERAGERATING DESC) " +
+                "WHERE ROWNUM <= 1";
+
+        rs = stmt.executeQuery(sql);
         if (!rs.next()) {
             throw new InstanceNotFoundException("No Games or reviews in database");
         }
@@ -123,13 +125,15 @@ public class VGListEntryAdaptor {
 
     public static Game getLowestRatedGame(VGList list) throws SQLException {
         stmt = ConnectionManager.getStatement();
-
-        rs = stmt.executeQuery("SELECT GAMEID, MIN(AVERAGERATING) AS MAXRATING FROM " +
+        String sql = "SELECT GAMEID FROM " +
                 "(SELECT L.GAMEID, AVERAGERATING " +
                 "FROM LISTENTRIES L INNER JOIN " +
-                "(SELECT G.GAMEID, AVG(C.RATING) AS AVERAGERATING FROM CREATEREVIEW C INNER JOIN GAME G ON C.GAMEID=G.GAMEID GROUP BY G.GAMEID) " +
-                "ON L.GAMEID=GAME.GAMEID " +
-                "WHERE LISTID=" + list.getListID() + ")");
+                "(SELECT G.GAMEID AS GAMEID, AVG(C.RATING) AS AVERAGERATING FROM REVIEW C INNER JOIN GAME G ON C.GAMEID=G.GAMEID GROUP BY G.GAMEID) T " +
+                "ON L.GAMEID=T.GAMEID " +
+                "WHERE L.LISTID=" + list.getListID() + " ORDER BY AVERAGERATING ASC) " +
+                "WHERE ROWNUM <= 1";
+
+        rs = stmt.executeQuery(sql);
         if (!rs.next()) {
             throw new InstanceNotFoundException("No Games or reviews in database");
         }

@@ -85,7 +85,7 @@ public class ListGUI {
         try {
             highestRatedGameField.setText(GameAdaptor.getName(VGListEntryAdaptor.getHighestRatedGame(list)));
         } catch (SQLException err) {
-            highestRatedGameField.setText("Could not find highest Rated game");
+            highestRatedGameField.setText("Could not find highest Rated game: " + err.getMessage());
         }
 
         try {
