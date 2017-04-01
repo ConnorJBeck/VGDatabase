@@ -39,7 +39,7 @@ public class AdminAdminProfile {
 
     public AdminAdminProfile(final RegisteredUser user) {
         f = new JFrame("Admin");
-        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Display username and email
         username.setText(user.getUsername());
