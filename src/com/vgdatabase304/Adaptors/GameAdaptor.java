@@ -158,7 +158,7 @@ public class GameAdaptor {
     public static List<Game> searchGameByYear(int year) throws SQLException {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN RELEASE ON GAME.GAMEID = RELEASE.GAMEID " +
-                "WHERE RELEASE.RELEASEDATE BETWEEN TO_DATE('" + year + "-01-01', 'yyyy-mm-dd') AND TO_DATE('" + year + 1 + "-01-01', 'yyyy-mm-dd')";
+                "WHERE RELEASE.RELEASEDATE BETWEEN TO_DATE('" + year + "-01-01', 'yyyy-mm-dd') AND TO_DATE('" + (year + 1) + "-01-01', 'yyyy-mm-dd')";
         rs = stmt.executeQuery(sql);
         List<Game> games = new ArrayList<>();
         while (rs.next()) {

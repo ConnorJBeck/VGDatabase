@@ -155,7 +155,7 @@ public class UserSelfProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object review = listOfReviews.getSelectedValue();
-                vgList.removeElement(review);
+                reviewListModel.removeElement(review);
             }
         });
 
