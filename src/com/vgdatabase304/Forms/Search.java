@@ -75,8 +75,7 @@ public class Search {
                             resultGameList = GameAdaptor.searchAllGames();
                         }
                         else {
-                            Platform platform = Platform.valueOf(query.replaceAll("\\s+", ""));
-                            resultGameList = GameAdaptor.searchGameByPlatform(platform);
+                            resultGameList = GameAdaptor.searchGameByPlatform(query);
                         }
                     } catch (SQLException err){
                         System.out.println("Error: " + err.getMessage());
@@ -102,8 +101,7 @@ public class Search {
                             resultGameList = GameAdaptor.searchAllGames();
                         }
                         else {
-                            VGTag tag = new VGTag(query);
-                            resultGameList = GameAdaptor.searchGameByTag(tag);
+                            resultGameList = GameAdaptor.searchGameByTag(query);
                         }
                     } catch (SQLException err){
                         System.out.println("Error: " + err.getMessage());

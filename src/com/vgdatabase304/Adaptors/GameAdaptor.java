@@ -143,10 +143,10 @@ public class GameAdaptor {
         return games;
     }
 
-    public static List<Game> searchGameByPlatform(Platform platform) throws SQLException {
+    public static List<Game> searchGameByPlatform(String platform) throws SQLException {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN RELEASE ON GAME.GAMEID = RELEASE.GAMEID " +
-                "WHERE RELEASE.PLATFORM='" + platform.getName() + "' ";
+                "WHERE RELEASE.PLATFORM LIKE '%" + platform + "%'";
         rs = stmt.executeQuery(sql);
         List<Game> games = new ArrayList<>();
         while (rs.next()) {
@@ -179,10 +179,10 @@ public class GameAdaptor {
         return games;
     }
 
-    public static List<Game> searchGameByTag(VGTag tag) throws SQLException {
+    public static List<Game> searchGameByTag(String tagName) throws SQLException {
         stmt = ConnectionManager.getStatement();
         String sql = "SELECT GAME.GAMEID FROM GAME INNER JOIN TAGGAME ON GAME.GAMEID = TAGGAME.GAMEID " +
-                "WHERE TAGNAME='" + tag.getTagName() + "'";
+                "WHERE TAGNAME LIKE '%" + tagName + "%'";
         rs = stmt.executeQuery(sql);
         List<Game> games = new ArrayList<>();
         while (rs.next()) {
