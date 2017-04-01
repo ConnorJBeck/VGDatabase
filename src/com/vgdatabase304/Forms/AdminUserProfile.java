@@ -54,5 +54,6 @@ public class AdminUserProfile {
 
         f.setContentPane(mainPanel);
         f.pack();
+        f.setVisible(true);
     }
 }
