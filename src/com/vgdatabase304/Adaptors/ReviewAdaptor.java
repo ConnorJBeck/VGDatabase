@@ -15,7 +15,7 @@ public class ReviewAdaptor {
     private static Statement stmt;
     private static ResultSet rs;
 
-    public static Review addReviewToDatabase(RegisteredUser user, Game game, String reviewText, Timestamp postDateTime, double rating) throws SQLException {
+    public static Review addReviewToDatabase(RegisteredUser user, Game game, String reviewText, double rating) throws SQLException {
         stmt = ConnectionManager.getStatement();
         rs = stmt.executeQuery("SELECT Max(REVIEWID) FROM REVIEW");
         int reviewID = 0;
@@ -28,8 +28,7 @@ public class ReviewAdaptor {
                 reviewID + ", '" +
                 user.getUsername() + "', " +
                 game.getGameID() + ", '" +
-                reviewText + "', '" +
-                postDateTime + "', " +
+                reviewText + "', sysdate, " +
                 rating + ")";
         stmt.executeUpdate(sql);
         return new Review(reviewID);
