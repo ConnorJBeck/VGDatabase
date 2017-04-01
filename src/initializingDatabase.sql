@@ -1,4 +1,15 @@
-		CREATE TABLE ESRBRating (
+DROP TABLE ESRBRATING;
+DROP TABLE RegisteredUser;
+DROP TABLE ADMIN;
+DROP TABLE GAME;
+DROP TABLE RELEASE;
+DROP TABLE REVIEW;
+DROP TABLE TAG;
+DROP TABLE TAGGAME;
+DROP TABLE LIST;
+DROP TABLE LISTENTRIES;
+
+CREATE TABLE ESRBRating (
                 shortName  VARCHAR(2),
                  ratingName VARCHAR(20) NOT NULL UNIQUE,  
                  PRIMARY KEY (shortName)) ;
@@ -9,7 +20,7 @@
                   password  VARCHAR(12) NOT NULL, 
                  PRIMARY KEY (userName)) ;
          
-		 CREATE TABLE Admin  
+		 CREATE TABLE ADMIN
                  (userName  VARCHAR(20), 
                   email     VARCHAR(50) NOT NULL UNIQUE, 
                   password  VARCHAR(20) NOT NULL, 
@@ -40,15 +51,13 @@
                  FOREIGN KEY (addedBy) REFERENCES Admin(userName) 
                   ON DELETE SET NULL) ;
          
-		 CREATE TABLE CreateReview 
-                 (reviewID      INTEGER, 
+		 CREATE TABLE Review
+                 (reviewID      INTEGER,
                   userName      VARCHAR(20) NOT NULL, 
-                  gameID        INTEGER NOT NULL, 
-                  region        VARCHAR(20), 
-                  platform      VARCHAR(20)NOT NULL,  
+                  gameID        INTEGER NOT NULL,
                   reviewText    VARCHAR(1000),  
                   postDateTime  TIMESTAMP, 
-                  rating        FLOAT(1), 
+                  rating        NUMBER(*,1),
                  PRIMARY KEY (reviewID), 
                  FOREIGN KEY (userName) REFERENCES RegisteredUser 
                   ON DELETE CASCADE, 
@@ -56,7 +65,7 @@
                   ON DELETE CASCADE) ;
          
 		 CREATE TABLE Tag 
-                 (name      VARCHAR(20), 
+                 (name      VARCHAR(20),
                   addedBy   VARCHAR(20), 
                  PRIMARY KEY (name), 
                  FOREIGN KEY (addedBy) REFERENCES Admin(userName) 
