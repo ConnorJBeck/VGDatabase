@@ -1,11 +1,14 @@
 package com.vgdatabase304.Adaptors;
 
+import com.vgdatabase304.Exceptions.InstanceNotFoundException;
 import com.vgdatabase304.Structures.*;
 import com.vgdatabase304.Utils.ConnectionManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VGTagGameAdaptor {
 
@@ -63,5 +66,19 @@ public class VGTagGameAdaptor {
                 " AND USERNAME='" + tagGame.getUser().getUsername() + "'"
         );
         tagGame.setUser(user);
+    }
+
+    public static List<VGTag> getAttachedTagsToGame(Game game) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        List<VGTag> listOfAttachedTags = new ArrayList<>();
+        rs = stmt.executeQuery("SELECT TAGNAME FROM TAGGAME WHERE GAMEID='" + game.getGameID() + "'");
+        while (rs.next()) {
+            listOfAttachedTags.add(new VGTag(rs.getString("TAGNAME")));
+        }
+        if (listOfAttachedTags.size() > 0) {
+            return listOfAttachedTags;
+        } else {
+            throw new InstanceNotFoundException("No tags found for GAMEID: " + game.getGameID());
+        }
     }
 }
