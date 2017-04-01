@@ -19,7 +19,8 @@ CREATE TABLE ESRBRating (
                  (userName  VARCHAR(20), 
                   email     VARCHAR(50) NOT NULL UNIQUE, 
                   password  VARCHAR(12) NOT NULL, 
-                 PRIMARY KEY (userName)) ;
+                 PRIMARY KEY (userName),
+                  CONSTRAINT check_email CHECK ( REGEXP_LIKE(email, '[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+\.[a-zA-Z]{2,4}')));
          
 		 CREATE TABLE ADMIN
                  (userName  VARCHAR(20), 
