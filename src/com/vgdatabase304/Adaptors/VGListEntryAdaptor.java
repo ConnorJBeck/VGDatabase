@@ -16,12 +16,11 @@ public class VGListEntryAdaptor {
     private static Statement stmt;
     private static ResultSet rs;
 
-    public static VGListEntry addListEntryToDatabase(VGList list, Game game, Date dateAdded) throws SQLException {
+    public static VGListEntry addListEntryToDatabase(VGList list, Game game) throws SQLException {
         stmt = ConnectionManager.getStatement();
         String sql = "INSERT INTO LISTENTRIES (LISTID, GAMEID, DATEADDED) VALUES (" +
-                list.getListID() + ", '" +
-                game.getGameID() + "', TO_DATE('" +
-                dateAdded.toString() + "'))";
+                list.getListID() + ", " +
+                game.getGameID() + ", sysdate)";
         stmt.executeUpdate(sql);
         return new VGListEntry(list, game);
     }

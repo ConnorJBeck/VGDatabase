@@ -159,4 +159,19 @@ public class ReviewAdaptor {
         }
 
     }
+
+    public static List<Review> getAllReviewsByGame(Game game) throws SQLException {
+        stmt = ConnectionManager.getStatement();
+        List<Review> listOfReviews = new ArrayList<>();
+        rs = stmt.executeQuery("SELECT REVIEWID FROM REVIEW WHERE GAMEID=" + game.getGameID()+ "");
+        while (rs.next()) {
+            listOfReviews.add(new Review(rs.getInt("REVIEWID")));
+        }
+        if (listOfReviews.size() > 0) {
+            return listOfReviews;
+        } else {
+            throw new InstanceNotFoundException("No reviews found for user " + GameAdaptor.getName(game));
+        }
+
+    }
 }

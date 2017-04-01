@@ -3,10 +3,7 @@ package com.vgdatabase304.Forms;
 import com.vgdatabase304.Adaptors.GameAdaptor;
 import com.vgdatabase304.Adaptors.VGListAdaptor;
 import com.vgdatabase304.Adaptors.VGListEntryAdaptor;
-import com.vgdatabase304.Structures.Game;
-import com.vgdatabase304.Structures.GameRenderer;
-import com.vgdatabase304.Structures.RegisteredUser;
-import com.vgdatabase304.Structures.VGList;
+import com.vgdatabase304.Structures.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -27,10 +24,13 @@ public class ListGUI {
     private JTextField highestRatedGameField;
     private JTextField lowestRatedGameField;
     private JScrollPane gameScrollPane;
+    private JList userList;
+    private JScrollPane userScrollPane;
     private JFrame frame;
     private DefaultListModel vgList;
+    private DefaultListModel userListModel;
 
-    public ListGUI(VGList list, RegisteredUser currentUser) {
+    public ListGUI(VGList list, final RegisteredUser currentUser) {
         try {
             frame = new JFrame(VGListAdaptor.getListName(list));
         } catch (SQLException err) {
@@ -50,7 +50,7 @@ public class ListGUI {
         });
     }
 
-    private void setupListGUI (VGList list, final RegisteredUser user) {
+    private void setupListGUI (VGList list, final RegisteredUser currentUser) {
         try {
             listName.setText(VGListAdaptor.getListName(list));
         }catch (SQLException err) {
@@ -65,7 +65,7 @@ public class ListGUI {
                 public void valueChanged(ListSelectionEvent e) {
                     System.out.println("value changed");
                     Game game = (Game) listGames.getSelectedValue();
-                    new GameGUI(game, user);
+                    new GameGUI(game, currentUser);
                     frame.dispose();
                 }
             });
@@ -80,7 +80,7 @@ public class ListGUI {
 
 
         } catch (SQLException err) {
-            System.out.println(err.getMessage());
+            System.out.println("Error in games list: " + err.getMessage());
         }
 
         try {
@@ -93,6 +93,32 @@ public class ListGUI {
             lowestRatedGameField.setText(GameAdaptor.getName(VGListEntryAdaptor.getLowestRatedGame(list)));
         } catch (SQLException err) {
             lowestRatedGameField.setText("Could not find lowest rated game");
+        }
+
+        try {
+            List<RegisteredUser> listOfUsers = VGListAdaptor.getUsersWhoHavePlayedAllGames(list);
+            userList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            userList.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    System.out.println("value changed");
+                    RegisteredUser user = (RegisteredUser) userList.getSelectedValue();
+                    new UserUserProfile(user, currentUser);
+                    frame.dispose();
+                }
+            });
+            userListModel = new DefaultListModel();
+            userList.setModel(userListModel);
+            userScrollPane.setViewportView(userList);
+            for (RegisteredUser userObject : listOfUsers) {
+                System.out.println(userObject.getUsername());
+                userListModel.addElement(userObject);
+            }
+            userList.setCellRenderer(new UserRenderer());
+
+
+        } catch (SQLException err) {
+            System.out.println("Error in users list: " + err.getMessage());
         }
 
 

@@ -30,6 +30,8 @@ public class GameGUI {
     private JLabel currentTagsLabel;
     private JButton deleteThisReleaseButton;
     private JTextArea ratingTextArea;
+    private JComboBox listComboBox;
+    private JButton addToListButton;
     private JFrame f;
     private List<VGTag> tags;
     private List<VGTag> attachedTags;
@@ -131,7 +133,7 @@ public class GameGUI {
                     }
                 }
             });
-            List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(currentUser);
+            List<Review> reviewList = ReviewAdaptor.getAllReviewsByGame(game);
             reviewListModel = new DefaultListModel();
             reviewsList.setModel(reviewListModel);
             reviewsList.setCellRenderer(new ReviewRenderer());
@@ -143,6 +145,29 @@ public class GameGUI {
         } catch (SQLException err) {
             System.out.println("List Of Reviews Error: No Reviews Found");
         }
+
+        try {
+            List<VGList> userLists = VGListAdaptor.getAllListsByUser(currentUser);
+            for (VGList list : userLists) {
+                listComboBox.addItem(list);
+                listComboBox.setRenderer(new ListRenderer());
+            }
+        } catch (SQLException err) {
+            System.out.println("Could not find any lists by user");
+        }
+
+        addToListButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    VGList listToAddGameTo = (VGList) listComboBox.getSelectedItem();
+                    VGListEntryAdaptor.addListEntryToDatabase(listToAddGameTo, game);
+                } catch (SQLException err) {
+                    System.out.println("Game not added to list");
+                }
+
+            }
+        });
 
         f.setVisible(true);
         f.setContentPane(mainPanel);

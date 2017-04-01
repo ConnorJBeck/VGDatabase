@@ -57,6 +57,6 @@ public class TestUtils {
     public static VGListEntry addTestListEntry() throws SQLException {
         VGList vgList = addTestList();
         Game game = addTestGame();
-        return VGListEntryAdaptor.addListEntryToDatabase(vgList, game, new Date(0));
+        return VGListEntryAdaptor.addListEntryToDatabase(vgList, game);
     }
 }

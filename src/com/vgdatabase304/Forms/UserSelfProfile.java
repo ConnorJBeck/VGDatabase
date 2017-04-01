@@ -76,7 +76,10 @@ public class UserSelfProfile extends JFrame {
         }
 
         try {
+            vgList = new DefaultListModel();
             listOfVGLists.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            listOfVGLists.setModel(vgList);
+            listsScrollPane.setViewportView(listOfVGLists);
             listOfVGLists.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -88,9 +91,6 @@ public class UserSelfProfile extends JFrame {
                 }
             });
             List<VGList> VGListList = VGListAdaptor.getAllListsByUser(user);
-            vgList = new DefaultListModel();
-            listOfVGLists.setModel(vgList);
-            listsScrollPane.setViewportView(listOfVGLists);
             for (VGList listObject : VGListList) {
                 System.out.println(listObject.getListID());
                 vgList.addElement(listObject);
@@ -101,6 +101,10 @@ public class UserSelfProfile extends JFrame {
         }
 
         try {
+            reviewListModel = new DefaultListModel();
+            listOfReviews.setModel(reviewListModel);
+            listOfReviews.setCellRenderer(new ReviewRenderer());
+            reviewsScrollPane.setViewportView(listOfReviews);
             listOfReviews.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             listOfReviews.addMouseListener(new MouseAdapter() {
                 @Override
@@ -112,11 +116,8 @@ public class UserSelfProfile extends JFrame {
                     }
                 }
             });
+
             List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(user);
-            reviewListModel = new DefaultListModel();
-            listOfReviews.setModel(reviewListModel);
-            listOfReviews.setCellRenderer(new ReviewRenderer());
-            reviewsScrollPane.setViewportView(listOfReviews);
             for (Review reviewObject : reviewList) {
                 System.out.println(reviewObject.getReviewID());
                 reviewListModel.addElement(reviewObject);

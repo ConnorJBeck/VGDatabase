@@ -47,6 +47,10 @@ public class UserUserProfile {
         this.userName.setText(user.getUsername());
 
         try {
+            vgList = new DefaultListModel();
+            userLists.setModel(vgList);
+            listsScrollPane.setViewportView(userLists);
+            userLists.setCellRenderer(new ListRenderer());
             userLists.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             userLists.addMouseListener(new MouseAdapter() {
                 @Override
@@ -58,20 +62,21 @@ public class UserUserProfile {
                     }
                 }
             });
+
             List<VGList> VGListList = VGListAdaptor.getAllListsByUser(user);
-            vgList = new DefaultListModel();
-            userLists.setModel(vgList);
-            listsScrollPane.setViewportView(userLists);
             for (VGList listObject : VGListList) {
                 System.out.println(listObject.getListID());
                 vgList.addElement(listObject);
             }
-            userLists.setCellRenderer(new ListRenderer());
         } catch (SQLException err) {
             System.out.println("List Of Lists Error: No Lists Found");
         }
 
         try {
+            reviewListModel = new DefaultListModel();
+            userReviews.setModel(reviewListModel);
+            userReviews.setCellRenderer(new ReviewRenderer());
+            reviewsScrollPane.setViewportView(userReviews);
             userReviews.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             userReviews.addMouseListener(new MouseAdapter() {
                 @Override
@@ -83,11 +88,8 @@ public class UserUserProfile {
                     }
                 }
             });
+
             List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(user);
-            reviewListModel = new DefaultListModel();
-            userReviews.setModel(reviewListModel);
-            userReviews.setCellRenderer(new ReviewRenderer());
-            reviewsScrollPane.setViewportView(userReviews);
             for (Review reviewObject : reviewList) {
                 System.out.println(reviewObject.getReviewID());
                 reviewListModel.addElement(reviewObject);
