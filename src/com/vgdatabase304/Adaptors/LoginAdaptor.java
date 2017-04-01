@@ -25,7 +25,7 @@ public class LoginAdaptor {
         try
         {
             AdminUserAdaptor adminUserAdaptor = new AdminUserAdaptor();
-            isAdmin = adminUserAdaptor.isAdmin(loginUser);
+            isAdmin = adminUserAdaptor.isAdmin(loginUser.getUsername());
         }
 
         catch (SQLException e){System.out.println(e);}

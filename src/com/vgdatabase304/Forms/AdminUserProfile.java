@@ -1,8 +1,6 @@
 package com.vgdatabase304.Forms;
 
-import com.sun.deploy.registration.RegisterDeploy;
 import com.vgdatabase304.Adaptors.RegisteredUserAdaptor;
-import com.vgdatabase304.Structures.AdminUser;
 import com.vgdatabase304.Structures.RegisteredUser;
 
 import javax.swing.*;
@@ -29,7 +27,7 @@ public class AdminUserProfile {
     private JPanel mainPanel;
     private JFrame f;
 
-    public AdminUserProfile(AdminUser admin, RegisteredUser user) {
+    public AdminUserProfile(final RegisteredUser admin, RegisteredUser user) {
         f = new JFrame("Search");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 

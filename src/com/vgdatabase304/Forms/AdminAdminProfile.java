@@ -2,7 +2,7 @@ package com.vgdatabase304.Forms;
 
 import com.vgdatabase304.Adaptors.RegisteredUserAdaptor;
 import com.vgdatabase304.Adaptors.VGTagAdaptor;
-import com.vgdatabase304.Structures.AdminUser;
+import com.vgdatabase304.Structures.RegisteredUser;
 import com.vgdatabase304.Structures.VGTag;
 
 import javax.swing.*;
@@ -35,7 +35,7 @@ public class AdminAdminProfile {
     private JFrame f;
     private List<VGTag> tags;
 
-    public AdminAdminProfile(AdminUser user) {
+    public AdminAdminProfile(final RegisteredUser user) {
         f = new JFrame("Admin");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
