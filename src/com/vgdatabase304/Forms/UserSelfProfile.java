@@ -32,12 +32,13 @@ public class UserSelfProfile extends JFrame {
     private DefaultListModel reviewListModel;
     private JTextArea reviewRankingTextArea;
 
-    public UserSelfProfile(RegisteredUser user) {
+    public UserSelfProfile(final RegisteredUser user) {
         setAccount(user);
         parent = new JFrame("Profile");
         parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         searchButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Search(user);
@@ -49,7 +50,7 @@ public class UserSelfProfile extends JFrame {
         parent.pack();
     }
 
-    public void setAccount(RegisteredUser user) {
+    public void setAccount(final RegisteredUser user) {
         this.userName.setText(user.getUsername());
         try {
             eMail.setText(RegisteredUserAdaptor.getEmail(user));

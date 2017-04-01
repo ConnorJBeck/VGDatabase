@@ -3,8 +3,10 @@ package com.vgdatabase304.Forms;
 import com.vgdatabase304.Adaptors.GameAdaptor;
 import com.vgdatabase304.Adaptors.VGListAdaptor;
 import com.vgdatabase304.Adaptors.VGListEntryAdaptor;
-import com.vgdatabase304.Structures.*;
-import jdk.nashorn.internal.runtime.ListAdapter;
+import com.vgdatabase304.Structures.Game;
+import com.vgdatabase304.Structures.GameRenderer;
+import com.vgdatabase304.Structures.RegisteredUser;
+import com.vgdatabase304.Structures.VGList;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -12,7 +14,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public class ListGUI {
         });
     }
 
-    private void setupListGUI (VGList list, RegisteredUser user) {
+    private void setupListGUI (VGList list, final RegisteredUser user) {
         try {
             listName.setText(VGListAdaptor.getListName(list));
         }catch (SQLException err) {

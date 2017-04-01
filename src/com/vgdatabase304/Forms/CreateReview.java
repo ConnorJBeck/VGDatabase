@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 /**
  * Created by Skyline on 2017-03-31.
@@ -22,7 +21,7 @@ public class CreateReview {
     private JTextField ratingField;
     private JFrame f;
 
-    public CreateReview(RegisteredUser user, Game game) {
+    public CreateReview(final RegisteredUser user, final Game game) {
         f = new JFrame("CreateReview");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
@@ -40,7 +39,7 @@ public class CreateReview {
                 String review = reviewText.getText();
                 Double rating = Double.valueOf(ratingField.getText());
                 try {
-                    ReviewAdaptor.addReviewToDatabase(user, game, review, timestamp, rating);
+                    ReviewAdaptor.addReviewToDatabase(user, game, review, rating);
                 } catch (SQLException e1) {
                     System.out.println("Unable to submit review");
                 }

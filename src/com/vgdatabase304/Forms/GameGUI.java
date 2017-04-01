@@ -40,7 +40,7 @@ public class GameGUI {
     private DefaultListModel releaseListModel;
     private DefaultListModel reviewListModel;
 
-    public GameGUI(Game game, RegisteredUser user) {
+    public GameGUI(final Game game, final RegisteredUser user) {
         f = new JFrame("GameGUI");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
