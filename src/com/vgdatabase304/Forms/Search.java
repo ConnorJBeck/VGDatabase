@@ -92,7 +92,6 @@ public class Search {
                     }
                 }
 
-                try {
                     if (userFlag){
                         for (RegisteredUser u : registeredUserList){
                             resultList.add(u);
@@ -104,9 +103,7 @@ public class Search {
                         }
                     }
                     new SearchResults(resultList);
-                }catch (SQLException err){
-                    System.out.println("Error: " + err.getMessage());
-                }
+
 
                 f.dispose();
             }
