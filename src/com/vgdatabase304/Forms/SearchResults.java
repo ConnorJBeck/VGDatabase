@@ -1,15 +1,14 @@
 package com.vgdatabase304.Forms;
 
-import com.vgdatabase304.Adaptors.GameAdaptor;
-import com.vgdatabase304.Structures.CellRenderer;
 import com.vgdatabase304.Structures.Game;
+import com.vgdatabase304.Structures.GameRenderer;
+import com.vgdatabase304.Structures.SearchResult;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ public class SearchResults {
     private JList resultList;
     private JFrame f;
 
-    public SearchResults(List<Game> resultGameList) {
+    public SearchResults(List<SearchResult> inputList) {
         f = new JFrame("SearchResults");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -32,7 +31,6 @@ public class SearchResults {
 
             }
         });
-
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -40,20 +38,28 @@ public class SearchResults {
             }
         });
 
-        DefaultListModel gameList = new DefaultListModel();
-        resultList.setModel(gameList);
-        for (Game listObject : resultGameList){
-            String gameName = null;
-            try {
-                gameName = GameAdaptor.getName(listObject);
-            } catch (SQLException e) {
-                System.out.println("Game name could not be retrieved");
+
+        DefaultListModel list = new DefaultListModel();
+        resultList.setModel(list);
+//        if (inputList.getClass().getComponentType() == Game.class) {
+//            List<Game> inputGameList = inputList;
+            for (SearchResult listObject : inputList) {
+//                    String gameName = GameAdaptor.getName((Game) listObject);
+//                    System.out.println(gameName);
+                    System.out.println(listObject.getGameID());
+//            list.addElement(listObject.getGameID());
+                list.addElement(listObject);
+
             }
-            System.out.println(gameName);
-            System.out.println(listObject.getGameID());
-            gameList.addElement(listObject.getGameID());
+//        }
+//        resultList.setCellRenderer(new CellRenderer());
+        GameRenderer renderer = new GameRenderer();
+        if (list.getElementAt(0).getClass() == Game.class) {
+            renderer.setGameFlagOn();
         }
-        resultList.setCellRenderer(new CellRenderer());
+//        resultList.setCellRenderer(new GameRenderer());
+        resultList.setCellRenderer(renderer);
+
 
         f.setVisible(true);
         f.setContentPane(panel1);

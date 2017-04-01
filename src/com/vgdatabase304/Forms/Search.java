@@ -1,6 +1,8 @@
 package com.vgdatabase304.Forms;
 
 import com.vgdatabase304.Adaptors.GameAdaptor;
+import com.vgdatabase304.Adaptors.RegisteredUserAdaptor;
+import com.vgdatabase304.Structures.*;
 import com.vgdatabase304.Structures.Game;
 import com.vgdatabase304.Structures.RegisteredUser;
 
@@ -34,9 +36,17 @@ public class Search {
                 String query = searchBar.getText();
                 String searchFilter = (String) searchBy.getSelectedItem();
                 List<Game> resultGameList = new ArrayList<Game>();
+                List<RegisteredUser> registeredUserList = new ArrayList<RegisteredUser>();
+                List<SearchResult> resultList = new ArrayList<SearchResult>();
+                boolean userFlag = false;
 
                 if (searchFilter == "User") {
-
+                    try {
+                        registeredUserList = RegisteredUserAdaptor.searchUserByUserName(query);
+                        userFlag = true;
+                    } catch (SQLException err){
+                        System.out.println("Error: " + err.getMessage());
+                    }
                 }
                 else if (searchFilter == "Game Title") {
                     try {
@@ -46,19 +56,58 @@ public class Search {
                     }
                 }
                 else if (searchFilter == "Game Platform"){
-
+                    try {
+                        Platform platform = Platform.valueOf(query.replaceAll("\\s+",""));
+                        resultGameList = GameAdaptor.searchGameByPlatform(platform);
+                    } catch (SQLException err){
+                        System.out.println("Error: " + err.getMessage());
+                    }
                 }
                 else if (searchFilter == "Game Year"){
                     // int
+                    try {
+                        int year = Integer.parseInt(query);
+                        resultGameList = GameAdaptor.searchGameByYear(year);
+                    } catch (SQLException err){
+                        System.out.println("Error: " + err.getMessage());
+                    }
                 }
                 else if (searchFilter == "Tag"){
-
+                    try {
+                        VGTag tag = new VGTag(query);
+                        resultGameList = GameAdaptor.searchGameByTag(tag);
+                    } catch (SQLException err){
+                        System.out.println("Error: " + err.getMessage());
+                    }
                 }
                 else if (searchFilter == "Rating"){
                     // double
+                    try {
+                        String[] parts = query.split("_");
+                        String comparator = parts[0];
+                        Double rating = Double.parseDouble(parts[1]);
+                        resultGameList = GameAdaptor.searchGameByRating(comparator,rating);
+                    } catch (SQLException err){
+                        System.out.println("Error: " + err.getMessage());
+                    }
                 }
 
-                new SearchResults(resultGameList);
+                try {
+                    if (userFlag){
+                        for (RegisteredUser u : registeredUserList){
+                            resultList.add(u);
+                        }
+                    }
+                    else {
+                        for (Game game : resultGameList){
+                            resultList.add(game);
+                        }
+                    }
+                    new SearchResults(resultList);
+                }catch (SQLException err){
+                    System.out.println("Error: " + err.getMessage());
+                }
+
                 f.dispose();
             }
         });
@@ -94,4 +143,6 @@ public class Search {
         searchBy.addItem("User");
         searchBy.addItem("Game");
     }
+
+
 }

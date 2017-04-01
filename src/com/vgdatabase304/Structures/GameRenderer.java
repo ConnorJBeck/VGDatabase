@@ -1,7 +1,6 @@
 package com.vgdatabase304.Structures;
 
 import com.vgdatabase304.Adaptors.GameAdaptor;
-import com.vgdatabase304.Adaptors.VGListAdaptor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +8,11 @@ import java.sql.SQLException;
 
 
 public class GameRenderer extends CellRenderer implements ListCellRenderer<Object> {
+        boolean isGame = false;
 
+    public void setGameFlagOn (){
+        this.isGame = true;
+    }
     // This is the only method defined by ListCellRenderer.
     // We just reconfigure the JLabel each time we're called.
     @Override
@@ -18,11 +21,16 @@ public class GameRenderer extends CellRenderer implements ListCellRenderer<Objec
             Object value,            // value to display
             int index,               // cell index
             boolean isSelected,      // is the cell selected
-            boolean cellHasFocus)    // does the cell have focus
+            boolean cellHasFocus)   // does the cell have focus
     {
         String s;
         try {
-            s = GameAdaptor.getName((Game) value);
+            if(isGame) {
+                s = GameAdaptor.getName((Game) value);
+            }else{
+                RegisteredUser newValue = (RegisteredUser) value;
+                s = newValue.getUsername();
+            }
         } catch (SQLException err) {
             s = "Game could not be found";
         }

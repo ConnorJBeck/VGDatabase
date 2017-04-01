@@ -1,6 +1,6 @@
 package com.vgdatabase304.Structures;
 
-public class Game {
+public class Game extends SearchResult {
 
     private int gameID;
 

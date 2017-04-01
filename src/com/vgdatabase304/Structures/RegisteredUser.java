@@ -1,6 +1,6 @@
 package com.vgdatabase304.Structures;
 
-public class RegisteredUser {
+public class RegisteredUser extends SearchResult{
 
     private String username;
 

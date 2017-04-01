@@ -61,11 +61,11 @@ public class AdminAdminProfile {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String tag = newTagName.getText();
-                try {
-                    VGTagAdaptor.addTagToDatabase(tag, user);
-                } catch (SQLException e1) {
-                    System.out.println("Admin user could not add tag");
-                }
+//                try {
+//                    VGTagAdaptor.addTagToDatabase(tag, user);
+//                } catch (SQLException e1) {
+//                    System.out.println("Admin user could not add tag");
+//                }
                 newTagName.setText(null);
                 deleteAllTags();
                 populateTags();
