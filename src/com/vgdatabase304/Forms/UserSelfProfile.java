@@ -35,8 +35,8 @@ public class UserSelfProfile extends JFrame {
     private JTextField newEmail;
     private JLabel newEmailLabel;
 
-    public UserSelfProfile(final RegisteredUser user) {
-        setAccount(user);
+    public UserSelfProfile(final RegisteredUser currentUser) {
+        setAccount(currentUser);
         parent = new JFrame("Profile");
         parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -44,7 +44,7 @@ public class UserSelfProfile extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Search(user);
+                new Search(currentUser);
             }
         });
 
@@ -52,12 +52,12 @@ public class UserSelfProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    RegisteredUserAdaptor.setEmail(user, newEmail.getText());
-                    eMail.setText(RegisteredUserAdaptor.getEmail(user));
+                    RegisteredUserAdaptor.setEmail(currentUser, newEmail.getText());
+                    eMail.setText(RegisteredUserAdaptor.getEmail(currentUser));
                     newEmail.setText(null);
-                    System.out.println("Changed email for " + user.getUsername() + " to " + newEmail.getText());
+                    System.out.println("Changed email for " + currentUser.getUsername() + " to " + newEmail.getText());
                 } catch (SQLException e1) {
-                    System.out.println("Could not chage email for: " + user.getUsername());
+                    System.out.println("Could not chage email for: " + currentUser.getUsername());
                 }
             }
         });

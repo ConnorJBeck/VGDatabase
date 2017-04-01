@@ -30,7 +30,7 @@ public class ListGUI {
     private JFrame frame;
     private DefaultListModel vgList;
 
-    public ListGUI(VGList list, RegisteredUser user) {
+    public ListGUI(VGList list, RegisteredUser currentUser) {
         try {
             frame = new JFrame(VGListAdaptor.getListName(list));
         } catch (SQLException err) {
@@ -40,7 +40,7 @@ public class ListGUI {
         frame.setContentPane(panel1);
         frame.setVisible(true);
         frame.pack();
-        setupListGUI(list, user);
+        setupListGUI(list, currentUser);
 
         backButton.addActionListener(new ActionListener() {
             @Override

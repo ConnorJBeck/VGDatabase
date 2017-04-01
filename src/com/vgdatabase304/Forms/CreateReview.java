@@ -21,7 +21,7 @@ public class CreateReview {
     private JTextField ratingField;
     private JFrame f;
 
-    public CreateReview(final RegisteredUser user, final Game game) {
+    public CreateReview(final Game game, final RegisteredUser currentUser) {
         f = new JFrame("CreateReview");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
@@ -39,7 +39,7 @@ public class CreateReview {
                 String review = reviewText.getText();
                 Double rating = Double.valueOf(ratingField.getText());
                 try {
-                    ReviewAdaptor.addReviewToDatabase(user, game, review, rating);
+                    ReviewAdaptor.addReviewToDatabase(currentUser, game, review, rating);
                 } catch (SQLException e1) {
                     System.out.println("Unable to submit review");
                 }

@@ -20,7 +20,7 @@ public class ReviewGUI {
     private JTextArea reviewText;
     private JFrame f;
 
-    public ReviewGUI(Review review, RegisteredUser user) {
+    public ReviewGUI(Review review, RegisteredUser currentUser) {
         f = new JFrame("Review");
 
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

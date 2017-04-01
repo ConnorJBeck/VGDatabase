@@ -27,13 +27,13 @@ public class AdminUserProfile {
     private JPanel mainPanel;
     private JFrame f;
 
-    public AdminUserProfile(final RegisteredUser user, RegisteredUser currUser) {
+    public AdminUserProfile(final RegisteredUser user, RegisteredUser currentUser) {
         f = new JFrame("Search");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-        username.setText(currUser.getUsername());
+        username.setText(currentUser.getUsername());
         try {
-            email.append(RegisteredUserAdaptor.getEmail(currUser));
+            email.append(RegisteredUserAdaptor.getEmail(currentUser));
         } catch (SQLException e) {
             System.out.println("Could not get user's email");
         }

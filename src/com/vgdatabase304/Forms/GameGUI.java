@@ -14,9 +14,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by Skyline on 2017-03-28.
- */
+
 public class GameGUI {
     private JButton backButton;
     private JPanel mainPanel;
@@ -40,7 +38,7 @@ public class GameGUI {
     private DefaultListModel releaseListModel;
     private DefaultListModel reviewListModel;
 
-    public GameGUI(final Game game, final RegisteredUser user) {
+    public GameGUI(final Game game, final RegisteredUser currentUser) {
         f = new JFrame("GameGUI");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
@@ -64,7 +62,7 @@ public class GameGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     VGTag tagToBeAdded = new VGTag((String) listOfTags.getSelectedItem());
-                    VGTagGameAdaptor.addTagGameToDatabase(tagToBeAdded, game, user);
+                    VGTagGameAdaptor.addTagGameToDatabase(tagToBeAdded, game, currentUser);
                     deleteAllAttachedTags();
                     populateListAttachedTags(game);
                 } catch (SQLException err) {
@@ -77,7 +75,7 @@ public class GameGUI {
         addReview.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CreateReview(user, game);
+                new CreateReview(game, currentUser);
             }
         });
 
@@ -103,11 +101,11 @@ public class GameGUI {
                     if (e.getClickCount() == 2) {
                         System.out.println("review clicked");
                         Review review = (Review) reviewsList.getSelectedValue();
-                        new ReviewGUI(review, user);
+                        new ReviewGUI(review, currentUser);
                     }
                 }
             });
-            List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(user);
+            List<Review> reviewList = ReviewAdaptor.getAllReviewsByUser(currentUser);
             reviewListModel = new DefaultListModel();
             reviewsList.setModel(reviewListModel);
             reviewsList.setCellRenderer(new ReviewRenderer());
