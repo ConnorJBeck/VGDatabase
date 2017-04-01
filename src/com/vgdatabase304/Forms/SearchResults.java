@@ -1,15 +1,16 @@
 package com.vgdatabase304.Forms;
 
-import com.vgdatabase304.Structures.Game;
-import com.vgdatabase304.Structures.GameRenderer;
-import com.vgdatabase304.Structures.SearchResult;
-import com.vgdatabase304.Structures.SearchResultRenderer;
+import com.vgdatabase304.Adaptors.AdminUserAdaptor;
+import com.vgdatabase304.Structures.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -21,10 +22,14 @@ public class SearchResults {
     private JButton backButton;
     private JList resultList;
     private JFrame f;
+    boolean isGame;
 
-    public SearchResults(List<SearchResult> inputList) {
+    public SearchResults(List<SearchResult> inputList, final RegisteredUser user) {
         f = new JFrame("SearchResults");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        if (inputList.get(0).getClass() == Game.class){
+            isGame = true;
+        }
 
         resultList.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -40,6 +45,41 @@ public class SearchResults {
         });
 
 
+        resultList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        resultList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    System.out.println("list clicked");
+                    // Game List
+                    if(isGame){
+                        Game game = (Game) resultList.getSelectedValue();
+                        new GameGUI(game, user);
+                    }
+                    // User List
+                    else{
+                        try {
+                            RegisteredUser selected = (RegisteredUser) resultList.getSelectedValue();
+
+                            if (AdminUserAdaptor.isAdmin(user)) {
+                                new AdminUserProfile(selected,user);
+                            }else{
+                                new UserUserProfile();
+                            }
+
+                        }catch (SQLException err){
+                            System.out.println("Error: " + err.getMessage());
+                        }
+                        // click user
+                    }
+
+                }
+            }
+        });
+        SearchResultRenderer renderer = new SearchResultRenderer();
+        if (isGame) {
+            renderer.setGameFlagOn();
+        }
         DefaultListModel list = new DefaultListModel();
         resultList.setModel(list);
 //        if (inputList.getClass().getComponentType() == Game.class) {
@@ -47,19 +87,18 @@ public class SearchResults {
             for (SearchResult listObject : inputList) {
 //                    String gameName = GameAdaptor.getName((Game) listObject);
 //                    System.out.println(gameName);
-                    System.out.println(listObject.getGameID());
+//                    System.out.println(listObject.getGameID());
 //            list.addElement(listObject.getGameID());
                 list.addElement(listObject);
 
             }
 //        }
 //        resultList.setCellRenderer(new CellRenderer());
-        SearchResultRenderer renderer = new SearchResultRenderer();
-        if (list.getElementAt(0).getClass() == Game.class) {
-            renderer.setGameFlagOn();
-        }
+
 //        resultList.setCellRenderer(new GameRenderer());
         resultList.setCellRenderer(renderer);
+
+
 
 
         f.setVisible(true);

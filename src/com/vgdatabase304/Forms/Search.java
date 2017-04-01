@@ -25,7 +25,7 @@ public class Search {
     private JButton backButton;
     private JFrame f;
 
-    public Search(RegisteredUser user) {
+    public Search(final RegisteredUser user) {
         f = new JFrame("Search");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -102,7 +102,7 @@ public class Search {
                             resultList.add(game);
                         }
                     }
-                    new SearchResults(resultList);
+                    new SearchResults(resultList, user);
 
 
                 f.dispose();
